@@ -1,0 +1,52 @@
+{{> header}}
+
+<div class="span8">
+    <form id="data" action="/profile/{{profile._id}}" method="POST">
+        <fieldset>
+            <legend>{{taxon.scientificName}}</legend>
+            <div class="onde-panel"></div>
+            <p class="actions"><button class="btn btn-success">{{strings.save}}</button></p>
+        </fieldset>
+    </form>
+</div>
+
+
+<div class="span4">
+    <h3>Metadata</h3>
+    {{#metadata}}
+    {{> metadata}}
+    {{/metadata}}
+    <form action="/profile/{{profile._id}}/send/done" method="POST">
+        <fieldset>
+            <button class="btn btn-success">{{strings.to-done}}</button>
+        </fieldset>
+    </form>
+    <h3>{{strings.comments}}</h3>
+    {{^validations}}
+    <p>N/A</p>
+    {{/validations}}
+    {{#validations}}
+    <p>
+        <strong>{{strings.creator}}</strong>: {{metadata.creator}}<br />
+        <strong>{{strings.created}}</strong>: {{metadata.created_date}}<br />
+        <strong>{{strings.status}}</strong>: {{metadata.status}}<br />
+        <strong>{{strings.field}}</strong>: {{field}}<br />
+        <pre>{{comment}}</pre>
+        {{#open}}
+        <form action="/profile/{{profile._id}}/validate/{{metadata.created}}/done" method="POST">
+            <button class="btn btn-success">
+                {{strings.mark-as-resolved}}
+            </button>
+        </form>
+        {{/open}}
+    </p>
+    <hr />
+    {{/validations}}
+</div>
+
+<script type="text/javascript">
+    var schema = {{{schema}}};
+    var data = {{{data}}};
+</script>
+
+{{> footer}}

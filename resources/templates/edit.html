@@ -1,0 +1,30 @@
+{{> header}}
+
+<div class="span8">
+    <h3><i>{{taxon.scientificName}}</i> {{taxon.scientificNameAuthorship}}</h3>
+    <p><a href="/profile/{{profile._id}}">{{strings.profile}}</a></p>
+    <form id="data" action="/profile/{{profile._id}}" method="POST">
+        <fieldset>
+            <div class="onde-panel"></div>
+            <p class="actions"><button class="btn btn-success">{{strings.save}}</button></p>
+        </fieldset>
+    </form>
+</div>
+
+<div class="span4">
+    <h4>{{strings.metadata}}</h4>
+    {{#metadata}}
+    {{> metadata}}
+    {{/metadata}}
+    <form action="/profile/{{profile._id}}/send/validation" method="POST">
+        <button class="btn btn-success">{{strings.send-to-validation}}</button>
+    </form>
+</div>
+
+<script type="text/javascript">
+    var schema = {{{schema}}};
+    var data = {{{data}}};
+</script>
+
+{{> footer}}
+

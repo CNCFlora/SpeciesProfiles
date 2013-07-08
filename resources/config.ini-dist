@@ -1,0 +1,4 @@
+COUCH_AUTH=""
+COUCH_HOST="localhost:5984"
+COUCH_BASE="cncflora"
+BASE_PATH="profiles/"

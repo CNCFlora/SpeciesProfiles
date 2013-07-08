@@ -1,0 +1,53 @@
+{{> header}}
+
+<div class="span8 profile">
+    {{#profile}}
+    <h3><i>{{taxon.scientificName}}</i> {{taxon.scientificNameAuthorship}}</h3>
+    <p><a href="{{OCC_APP}}/specie/{{taxon.lsid}}" target='_blank'>{{strings.open-map}}</a></p>
+    {{> profile-in}}
+    {{/profile}}
+</div>
+
+<div class="span4">
+    <h4>{{strings.metadata}}</h4>
+    {{#metadata}}
+    {{> metadata}}
+    {{/metadata}}
+    <form action="/profile/{{profile._id}}/send/review" method="POST">
+        <fieldset>
+            <button class="btn btn-success">{{strings.send-to-review}}</button>
+        </fieldset>
+    </form>
+    <h3>{{strings.comments}}</h3>
+    {{^validations}}
+    <p>N/A</p>
+    {{/validations}}
+    {{#validations}}
+    <p>
+        <strong>{{strings.creator}}</strong>: {{metadata.creator}}<br />
+        <strong>{{strings.created}}</strong>: {{metadata.created_date}}<br />
+        <strong>{{strings.status}}</strong>: {{metadata.status}}<br />
+        <strong>{{strings.field}}</strong>: {{field}}<br />
+        <pre>{{comment}}</pre>
+    </p>
+    {{/validations}}
+    <form action="/profile/{{profile._id}}/validate" method="POST">
+        <fieldset>
+            <legend>{{strings.new-comment}}</legend>
+            <label for="field">{{strings.field}}</label>
+            <select id="field" name="field" class='span4'>
+                <option value="---">---</option>
+            </select>
+            <label for="comment">{{strings.comment}}</label>
+            <textarea name="comment" class='span4'></textarea>
+            <br />
+            <button class="btn">{{strings.add}}</button>
+        </fieldset>
+    </form>
+</div>
+
+<script type="text/javascript">
+    var schema = {{{schema}}};
+</script>
+
+{{> footer}}

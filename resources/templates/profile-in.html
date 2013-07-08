@@ -1,0 +1,184 @@
+<div class='profile'>
+    <h4>{{strings.taxonomic-notes}}</h4>
+    <section>
+        {{#taxonomicNotes.notes}}
+        {{#taxonomicNotes}}
+        <p class='resume'>{{notes}}</p>
+        <ul>
+            {{#references}}
+            <li><a href="../biblio/biblio/{{ref}}">{{citation}}</a></li>
+            {{/references}}
+        </ul>
+        {{/taxonomicNotes}}
+        {{/taxonomicNotes.notes}}
+        {{^taxonomicNotes.notes}}<p>N/A</p>{{/taxonomicNotes.notes}}
+    </section>
+
+    <h4>{{strings.economics}}</h4>
+    <section>
+        {{#economicValue}}
+            {{#potentialEconomicValue}}<p><strong>{{strings.potential-economic-value}}</strong></p>{{/potentialEconomicValue}}
+            <p class='resume'><strong>Resume</strong>:{{details}}</p>
+            <ul>
+                {{#references}}
+                <li><a href="/../biblio/biblio/{{ref}}">{{citation}}</a></li>
+                {{/references}}
+            </ul>
+        {{/economicValue}}
+        {{^economicValue}}<p>N/A</p>{{/economicValue}}
+    </section>
+
+    <h4>{{strings.population}}</h4>
+    <section>
+    {{#population}}
+        {{#size}}
+            <h5>{{strings.estimated-size}}</h5>
+            {{> profile-in-values}}
+        {{/size}}
+        {{#numberOfSubpopulations}}
+            <h5>{{strings.number-of-subpopulations}}</h5>
+            {{> profile-in-values}}
+        {{/numberOfSubpopulations}}
+        {{#numberOfIndividualsInBiggestSubpopulation}}
+            <h5>{{strings.number-of-biggest-subpop}}</h5>
+            {{> profile-in-values}}
+        {{/numberOfIndividualsInBiggestSubpopulation}}
+        {{#populationalReduction}}
+            <h5>{{strings.populationa-reduction}}</h5>
+            {{> profile-in-values}}
+        {{/populationalReduction}}
+        {{#extremeFluctuation}}
+            <h5>{{strings.extreme-fluctuation}}</h5>
+            <p><strong>{{extremeFluctuation}}</strong></p>
+        {{/extremeFluctuation}}
+        {{#generationTiming}}
+            <h5>{{strings.generation-timing}}</h5>
+            {{> profile-in-values}}
+        {{/generationTiming}}
+        <p class='resume'><strong>{{strings.resume}}</strong>: {{resume}}</p>
+        <ul>
+            {{#references}}
+            <li><a href="/../biblio/biblio/{{ref}}">{{citation}}</a></li>
+            {{/references}}
+        </ul>
+    {{/population}}
+    {{^population}} <p>N/A</p> {{/population}}
+    </section>
+
+    <h4>{{strings.distribution}}</h4>
+    <section>
+    {{#distribution}}
+        <p>
+            <strong>{{strings.endemism}}</strong>
+            <ul>
+                {{#endemism}}
+                    <li>{{.}}</li>
+                {{/endemism}}
+            </ul>
+        </p>
+        {{#fragmented}}
+        <p> <strong>{{strings.fragmented}}</strong>: {{fragmented}} </p>
+        {{/fragmented}}
+        {{#eoo}}
+        <p><strong>{{strings.eoo}}</strong>: {{eoo}}km²</p>
+        {{/eoo}}
+        {{#aoo}}
+        <p><strong>{{strings.aoo}}</strong>: {{aoo}}km²</p>
+        {{/aoo}}
+        {{#altitude}}
+        <p><strong>{{strings.altitude}}</strong>: From {{minimum}} to {{maximum}}</p>
+        {{/altitude}}
+        <p class='resume'><strong>{{strings.resume}}</strong>:{{resume}}</p>
+        <ul>
+            {{#references}}
+            <li><a href="/../biblio/biblio/{{ref}}">{{citation}}</a></li>
+            {{/references}}
+        </ul>
+    {{/distribution}}
+    {{^distribution}} <p>N/A</p> {{/distribution}}
+    </section>
+
+    <h4>{{strings.ecology}}</h4>
+    <section>
+    {{#ecology}}
+        {{#lifeForm}}
+        <p><strong>{{strings.life-form}}</strong>: {{lifeForm}}</p>
+        {{/lifeForm}}
+        {{#longevity}}
+        <p><strong>{{strings.longevity}}</strong>: {{longevity}}</p>
+        {{/longevity}}
+        {{#fenology}}
+        <p><strong>{{strings.fenology}}</strong>: {{fenology}}</p>
+        {{/fenology}}
+        {{#clonal}}
+        <p><strong>{{strings.clonal}}</strong>: {{clonal}}</p>
+        {{/clonal}}
+        {{#regrowth}}
+        <p><strong>{{strings.resprout}}</strong>: {{resprout}}</p>
+        {{/regrowth}}
+        <p>
+            <strong>{{strings.habitats}}</strong>
+            <ul>
+                {{#habitats}}
+                    <li>{{.}}</li>
+                {{/habitats}}
+            </ul>
+        </p>
+        <p>
+            <strong>{{strings.biomas}}</strong>
+            <ul>
+                {{#biomas}}
+                    <li>{{.}}</li>
+                {{/biomas}}
+            </ul>
+        </p>
+        <p>
+            <strong>{{strings.fitofisionomies}}</strong>
+            <ul>
+                {{#fitofisionomies}}
+                    <li>{{.}}</li>
+                {{/fitofisionomies}}
+            </ul>
+        </p>
+        <p class='resume'><strong>{{strings.resume}}</strong>: {{resume}}</p>
+        <ul>
+            {{#references}}
+            <li><a href="/../biblio/biblio/{{ref}}">{{citation}}</a></li>
+            {{/references}}
+        </ul>
+    {{/ecology}}
+    {{^ecology}} <p>N/A</p> {{/ecology}}
+    </section>
+
+    <h4>{{strings.reproduction}}</h4>
+    <section>
+    {{#reproduction}}
+        <p class='resume'><strong>{{strings.resume}}</strong>: {{resume}}</p>
+        <ul>
+            {{#references}}
+            <li><a href="/../biblio/biblio/{{ref}}">{{citation}}</a></li>
+            {{/references}}
+        </ul>
+    {{/reproduction}}
+    {{^reproduction}} <p>N/A</p> {{/reproduction}}
+    </section>
+
+    <h4>{{strings.threats}}</h4>
+    {{#threats}}
+    {{/threats}}
+    {{^threats}}
+    <p>N/A</p>
+    {{/threats}}
+    <h4>{{strings.conservation-actions}}</h4>
+    {{#actions}}
+    {{/actions}}
+    {{^actions}}
+    <p>N/A</p>
+    {{/actions}}
+    <h4>{{strings.uses}}</h4>
+    {{#uses}}
+    {{/uses}}
+    {{^uses}}
+    <p>N/A</p>
+    {{/uses}}
+</div>
