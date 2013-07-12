@@ -34,21 +34,25 @@ head
             var el = $(evt.target),family = el.val(), status = el.parent().attr("id") ;
             if(family != "---") {
                 $("#"+status+" ul").html('').append('<li>loading...</li>');
-                $.getJSON(couchdb+'/_design/species_profiles/_view/by_family_and_status?'
-                                 +'key=["'+family+'","'+status+'"]&callback=?',
-                    function(r) {
-                        var link = (status=='done')?'view':(status=='open')?'edit':(status=='validation')?'validate':'review';
-                        $("#"+status+" ul").html('');
-                        if(r.rows.length >= 1) {
-                            for(var i  in r.rows) {
+                $.getJSON(base+'work/'+family+'/'+status,function(r) {
+                    var link = (status=='done')?'view':(status=='open')?'edit':(status=='validation')?'validate':'review';
+                    $("#"+status+" ul").html('');
+                    if(r.length >= 1) {
+                        for(var i  in r) {
+                            if(status == 'empty') {
                                 $("#"+status+" ul").append('<li><i class="icon-leaf"></i>'
-                                                           +'<a href="'+base+'profile/'+r.rows[i].value._id+'/'+link+'">'
-                                                           +r.rows[i].value.taxon.scientificName+'</a></li>');
+                                                           +'<a href="'+base+'specie/'+r[i]._id+'/">'
+                                                           +r[i].scientificName+'</a></li>');
+                            } else {
+                                $("#"+status+" ul").append('<li><i class="icon-leaf"></i>'
+                                                           +'<a href="'+base+'profile/'+r[i]._id+'/'+link+'">'
+                                                           +r[i].taxon.scientificName+'</a></li>');
                             }
-                        } else {
-                            $("#"+status+" ul").append('<li>N/A</li>');
                         }
-                    });
+                    } else {
+                        $("#"+status+" ul").append('<li>N/A</li>');
+                    }
+                });
             }
         });
         if($("html").attr("id") == "edit-page" || $("html").attr("id") == "review-page") {

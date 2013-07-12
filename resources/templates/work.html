@@ -2,13 +2,23 @@
 
 <div class="span8">
     <ul class="nav nav-tabs">
-        <li class='active'><a href="#open" data-toggle="tab">{{strings.analisys}}</a></li>
+        <li class='active'><a href="#empty" data-toggle="tab">{{strings.not-started}}</a></li>
+        <li><a href="#open" data-toggle="tab">{{strings.analisys}}</a></li>
         <li><a href="#validation" data-toggle="tab">{{strings.validation}}</a></li>
         <li><a href="#review" data-toggle="tab">{{strings.revision}}</a></li>
         <li><a href="#done" data-toggle="tab">{{strings.done}}</a></li>
     </ul>
     <div class="tab-content">
-        <div id="open" class="tab-pane active">
+        <div id="empty" class='tab-pane active'>
+            <select class="families">
+                <option>---</option>
+                {{#families}}
+                <option>{{family}}</option>
+                {{/families}}
+            </select>
+            <ul></ul>
+        </div>
+        <div id="open" class="tab-pane">
             <select class="families">
                 <option>---</option>
                 {{#families}}
