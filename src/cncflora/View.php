@@ -1,5 +1,7 @@
 <?php
 
+namespace cncflora;
+
 class View implements \Rest\View {
 
     protected $file ;
@@ -8,13 +10,13 @@ class View implements \Rest\View {
     public static $defaults ;
 
     function __construct($file,$props=null) {
-        $this->template = file_get_contents( __DIR__."/../resources/templates/".$file );
+        $this->template = file_get_contents( __DIR__."/../../resources/templates/".$file );
 
         if(is_array($props)) $this->props = $props ;
         else if(is_object($props)) $this->props = (array) $props;
         else $this->props = array();
 
-        $iterator = new \DirectoryIterator(__DIR__."/../resources/templates");
+        $iterator = new \DirectoryIterator(__DIR__."/../../resources/templates");
         foreach ($iterator as $file) {
             if($file->isFile() && preg_match("/\.html$/",$file->getFilename())) {
                 $this->partials[substr( $file->getFilename(),0,-5)] = file_get_contents($file->getPath()."/".$file->getFilename());

@@ -1,8 +1,8 @@
 <?php
 
+namespace cncflora;
 
 class Utils {
-
     public static $db;
     public static $data;
     public static $couchdb;
@@ -12,14 +12,14 @@ class Utils {
 
     public static function init() {
         self::$config = self::config();
-        self::$data = __DIR__.'/../data';
+        self::$data = __DIR__.'/../../data';
         self::$couch = "http://".COUCH_HOST."/".COUCH_BASE;
-        self::$couchdb = new Chill\Client(COUCH_AUTH."@".COUCH_HOST,COUCH_BASE);
-        self::$strings = json_decode(file_get_contents(__DIR__."/../resources/locales/".LANG.".json"));
+        self::$couchdb = new \Chill\Client(COUCH_AUTH."@".COUCH_HOST,COUCH_BASE);
+        self::$strings = json_decode(file_get_contents(__DIR__."/../../resources/locales/".LANG.".json"));
     }
 
     public static function config() {
-        $ini = parse_ini_file(__DIR__."/../resources/config.ini");
+        $ini = parse_ini_file(__DIR__."/../../resources/config.ini");
         $arr = array();
         foreach($ini as $k=>$v) {
             define($k,$v);
@@ -38,12 +38,12 @@ class Utils {
         unset($schema->properties->validations);
         unset($schema->required);
 
-        $schema->properties->ecology->properties->habitats->items->enum = json_decode(file_get_contents( __DIR__."/../resources/dicts/habitats.json" ));
-        $schema->properties->ecology->properties->biomas->items->enum = json_decode(file_get_contents( __DIR__."/../resources/dicts/biomas.json" ));
-        $schema->properties->ecology->properties->fitofisionomies->items->enum = json_decode(file_get_contents( __DIR__."/../resources/dicts/fitofisionomies.json" ));
-        $schema->properties->threats->items->properties->threat->enum = json_decode(file_get_contents(__DIR__."/../resources/dicts/threats.json"));
-        $schema->properties->actions->items->properties->action->enum = json_decode(file_get_contents(__DIR__."/../resources/dicts/actions.json"));
-        $schema->properties->uses->items->properties->use->enum = json_decode(file_get_contents(__DIR__."/../resources/dicts/uses.json"));
+        $schema->properties->ecology->properties->habitats->items->enum = json_decode(file_get_contents( __DIR__."/../../resources/dicts/habitats.json" ));
+        $schema->properties->ecology->properties->biomas->items->enum = json_decode(file_get_contents( __DIR__."/../../resources/dicts/biomas.json" ));
+        //$schema->properties->ecology->properties->fitofisionomies->items->enum = json_decode(file_get_contents( __DIR__."/../../resources/dicts/fitofisionomies.json" ));
+        $schema->properties->threats->items->properties->threat->enum = json_decode(file_get_contents(__DIR__."/../../resources/dicts/threats.json"));
+        $schema->properties->actions->items->properties->action->enum = json_decode(file_get_contents(__DIR__."/../../resources/dicts/actions.json"));
+        $schema->properties->uses->items->properties->use->enum = json_decode(file_get_contents(__DIR__."/../../resources/dicts/uses.json"));
 
         return $schema;
     }
@@ -75,5 +75,6 @@ function t($str) {
         return $str;
     }
 }
+
 Utils::init();
 

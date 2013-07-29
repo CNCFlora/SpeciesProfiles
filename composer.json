@@ -1,4 +1,9 @@
 {
+    "autoload": {
+        "psr-0": {
+            "cncflora":"src"
+        }
+    },
     "require": {
         "restserver/restserver":"dev-master",
         "mustache/mustache": "dev-master",
