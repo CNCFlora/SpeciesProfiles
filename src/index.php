@@ -3,12 +3,12 @@ session_start();
 
 require '../vendor/autoload.php';
 
-foreach(\cncflora\Utils::$config as $k=>$v)
-    $rest->setParameter($k,$v);
 
 $rest = new \Rest\Server($_GET['q']);
 $rest->setAccept(array("*"));
 $rest->setParameter("strings",\cncflora\Utils::$strings);
+foreach(\cncflora\Utils::$config as $k=>$v)
+    $rest->setParameter($k,$v);
 
 if(($user = $rest->getRequest()->getSession('user')) != null) {
     $rest->setParameter("user",$user);
@@ -39,7 +39,7 @@ $rest->addMap("POST","/profile",'\cncflora\controller\Profile::createProfile');
 $rest->addMap("GET","/profile/:id",'\cncflora\controller\Profile');
 $rest->addMap("GET","/profile/:id/view",'\cncflora\controller\Profile::view');
 $rest->addMap("GET","/profile/:id/edit",'\cncflora\controller\Profile::edit');
-$rest->addMap("POST","/profile/:id","\cncflora\controller\Profiles::save");
+$rest->addMap("POST","/profile/:id","\cncflora\controller\Profile::save");
 
 $rest->addMap("GET","/profile/:id/validate","\cncflora\controller\Validation::validateForm");
 $rest->addMap("POST","/profile/:id/validate","\cncflora\controller\Validation::validate");

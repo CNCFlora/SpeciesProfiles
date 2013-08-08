@@ -13,8 +13,7 @@ class Utils {
     public static function init() {
         self::$config = self::config();
         self::$data = __DIR__.'/../../data';
-        self::$couch = "http://".COUCH_HOST."/".COUCH_BASE;
-        self::$couchdb = new \Chill\Client(COUCH_AUTH."@".COUCH_HOST,COUCH_BASE);
+        self::$couchdb = "http://".COUCH_HOST.":".COUCH_PORT."/".COUCH_BASE;
         self::$strings = json_decode(file_get_contents(__DIR__."/../../resources/locales/".LANG.".json"));
     }
 
@@ -22,14 +21,16 @@ class Utils {
         $ini = parse_ini_file(__DIR__."/../../resources/config.ini");
         $arr = array();
         foreach($ini as $k=>$v) {
-            define($k,$v);
+            if(!defined($k)){
+                define($k,$v);
+            }
             $arr[$k] = $v;
         }
         return $arr;
     }
 
     public static function schema() {
-        $ddoc_json = file_get_contents(Utils::$couch.'/_design/species_profiles');
+        $ddoc_json = file_get_contents(Utils::$couchdb.'/_design/species_profiles');
         $ddoc = json_decode($ddoc_json);
         $schema_json = substr( $ddoc->schema->profile,24,-2);
         $schema = json_decode($schema_json);
@@ -40,30 +41,12 @@ class Utils {
 
         $schema->properties->ecology->properties->habitats->items->enum = json_decode(file_get_contents( __DIR__."/../../resources/dicts/habitats.json" ));
         $schema->properties->ecology->properties->biomas->items->enum = json_decode(file_get_contents( __DIR__."/../../resources/dicts/biomas.json" ));
-        //$schema->properties->ecology->properties->fitofisionomies->items->enum = json_decode(file_get_contents( __DIR__."/../../resources/dicts/fitofisionomies.json" ));
+        $schema->properties->ecology->properties->fitofisionomies->items->enum = json_decode(file_get_contents( __DIR__."/../../resources/dicts/fitofisionomies.json" ));
         $schema->properties->threats->items->properties->threat->enum = json_decode(file_get_contents(__DIR__."/../../resources/dicts/threats.json"));
         $schema->properties->actions->items->properties->action->enum = json_decode(file_get_contents(__DIR__."/../../resources/dicts/actions.json"));
         $schema->properties->uses->items->properties->use->enum = json_decode(file_get_contents(__DIR__."/../../resources/dicts/uses.json"));
 
         return $schema;
-    }
-
-    public static function toObj($thing) {
-        if(is_object($thing)) {
-            $o = new StdClass;
-            foreach($thing as $k=>$v) {
-                $o->$k = self::toObj( $v );
-            }
-            return $o;
-        } else if(is_array($thing)) {
-            $o = new StdClass;
-            foreach($thing as $k=>$v) {
-                $o->$k = self::toObj( $v );
-            }
-            return $o;
-        } else {
-            return $thing;
-        }
     }
 
 }

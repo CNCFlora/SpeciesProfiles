@@ -4,8 +4,8 @@ namespace cncflora;
 
 class View implements \Rest\View {
 
-    protected $file ;
-    protected $props ;
+    public $file ;
+    public $props ;
 
     public static $defaults ;
 
