@@ -5,9 +5,13 @@
         }
     },
     "require": {
-        "restserver/restserver":"dev-master",
+        "restserver/restserver": "dev-master",
         "mustache/mustache": "dev-master",
+        "nano-php/nano-php": "dev-master"
+    },
+    "require-dev": {
         "jaz303/phake": "dev-master",
-        "chill/chill": "dev-master"
+        "phpunit/phpunit": "*",
+        "phpunit/phpunit-story": "*"
     }
 }
