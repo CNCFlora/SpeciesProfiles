@@ -30,6 +30,9 @@ head
                 return confirm("Confirma excluir esse recurso?");
             });
         });
+        $("form.send-to").submit(function(){
+            return confirm("Confirm?");
+        });
         $("select.families").change(function(evt){
             var el = $(evt.target),family = el.val(), status = el.parent().attr("id") ;
             if(family != "---") {
@@ -57,11 +60,21 @@ head
         });
         if($("html").attr("id") == "edit-page" || $("html").attr("id") == "review-page") {
             var form = new onde.Onde($("#data"));
+            var temp = window.localStorage.getItem("temp:form:"+data._id);
+            if(temp != null) {
+                try {
+                    //data = JSON.parse( temp );
+                } catch(Exception) { }
+            }
             form.render(schema,data,{collapsedCollapsibles: true});
+            setInterval(function(){
+                window.localStorage.setItem("temp:form:"+data._id,JSON.stringify( form.getData().data ));
+            },1000);
             $("#data").submit(function(e){
                 e.preventDefault();
                 var data = form.getData().data;
                 $.post($("#data").attr("action"),JSON.stringify(data),function(){
+                    window.localStorage.removeItem("temp:form:"+data._id);
                     location.href=$("#data").attr("action");
                 });
                 return false;

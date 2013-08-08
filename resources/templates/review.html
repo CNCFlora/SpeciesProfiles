@@ -33,7 +33,7 @@
         <strong>{{strings.field}}</strong>: {{field}}<br />
         <pre>{{comment}}</pre>
         {{#open}}
-        <form action="/profile/{{profile._id}}/validate/{{metadata.created}}/done" method="POST">
+        <form action="/profile/{{profile._id}}/validate/{{metadata.created}}/done" method="POST" class='send-to'>
             <button class="btn btn-success">
                 {{strings.mark-as-resolved}}
             </button>
