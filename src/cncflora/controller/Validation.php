@@ -13,40 +13,44 @@ class Validation implements \Rest\Controller {
     function validate($r) {
         $id = $r->getRequest()->getParameter("id");
         $user = $r->getParameter('user');
-        $profile = Utils::$couchdb->asDocuments()->get($id);
+        $repo = new \cncflora\repository\Profiles($user);
+        $profile = $repo->get($id);
 
-        $validations = $profile->validations;
-        $validations[] = array(
-            'metadata'=> array(
-                'creator'=> $user->name,
-                'created'=> time(),
-                'status'=>'open'
-            ),
-            'field'=>$r->getRequest()->getPost('field'),
-            'comment'=>$r->getRequesT()->getPost('comment')
-        );
-        $profile->validations = $validations;
-        $profile->save();
+        $v = new \StdClass;
+        $v->metadata = new \StdClass;
+        $v->metadata->creator = $user->name;
+        $v->metadata->contact = $user->email;
+        $v->metadata->created = time();
+        $v->metadata->status  = 'open';
+        $v->field = $r->getRequest()->getPost('field');
+        $v->comment = $r->getRequest()->getPost('comment');
+        $profile->validations[] = $v;
 
-        return new Rest\Controller\Redirect('/'.BASE_PATH."profile/".$id."/validate");
+        $repo->update($profile);
+
+        return new \Rest\Controller\Redirect('/'.BASE_PATH."profile/".$id."/validate");
     }
 
     function validateForm($r) {
-        $id = $r->GetRequest()->getParameter("id");
-        $profile = Utils::$couchdb->asDocuments()->get($id);
+        $id = $r->getRequest()->getParameter("id");
         $user = $r->getParameter('user');
+        $repo = new \cncflora\repository\Profiles($user);
+        $profile = $repo->get($id);
 
         $taxon = $profile->taxon;
+        if(!isset($profile->validations)) {
+            $profile->validations = array();
+        }
         $validations = $profile->validations;
         if(is_array($validations)) {
             foreach($validations as  $k=>$v) {
-                $v['metadata']['created_date'] = date('d-m-Y',$v['metadata']['created']);
+                $v->metadata->created_date = date('d-m-Y',$v->metadata->created);
                 $validations[$k] = $v;
             }
         }
         $meta = $profile->metadata;
-        $meta['modified_date'] = date('d-m-Y',$meta['modified']);
-        $meta['created_date'] = date('d-m-Y',$meta['created']);
+        $meta->modified_date = date('d-m-Y',$meta->modified);
+        $meta->created_date = date('d-m-Y',$meta->created);
         unset($profile->metadata);
         unset($profile->taxon);
         unset($profile->validations);
