@@ -17,6 +17,10 @@ class Utils {
         self::$strings = json_decode(file_get_contents(__DIR__."/../../resources/locales/".LANG.".json"));
     }
 
+    public static function setupTest() {
+        self::$couchdb = "http://".COUCH_HOST.":".COUCH_PORT."/".COUCH_BASE."_test";
+    }
+
     public static function config() {
         $ini = parse_ini_file(__DIR__."/../../resources/config.ini");
         $arr = array();

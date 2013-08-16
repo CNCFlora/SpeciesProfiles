@@ -4,11 +4,14 @@ namespace cncflora\repository ;
 
 include_once 'vendor/autoload.php';
 
+use cncflora\Utils;
+
 class SpeciesTest extends \PHPUnit_Framework_TestCase {
 
     public function testSpecies() {
         $repo = new Species;
         $this->assertEquals($repo,$repo);
+        Utils::setupTest();
     }
 
     public function testTaxons() {

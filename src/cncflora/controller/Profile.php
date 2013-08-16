@@ -7,7 +7,6 @@ use cncflora\View;
 
 class Profile implements \Rest\Controller {
 
-
     public function execute(\Rest\Server $r) {
         $id = $r->getRequest()->getParameter("id");
         $repo = new \cncflora\repository\Profiles;
@@ -17,7 +16,21 @@ class Profile implements \Rest\Controller {
         $profile->metadata->created_date = date('d-m-Y',$profile->metadata->created);
         $meta = $profile->metadata;
 
-        $can_edit=($meta->status == 'open' || $meta->status == 'review');
+        $can_edit=(($meta->status == 'open' || $meta->status == 'review') && $r->getParameter("logged")) ;
+        if($can_edit) {
+            $user = $r->getParameter("user");
+            $can_edit = false;
+            foreach($user->roles as $role) {
+                if($role->role == "Analyst") {
+                    foreach($role->entities as $ent) {
+                        if(strpos($profile->taxon->lsid,$ent->value) !== false) {
+                            $can_edit = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
 
         $profile->synonyms = (new \cncflora\repository\Species)->getSynonyms($profile->taxon->lsid);
 

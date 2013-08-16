@@ -1,9 +1,11 @@
 <?php
 namespace cncflora\controller;
+use cncflora\Utils;
 
 class  ValidationTest extends \PHPUnit_Framework_TestCase {
 
     public function setup() {
+        Utils::setupTest();
         $this->user = new \StdClass;
         $this->user->name = "foo";
         $this->user->email = "foo@bar.com";

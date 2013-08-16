@@ -1,11 +1,13 @@
 <?php
 
 namespace cncflora\controller;
+use cncflora\Utils;
 
 class SpeciesTest extends \PHPUnit_Framework_TestCase {
 
 
     public function testSpecies() {
+        Utils::setupTest();
         $control = new Species;
         $this->assertNotNull($control);
     }

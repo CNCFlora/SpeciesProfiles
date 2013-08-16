@@ -4,12 +4,15 @@ namespace cncflora\repository;
 
 include_once 'vendor/autoload.php';
 
+use cncflora\Utils;
+
 class ProfilesTest extends \PHPUnit_Framework_TestCase {
 
     public function setup() {
         $this->user = new \StdClass;
         $this->user->name = "Foo";
         $this->user->email = "foo@bar.com";
+        Utils::setupTest();
     }
 
     public function testProfiles() {
