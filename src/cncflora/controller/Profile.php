@@ -5,6 +5,10 @@ namespace cncflora\controller;
 use cncflora\Utils;
 use cncflora\View;
 
+function r2($obj) {
+    return $obj;
+}
+
 class Profile implements \Rest\Controller {
 
     public function execute(\Rest\Server $r) {
@@ -32,7 +36,8 @@ class Profile implements \Rest\Controller {
             }
         }
 
-        $profile->synonyms = (new \cncflora\repository\Species)->getSynonyms($profile->taxon->lsid);
+        $r2 = new \cncflora\repository\Species;
+        $profile->synonyms = $r2->getSynonyms($profile->taxon->lsid);
 
         return new View('profile.html',array('profile'=>$profile,'edit'=>$can_edit));
     }
@@ -44,7 +49,7 @@ class Profile implements \Rest\Controller {
 
     function createProfile($r) {
         $id = $r->getRequest()->getPost("lsid");
-        $spp = (new \cncflora\repository\Species)->getSpecie($id);
+        $spp = r2(new \cncflora\repository\Species)->getSpecie($id);
         $user = $r->getParameter("user");
         $repo  = new \cncflora\repository\Profiles($user);
         $profile = $repo->create($spp);
@@ -54,7 +59,7 @@ class Profile implements \Rest\Controller {
     function edit($r) {
         $id = $r->getRequest()->getParameter("id");
         $user = $r->getParameter('user');
-        $profile = (new \cncflora\repository\Profiles)->get($id);
+        $profile = r2(new \cncflora\repository\Profiles)->get($id);
 
         $taxon = $profile->taxon;
         $meta = $profile->metadata;

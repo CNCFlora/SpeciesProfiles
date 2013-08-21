@@ -26,8 +26,9 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase {
         $ent0 = new \StdClass;
         $ent0->value = $this->taxon0->_id;
         $ent1 = new \StdClass;
-        $ent1->value = $this->taxon0->_id;
+        $ent1->value = $this->taxon1->_id;
         $role->entities[] = $ent0;
+        $role->entities[] = $ent1;
 
         $this->user->roles[] = $role;
     }

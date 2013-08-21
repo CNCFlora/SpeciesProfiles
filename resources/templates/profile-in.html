@@ -68,14 +68,11 @@
     <h4>{{strings.distribution}}</h4>
     <section>
     {{#distribution}}
+        {{#brasilianEndemic}}
         <p>
-            <strong>{{strings.endemism}}</strong>
-            <ul>
-                {{#endemism}}
-                    <li>{{.}}</li>
-                {{/endemism}}
-            </ul>
+            <strong>{{strings.endemic}}</strong>
         </p>
+        {{/brasilianEndemic}}
         {{#fragmented}}
         <p> <strong>{{strings.fragmented}}</strong>: {{fragmented}} </p>
         {{/fragmented}}
@@ -86,7 +83,7 @@
         <p><strong>{{strings.aoo}}</strong>: {{aoo}}km²</p>
         {{/aoo}}
         {{#altitude}}
-        <p><strong>{{strings.altitude}}</strong>: From {{minimum}} to {{maximum}}</p>
+            <p><strong>{{strings.altitude}}</strong>: {{> profile-in-values}}</p>
         {{/altitude}}
         <p class='resume'><strong>{{strings.resume}}</strong>:{{resume}}</p>
         <ul>
@@ -104,6 +101,12 @@
         {{#lifeForm}}
         <p><strong>{{strings.life-form}}</strong>: {{lifeForm}}</p>
         {{/lifeForm}}
+        {{#substratum}}
+        <p><strong>{{strings.substratum}}</strong>: {{substratum}}</p>
+        {{/substratum}}
+        {{#luminosity}}
+        <p><strong>{{strings.luminosity}}</strong>: {{luminosity}}</p>
+        {{/luminosity}}
         {{#longevity}}
         <p><strong>{{strings.longevity}}</strong>: {{longevity}}</p>
         {{/longevity}}
@@ -113,9 +116,9 @@
         {{#clonal}}
         <p><strong>{{strings.clonal}}</strong>: {{clonal}}</p>
         {{/clonal}}
-        {{#regrowth}}
+        {{#resprout}}
         <p><strong>{{strings.resprout}}</strong>: {{resprout}}</p>
-        {{/regrowth}}
+        {{/resprout}}
         <p>
             <strong>{{strings.habitats}}</strong>
             <ul>
@@ -153,6 +156,43 @@
     <h4>{{strings.reproduction}}</h4>
     <section>
     {{#reproduction}}
+        {{#sexualSystem}}
+        <p><strong>{{strings.sexualSystem}}</strong>: {{sexualSystem}}</p>
+        {{/sexualSystem}}
+        {{#system}}
+        <p><strong>{{strings.system}}</strong>: {{system}}</p>
+        {{/system}}
+        {{#strategy}}
+        <p><strong>{{strings.strategy}}</strong>: {{strategy}}</p>
+        {{/strategy}}
+        <p><strong>{{strings.fenology}}</strong>:
+            <ul>
+                {{#fenology}}
+                <li> {{fenology}} - {{start}} to {{end}} </li>
+                {{/fenology}}
+            </ul>
+        </p>
+        <p><strong>{{strings.pollinationSyndrome}}</strong>:
+            <ul>
+                {{#pollinationSyndrome}}
+                <li> {{.}} </li>
+                {{/pollinationSyndrome}}
+            </ul>
+        </p>
+        {{#pollinatorInformation}}
+        <p><strong>{{strings.pollinatorInformation}}</strong>: {{pollinatorInformation}}</p>
+        {{/pollinatorInformation}}
+        <p><strong>{{strings.dispersionSyndrome}}</strong>:
+            <ul>
+                {{#dispersionSyndrome}}
+                <li> {{.}} </li>
+                {{/dispersionSyndrome}}
+            </ul>
+        </p>
+        {{#dispersorInformation}}
+        <p><strong>{{strings.dispersorInformation}}</strong>: {{dispersorInformation}}</p>
+        {{/dispersorInformation}}
+
         <p class='resume'><strong>{{strings.resume}}</strong>: {{resume}}</p>
         <ul>
             {{#references}}
@@ -165,18 +205,62 @@
 
     <h4>{{strings.threats}}</h4>
     {{#threats}}
+        <p><strong>{{strings.threat}}</strong>: {{threat}}</p>
+        <p><strong>{{strings.incidence}}</strong>: {{incidence}}</p>
+        <p><strong>{{strings.severity}}</strong>: {{severity}}</p>
+        {{#reversible}} <p><strong>{{strings.reversible}}</strong></p>{{/reversible}}
+        {{#ended}} <p><strong>{{strings.ended}}</strong></p>{{/ended}}
+        <p>
+            <strong>{{strings.timing}}</strong>:
+            <ul>
+                {{#timing}}
+                <li>{{.}}</li>
+                {{/timing}}
+            </ul>
+        </p>
+        <p>
+            <strong>{{strings.decline}}</strong>:
+            <ul>
+                {{#decline}}
+                <li>{{.}}</li>
+                {{/decline}}
+            </ul>
+        </p>
+        <p>{{details}}</p>
+        <ul>
+            {{#references}}
+            <li><a href="/../biblio/biblio/{{ref}}">{{citation}}</a></li>
+            {{/references}}
+        </ul>
     {{/threats}}
     {{^threats}}
     <p>N/A</p>
     {{/threats}}
     <h4>{{strings.conservation-actions}}</h4>
     {{#actions}}
+        <p><strong>{{strings.action}}</strong>: {{action}}</p>
+        <p><strong>{{strings.situation}}</strong>: {{situation}}</p>
+        <p>{{details}}</p>
+        <ul>
+            {{#references}}
+            <li><a href="/../biblio/biblio/{{ref}}">{{citation}}</a></li>
+            {{/references}}
+        </ul>
     {{/actions}}
     {{^actions}}
     <p>N/A</p>
     {{/actions}}
     <h4>{{strings.uses}}</h4>
     {{#uses}}
+        <p><strong>{{strings.use}}</strong>: {{use}}</p>
+        <p><strong>{{strings.resource}}</strong>: {{resource}}</p>
+        <p><strong>{{strings.provenance}}</strong>: {{provenance}}</p>
+        <p>{{details}}</p>
+        <ul>
+            {{#references}}
+            <li><a href="/../biblio/biblio/{{ref}}">{{citation}}</a></li>
+            {{/references}}
+        </ul>
     {{/uses}}
     {{^uses}}
     <p>N/A</p>

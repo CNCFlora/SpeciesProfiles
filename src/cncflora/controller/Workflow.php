@@ -26,9 +26,8 @@ class Workflow implements \Rest\Controller {
         $docs = $repo->getFamilies();
         $families = array();
         foreach($docs as $f) {
-            $k = "taxon:".$f;
             foreach($access as $a) {
-                if(strpos(strtolower($a),strtolower($k)) !== false){
+                if(preg_match('/'.$f.'/i',$a)) {
                     $families[] = $f;
                     break;
                 }
@@ -77,14 +76,9 @@ class Workflow implements \Rest\Controller {
         $spps = array();
         foreach($docs as $doc) {
             foreach($access as $a) {
-                if(isset($doc->taxon)) {
-                    if(strpos($doc->taxon->lsid,$a) !== false) {
-                        $spps[] = $doc;
-                    }
-                } else {
-                    if(strpos($doc->_id,$a) !== false) {
-                        $spps[] = $doc;
-                    }
+                if(preg_match('/'.$doc->taxon->family.'/i',$a)) {
+                    $spps[] = $doc;
+                    break;
                 }
             }
         }

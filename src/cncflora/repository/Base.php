@@ -13,6 +13,10 @@ abstract class Base {
         Utils::config();
         $this->user = $user;
         $this->couchdb = new \Nano\Nano('http://'.COUCH_USER.":".COUCH_PASS."@".COUCH_HOST.":".COUCH_PORT);
-        $this->db = $this->couchdb->db->use(COUCH_BASE);
+        if(defined('TEST')) {
+            $this->db = $this->couchdb->db->use(COUCH_BASE."_test");
+        } else {
+            $this->db = $this->couchdb->db->use(COUCH_BASE);
+        }
     }
 }

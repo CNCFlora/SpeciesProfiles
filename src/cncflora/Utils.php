@@ -11,13 +11,16 @@ class Utils {
     public static $strings;
 
     public static function init() {
-        self::$config = self::config();
-        self::$data = __DIR__.'/../../data';
+        self::$config  = self::config();
+        self::$data    = __DIR__.'/../../data';
         self::$couchdb = "http://".COUCH_HOST.":".COUCH_PORT."/".COUCH_BASE;
         self::$strings = json_decode(file_get_contents(__DIR__."/../../resources/locales/".LANG.".json"));
     }
 
     public static function setupTest() {
+        if(!defined('TEST')) {
+            define('TEST',true);
+        }
         self::$couchdb = "http://".COUCH_HOST.":".COUCH_PORT."/".COUCH_BASE."_test";
     }
 
