@@ -23,6 +23,27 @@
         </div>
         <div id="occ" class="tab-pane">
             <iframe src="{{OCC_APP}}/map?query={{taxon.scientificName}}" frameborder="0"></iframe>
+            {{#occurrences}}
+                {{#role-validator}}
+                <form action="/profile/{{profile._id}}/occurrences/{{occurrenceID}}/validate">
+                    <fieldset>
+                        <legend>{{strings.validator-comment}}</legend>
+                        <select name="status">
+                            <option value=""></option>
+                        </select><br />
+                        <textarea name="comment"></textarea>
+                    </fieldset>
+                </form>
+                {{/role-validator}}
+                {{#role-analyst}}
+                <form action="/profile/{{profile._id}}/occurrences/{{occurrenceID}}/comment">
+                    <fieldset>
+                        <legend>{{strings.analyst-comment}}</legend>
+                        <textarea name="comment"></textarea>
+                    </fieldset>
+                </form>
+                {{/role-analyst}}
+            {{/occurrences}}
         </div>
     </div>
     {{/profile}}
