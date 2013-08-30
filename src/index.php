@@ -13,6 +13,9 @@ foreach(\cncflora\Utils::$config as $k=>$v)
 if(($user = $rest->getRequest()->getSession('user')) != null) {
     $rest->setParameter("user",$user);
     $rest->setParameter("logged",true);
+    foreach($user->roles as $r) {
+        $rest->setParameter("role-".strtolower( $r->role ),true);
+    }
 } else {
     $rest->setParameter("logged",false);
 }

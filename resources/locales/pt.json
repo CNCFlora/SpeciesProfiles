@@ -94,5 +94,7 @@
     "situation":"Situação",
     "use":"Uso",
     "resource":"Recurso",
-    "provenance":"Proveniência"
+    "provenance":"Proveniência",
+    "analyst-comment":"Comentários do analista",
+    "validator-comment":"Comentários do validador"
 }
