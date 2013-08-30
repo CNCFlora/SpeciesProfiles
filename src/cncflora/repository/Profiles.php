@@ -53,7 +53,27 @@ class Profiles extends Base {
             $metadata->contributor = $this->user->name ." ; ".$metadata->contributor;
             $metadata->contact = $this->user->email ." ; ".$metadata->contact;
         }
+
+        $contributors = explode(" ; ",$metadata->contributor);
+        $contributorsFinal = array();
+        foreach($contributors as $contributor) {
+            if($contributor != null && strlen($contributor) >= 3) {
+                $contributorsFinal[] = $contributor;
+            }
+        }
+        $metadata->contributor = implode(" ; ",$contributorsFinal);
+
+        $contacts = explode(" ; ",$metadata->contact);
+        $contactsFinal = array();
+        foreach($contacts as $contact) {
+            if($contact != null && strlen($contact) >= 3) {
+                $contactsFinal[] = $contact;
+            }
+        }
+        $metadata->contact = implode(" ; ",$contactsFinal);
+
         $metadata->modified = time();
+        $profile->metadata = $metadata;
 
         $r = $this->db->insert($profile,$profile->_id);
 
@@ -87,5 +107,8 @@ class Profiles extends Base {
         return $this->db->destroy($profile->_id,$profile->_rev);
     }
 
+
+    public function addThreat($profile,$threat) {
+    }
 }
 
