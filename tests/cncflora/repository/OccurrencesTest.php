@@ -20,7 +20,7 @@ class OccurrencesTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($repo,$repo);
     }
 
-    public function listOccurrences() {
+    public function testListOccurrences() {
         $repo = new Occurrences;
         $occs = $repo->listByName("Aphelandra longiflora");
         $this->assertNotEmpty($occs);
@@ -29,22 +29,26 @@ class OccurrencesTest extends \PHPUnit_Framework_TestCase {
         }
     }
 
-    public function commentOccurrence() {
+    public function testCommentOccurrence() {
         $repo = new Occurrences($this->user);
-        $occ  = ($repo->listByName("Aphelandra longiflora"))[0];
+        $occs = $repo->listByName("Aphelandra longiflora");
+        $occ = $occs[0];
 
         $repo->comment($occ,"It is ok.");
-        $occ  = ($repo->listByName("Aphelandra longiflora"))[0];
+        $occs = $repo->listByName("Aphelandra longiflora");
+        $occ = $occs[0];
         $occ->analysisRemarks = 'It is ok.';
         $occ->analysisBy = "Foo";
     }
 
-    public function validateOccurrence() {
+    public function testValidateOccurrence() {
         $repo = new Occurrences($this->user);
-        $occ  = ($repo->listByName("Aphelandra longiflora"))[0];
+        $occs = $repo->listByName("Aphelandra longiflora");
+        $occ = $occs[0];
 
         $repo->validate($occ,'valid',"It is nok.");
-        $occ  = ($repo->listByName("Aphelandra longiflora"))[0];
+        $occs = $repo->listByName("Aphelandra longiflora");
+        $occ = $occs[0];
         $occ->validationStatus = 'valid';
         $occ->validationRemarks = 'It is nok.';
         $occ->validationBy = "Foo";

@@ -50,6 +50,9 @@ $rest->addMap("POST","/profile/:id/validate","\cncflora\controller\Validation::v
 $rest->addMap("GET","/profile/:id/review","\cncflora\controller\Review");
 $rest->addMap("POST","/profile/:id/validate/:created/done","\cncflora\controller\Review::markDone");
 
+$rest->addMap("POST","/profile/:id/occurrences/:oid/comment",'\cncflora\controller\Occurrences::comment');
+$rest->addMap("POST","/profile/:id/occurrences/:oid/validate",'\cncflora\controller\Occurrences::validate');
+
 $rest->addMap("POST","/profile/:id/send/:status","\cncflora\controller\Workflow::changeStatus");
 $rest->addMap("GET","/work","\cncflora\controller\Workflow");
 $rest->addMap("GET","/work/:family/:status","\cncflora\controller\Workflow::family");

@@ -7,6 +7,7 @@ head
     .js('resources/js/onde.js')
     .js('resources/js/jquery.ui.min.js')
     .ready(function(){
+            var base = window.base;
         Connect({
             onlogin: function(user) {
                 if(!logged) {
@@ -114,6 +115,15 @@ head
             for(var i in schema.properties) {
                 $("#field").append("<option>"+ schema.properties[i].label +"</option>");
             }
+        }
+        if(location.hash == "#occurrences") {
+            $("a[href='#occ']").click();
+        }
+        if($("#map").length >= 1) {
+            head.js("resources/js/map.js")
+                .ready(function(){
+                    map.init();
+                });
         }
     });
 });

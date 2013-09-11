@@ -1,0 +1,117 @@
+<div class="hero-unit" id="occ-{{occurrenceID}}">
+<div class="hero-unit" id="occ-{{occurrenceID}}">
+    <a name="occ-{{occurrenceID}}"></a>
+    <p><strong>Occurrence ID</strong>: <a href="#occ-{{occurrenceID}}">{{occurrenceID}}</a></p>
+    <p><strong>Taxon</strong>:{{family}} {{scientificName}}</p>
+    <p>
+        <strong>Collection</strong>: {{collectionCode}}; 
+        <strong>Catalog</strong>: {{catalogNumber}}
+    </p>
+    <p>
+        <strong>Collector</strong>: {{recordedBy}};
+        <strong>Number</strong>: {{recordNumber}};
+    </p>
+    <p>
+        <strong>Date</strong>: {{day}}-{{month}}-{{year}}
+    </p>
+    <p>
+        <strong>Identified by</strong>: {{identifiedBy}}
+    </p>
+    <p>
+        <strong>State</strong>: {{stateProvince}};
+        <strong>City</strong>: {{municipality}}
+    </p>
+    <p>
+        <strong>Locality</strong>: {{locality}}
+    </p>
+    <p>
+        <strong>Presence</strong>: {{presence}}
+    </p>
+    <p><strong>Long/Lat</strong>: {{decimalLongitude}} {{decimalLatitude}}</p>
+    <p>
+        <strong>Literature</strong>: {{bibliographicCitation}}
+    </p>
+    <p><strong>Remarks</strong>: {{occurrenceRemarks}}</p>
+    {{#georeferenceBy}}
+        <p><strong>Georeference Remarks</strong>: {{georeferenceBy}} - {{georeferenceRemarks}}</p>
+    {{/georeferenceBy}}
+    {{#analysisBy}}
+        <p><strong>Analysis Remarks</strong>: {{analysisBy}} - {{analysisRemarks}}</p>
+    {{/analysisBy}}
+    {{#validationBy}}
+    <p>
+        {{#role-analyst}}
+            <span class='label label-warning'>check</span>
+        {{/role-analyst}}
+        <strong>Validation Remarks</strong>: {{validationBy}} - {{validationStatus}}: {{validationRemarks}}
+    </p>
+    {{/validationBy}}
+    {{^validationBy}}
+        <p class='label label-warning'>missing validation</p>
+    {{/validationBy}}
+    <p class='actions'>
+        {{#decimalLatitude}}
+        <button class="to-map btn btn-mini" rel='{{occurrenceID}}'>view in map</button>
+        {{/decimalLatitude}}
+        {{^decimalLatitude}}
+        <p class='label label-warning'>point not available</p>
+        {{/decimalLatitude}}
+        {{#role-validator}}
+        <p><a href="#validate" data-toggle="modal" class='btn btn-mini'><i class='icon-edit'></i> edit validation</a></p>
+        {{/role-validator}}
+        {{#role-analyst}}
+        <p><a href="#analysis" data-toggle="modal" class='btn btn-mini'><i class='icon-edit'></i> edit analysis</a></p>
+        {{/role-analyst}}
+    </p>
+    {{#role-validator}}
+    <form method="POST" action="/profile/{{profile._id}}/occurrences/{{occurrenceID}}/validate" class="modal hide" id="validate">
+        <fieldset>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <legend>{{strings.validator-comment}}</legend>
+            </div>
+            <div class='modal-body'>
+                <p>
+                    <label for="presence">Presence</label>
+                    <select name="presence">
+                        <option value="unkown">unkown</option>
+                        <option value="present">present</option>
+                        <option value="absent">absent</option>
+                    </select>
+                </p>
+                <p>
+                    <label for="status">Status:</label>
+                    <select name="status">
+                        <option value="ok">ok</option>
+                        <option value="wrong taxonomy">wrong taxonomy</option>
+                        <option value="uncertain taxonomy">uncertain taxonomy</option>
+                        <option value="wrong georeference">wrong georeference</option>
+                        <option value="duplicate">duplicate</option>
+                        <option value="other">other</option>
+                    </select>
+                </p>
+                <textarea name="comment" class='span6'>{{validationRemarks}}</textarea>
+            </div>
+            <div class='modal-footer'>
+                <button class="btn btn-success" type='submit'>Save</button>
+            </div>
+        </fieldset>
+    </form>
+    {{/role-validator}}
+    {{#role-analyst}}
+    <form method="POST" action="/profile/{{profile._id}}/occurrences/{{occurrenceID}}/comment" class="modal hide" id="analysis">
+        <fieldset>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <legend>{{strings.analyst-comment}}</legend>
+            </div>
+            <div class="modal-body">
+                <textarea name="comment" class='span6'>{{analysisRemarks}}</textarea>
+            </div>
+            <div class='modal-footer'>
+                <button class="btn btn-success" type='submit'>Save</button>
+            </div>
+        </fieldset>
+    </form>
+    {{/role-analyst}}
+</div>

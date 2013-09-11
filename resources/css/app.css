@@ -121,3 +121,33 @@ li.spp a.got {
 .profile section p.resume strong {
     font-weight:bold;
 }
+#map {
+    height: 470px;
+    width: 100%;
+    overflow: hidden;
+    border: 1px #ddd solid;
+    border-radius: 3px;
+    margin-top: 20px;
+}
+
+.hero-unit {
+    padding: 5px;
+    font-size: 12px;
+    line-height: 13px;
+    border: 1px #ddd solid;
+}
+
+.hero-unit.active {
+    border: 1px black solid;
+}
+
+.leaflet-popup-content p {
+    margin: 0 !important;
+}
+
+.leaflet-popup-content p.actions {
+    display: none;
+}
+.leaflet-popup-content form {
+    display: none;
+}

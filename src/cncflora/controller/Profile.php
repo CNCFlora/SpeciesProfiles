@@ -39,7 +39,10 @@ class Profile implements \Rest\Controller {
         $r2 = new \cncflora\repository\Species;
         $profile->synonyms = $r2->getSynonyms($profile->taxon->lsid);
 
-        return new View('profile.html',array('profile'=>$profile,'edit'=>$can_edit));
+        $repoOcc = new \cncflora\repository\Occurrences();
+        $occs = $repoOcc->listByName($profile->taxon->scientificName);
+
+        return new View('profile.html',array('profile'=>$profile,'edit'=>$can_edit,'occurrences'=>$occs));
     }
 
     function view($r) {

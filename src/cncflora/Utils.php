@@ -39,7 +39,7 @@ class Utils {
     public static function schema() {
         $ddoc_json = file_get_contents(Utils::$couchdb.'/_design/species_profiles');
         $ddoc = json_decode($ddoc_json);
-        $schema_json = substr( $ddoc->schema->profile,24,-2);
+        $schema_json = substr($ddoc->schema->profile,24,-2);
         $schema = json_decode($schema_json);
         unset($schema->properties->taxon);
         unset($schema->properties->metadata);
