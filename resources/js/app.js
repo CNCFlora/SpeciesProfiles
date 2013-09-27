@@ -73,6 +73,7 @@ head
             },1000);
             $("#data").submit(function(e){
                 e.preventDefault();
+                $("#data .actions button").attr("disabled",true).addClass("disabled").text("Wait...");
                 var data = form.getData().data;
                 $.post($("#data").attr("action"),JSON.stringify(data),function(){
                     window.localStorage.removeItem("temp:form:"+data._id);

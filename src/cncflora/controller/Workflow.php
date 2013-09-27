@@ -10,7 +10,7 @@ class Workflow implements \Rest\Controller {
     public function getAccess($user) {
         $access = array();
         foreach($user->roles as $role) {
-            if($role->role == 'Analyst') {
+            if($role->role == 'Analyst' || $role->role == 'Validator') {
                 foreach($role->entities as $ent) {
                     $access[] = $ent->value;
                 }
@@ -27,7 +27,7 @@ class Workflow implements \Rest\Controller {
         $families = array();
         foreach($docs as $f) {
             foreach($access as $a) {
-                if(preg_match('/'.$f.'/i',$a)) {
+                if(preg_match('/:'.$f.'/i',$a)) {
                     $families[] = $f;
                     break;
                 }

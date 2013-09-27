@@ -32,6 +32,11 @@
         <strong>Literature</strong>: {{bibliographicCitation}}
     </p>
     <p><strong>Remarks</strong>: {{occurrenceRemarks}}</p>
+    {{^georeferenceVerificationStatus}}
+    <p>
+        <span class='label label-warning'>missing GIS verification</span>
+    </p>
+    {{/georeferenceVerificationStatus}}
     {{#georeferenceBy}}
         <p><strong>Georeference Remarks</strong>: {{georeferenceBy}} - {{georeferenceRemarks}}</p>
     {{/georeferenceBy}}
