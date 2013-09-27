@@ -6,7 +6,7 @@ use cncflora\View;
 
 class Search implements \Rest\View {
 
-    public function execute(\Rest\Server $rest) {
+    public function execute(\Rest\Server $r) {
         $result = array();
         $query  = null;
         if(isset($_GET["query"])) {
@@ -14,7 +14,7 @@ class Search implements \Rest\View {
             $q = array(
                 "size"=>25,
                 "from"=>0,
-                "facets"=>new StdClass,
+                "facets"=>new \StdClass,
                 "query"=> array(
                     "constant_score"=> array(
                         "query"=> array(
