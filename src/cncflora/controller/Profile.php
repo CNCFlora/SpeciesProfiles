@@ -45,6 +45,9 @@ class Profile implements \Rest\Controller {
         $s = "status_".$profile->metadata->status;
         $profile->$s = true;
 
+        $profile->distribution->brasilianEndemic = ($profile->distribution->brasilianEndemic === "yes");
+        $profile->economicValue->potentialEconomicValue = ($profile->economicValue->potentialEconomicValue === "yes");
+
         return new View('profile.html',array('profile'=>$profile,'edit'=>$can_edit,'occurrences'=>$occs,$s=>true));
     }
 
