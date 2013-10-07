@@ -4,10 +4,12 @@
     <h3><i>{{specie.scientificName}}</i> {{specie.scientificNameAuthorship}}</h3>
     <p>N&atilde;o h&aacute; perfil cadastrado para essa esp&eacute;cie.</p>
     {{#logged}}
+    {{#role-analyst}}
     <form action="/profile" method="POST">
         <input name="lsid" value="{{specie._id}}" type="hidden" />
         <button class="btn">Iniciar perfil</button>
     </form>
+    {{/role-analyst}}
     {{/logged}}
 </div>
 

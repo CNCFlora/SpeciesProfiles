@@ -96,5 +96,7 @@
     "resource":"Recurso",
     "provenance":"Proveniência",
     "analyst-comment":"Comentários do analista",
-    "validator-comment":"Comentários do validador"
+    "validator-comment":"Comentários do validador",
+    "validate":"Validar",
+    "review":"Revisar"
 }

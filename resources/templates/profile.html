@@ -60,7 +60,21 @@
     {{> metadata}}
     {{/profile.metadata}}
     {{#logged}}
-    <a href="/profile/{{profile._id}}/edit" class="btn btn-mini"><i class='icon-edit'></i> {{strings.edit}}</a>
+        {{#role-analyst}}
+        {{#status_open}}
+            <a href="/profile/{{profile._id}}/edit" class="btn btn-mini"><i class='icon-edit'></i> {{strings.edit}}</a>
+        {{/status_open}}
+        {{/role-analyst}}
+        {{#role-validator}}
+        {{#status_validation}}
+            <a href="/profile/{{profile._id}}/validate" class="btn btn-mini"><i class='icon-edit'></i> {{strings.validate}}</a>
+        {{/status_validation}}
+        {{/role-validator}}
+        {{#role-analyst}}
+        {{#status_review}}
+            <a href="/profile/{{profile._id}}/review" class="btn btn-mini"><i class='icon-edit'></i> {{strings.review}}</a>
+        {{/status_review}}
+        {{/role-analyst}}
     {{/logged}}
 </div>
 

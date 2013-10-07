@@ -42,7 +42,10 @@ class Profile implements \Rest\Controller {
         $repoOcc = new \cncflora\repository\Occurrences();
         $occs = $repoOcc->listByName($profile->taxon->scientificName);
 
-        return new View('profile.html',array('profile'=>$profile,'edit'=>$can_edit,'occurrences'=>$occs));
+        $s = "status_".$profile->metadata->status;
+        $profile->$s = true;
+
+        return new View('profile.html',array('profile'=>$profile,'edit'=>$can_edit,'occurrences'=>$occs,$s=>true));
     }
 
     function view($r) {

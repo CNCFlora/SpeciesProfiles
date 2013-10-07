@@ -25,7 +25,7 @@ class Occurrences  {
             $occ->content = $content;
 
             if($occ->decimalLatitude && $occ->decimalLongitude) {
-                $occ->json = json_encode(array('geometry'=>array('coordinates'=>array($occ->decimalLatitude,$occ->decimalLongitude)),'properties'=>$occ ));
+                $occ->json = json_encode(array('geometry'=>array('coordinates'=>array($occ->decimalLatitude,$occ->decimalLongitude)),'properties'=>$occ,'content'=>$occ->content));
             } else {
                 $occ->json = json_encode(array('properties'=>$occ ));
             }
