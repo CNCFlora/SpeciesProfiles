@@ -8,7 +8,7 @@ class Species extends Base {
         $response = $this->db->view('taxonomy','species_by_family',array('reduce'=>true,'group'=>true));
         $families = array();
         foreach($response->rows as $row) {
-            $families[] = strtoupper( $row->key );
+            if(\cncflora\Utils::taxonOk($row->key)) $families[] = strtoupper( $row->key );
         }
         return $families;
     }
@@ -17,8 +17,10 @@ class Species extends Base {
         $response = $this->db->view('taxonomy','species_by_family',array('reduce'=>false,'key'=>$family));
         $species = array();
         foreach($response->rows as $row) {
-            $row->value->family = strtoupper($row->value->family);
-            $species[] = $row->value;
+            if(\cncflora\Utils::taxonOk($row->value->family." ".$row->value->scientificName)) {
+                $row->value->family = strtoupper($row->value->family);
+                $species[] = $row->value;
+            }
         }
         return $species;
     }

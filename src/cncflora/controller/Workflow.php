@@ -77,8 +77,10 @@ class Workflow implements \Rest\Controller {
         foreach($docs as $doc) {
             foreach($access as $a) {
                 if(preg_match('/'.$doc->taxon->family.'/i',$a)) {
-                    $spps[] = $doc;
-                    break;
+                    if(\cncflora\Utils::taxonOk($doc->taxon->family." ".$doc->taxon->scientificName)) {
+                        $spps[] = $doc;
+                        break;
+                    }
                 }
             }
         }

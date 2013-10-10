@@ -1,0 +1,33 @@
+{{> header}}
+<div class="span8">
+    {{#profile}}
+    <h3><i>{{taxon.scientificName}}</i> {{taxon.scientificNameAuthorship}}</h3>
+    <div id="occ">
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.css" />
+        <link rel="stylesheet" href="/resources/css/MarkerCluster.css" />
+        <link rel="stylesheet" href="/resources/css/MarkerCluster.Default.css" />
+        <script type="text/javascript" src="/resources/js/leaflet.js"></script>
+        <script type="text/javascript" src="/resources/js/leaflet.markercluster.js"></script>
+        <script type="text/javascript">
+            var occurrences = [] ;
+        </script>
+        <div>
+            <a name="map"></a>
+            <div id="map"></div>
+        </div>
+        <div>
+            <ul>
+                {{#occurrences}}
+                    <script>
+                        occurrences.push({{{json}}});
+                    </script>
+                    <li class='span7'>
+                        {{> unit}}
+                    </li>
+                {{/occurrences}}
+            </ul>
+        </div>
+    </div>
+    {{/profile}}
+</div>
+{{> footer}}

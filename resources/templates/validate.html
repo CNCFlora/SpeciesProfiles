@@ -3,7 +3,7 @@
 <div class="span8 profile">
     {{#profile}}
     <h3><i>{{taxon.scientificName}}</i> {{taxon.scientificNameAuthorship}}</h3>
-    <p><a href="{{OCC_APP}}/specie/{{taxon.lsid}}" target='_blank'>{{strings.open-map}}</a></p>
+    <p><a href="/profile/{{profile._id}}/occs" target='_blank'>{{strings.open-map}}</a></p>
     {{> profile-in}}
     {{/profile}}
 </div>

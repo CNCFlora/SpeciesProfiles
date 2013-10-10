@@ -51,6 +51,33 @@ class Profile implements \Rest\Controller {
         return new View('profile.html',array('profile'=>$profile,'edit'=>$can_edit,'occurrences'=>$occs,$s=>true));
     }
 
+
+    public function occs(\Rest\Server $r) {
+        $id = $r->getRequest()->getParameter("id");
+        $repo = new \cncflora\repository\Profiles;
+
+        $profile = $repo->get($id);
+        $profile->metadata->modified_date = date('d-m-Y',$profile->metadata->modified);
+        $profile->metadata->created_date = date('d-m-Y',$profile->metadata->created);
+        $meta = $profile->metadata;
+
+        $r2 = new \cncflora\repository\Species;
+        $profile->synonyms = $r2->getSynonyms($profile->taxon->lsid);
+
+        $repoOcc = new \cncflora\repository\Occurrences();
+        $occs = $repoOcc->listByName($profile->taxon->scientificName);
+
+        $s = "status_".$profile->metadata->status;
+        $profile->$s = true;
+
+        /*
+        $profile->distribution->brasilianEndemic = ($profile->distribution->brasilianEndemic === "yes");
+        $profile->economicValue->potentialEconomicValue = ($profile->economicValue->potentialEconomicValue === "yes");
+        */
+
+        return new View('occs.html',array('profile'=>$profile,'occurrences'=>$occs,$s=>true));
+    }
+
     function view($r) {
         $id = $r->getRequest()->getParameter("id");
         return new \Rest\Controller\Redirect('/'.BASE_PATH."profile/".$id);

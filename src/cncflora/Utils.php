@@ -9,12 +9,31 @@ class Utils {
     public static $couch;
     public static $config;
     public static $strings;
+    public static $taxons;
 
     public static function init() {
         self::$config  = self::config();
         self::$data    = __DIR__.'/../../data';
         self::$couchdb = "http://".COUCH_HOST.":".COUCH_PORT."/".COUCH_BASE;
         self::$strings = json_decode(file_get_contents(__DIR__."/../../resources/locales/".LANG.".json"));
+        self::$taxons  = self::taxons();
+    }
+
+    public static function taxons() {
+        $arr =  array();
+        $f = fopen(__DIR__."/../../resources/checklist.csv",'r');
+        while($l = fgetcsv($f,0,';','"')) {
+            $name = strtolower(trim(implode(" ",$l)));
+            $arr[strtolower( $l[0] )] = true;
+            $arr[$name] = true;
+        }
+        fclose($f);
+        return $arr;
+    }
+
+    public static function taxonOk($t) {
+       if(isset(self::$taxons[strtolower($t)]) && self::$taxons[strtolower( $t )] === true) return true;
+       else return false;
     }
 
     public static function setupTest() {
