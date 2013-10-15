@@ -62,14 +62,14 @@
         <p class='label label-warning'>point not available</p>
         {{/decimalLatitude}}
         {{#role-validator}}
-        <p><a href="#validate" data-toggle="modal" class='btn btn-mini'><i class='icon-edit'></i> edit validation</a></p>
+        <p><a href="#validate-{{occurrenceID}}" data-toggle="modal" class='btn btn-mini'><i class='icon-edit'></i> edit validation</a></p>
         {{/role-validator}}
         {{#role-analyst}}
-        <p><a href="#analysis" data-toggle="modal" class='btn btn-mini'><i class='icon-edit'></i> edit analysis</a></p>
+        <p><a href="#analysis-{{occurrenceID}}" data-toggle="modal" class='btn btn-mini'><i class='icon-edit'></i> edit analysis</a></p>
         {{/role-analyst}}
     </p>
     {{#role-validator}}
-    <form method="POST" action="/profile/{{profile._id}}/occurrences/{{occurrenceID}}/validate" class="modal hide" id="validate">
+    <form method="POST" action="/profile/{{profile._id}}/occurrences/{{occurrenceID}}/validate" class="modal hide" id="validate-{{occurrenceID}}">
         <fieldset>
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -104,7 +104,7 @@
     </form>
     {{/role-validator}}
     {{#role-analyst}}
-    <form method="POST" action="/profile/{{profile._id}}/occurrences/{{occurrenceID}}/comment" class="modal hide" id="analysis">
+    <form method="POST" action="/profile/{{profile._id}}/occurrences/{{occurrenceID}}/comment" class="modal hide" id="analysis-{{occurrenceID}}">
         <fieldset>
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

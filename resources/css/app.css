@@ -145,9 +145,7 @@ li.spp a.got {
     margin: 0 !important;
 }
 
-.leaflet-popup-content p.actions {
+.leaflet-popup-content .to-map {
     display: none;
 }
-.leaflet-popup-content form {
-    display: none;
-}
+
