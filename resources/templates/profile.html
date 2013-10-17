@@ -37,6 +37,7 @@
             </div>
 
             <div>
+                {{#logged}}
                 <ul>
                     {{#occurrences}}
                         <script>
@@ -47,6 +48,12 @@
                         </li>
                     {{/occurrences}}
                 </ul>
+                {{/logged}}
+                {{^logged}}
+                <p>&nbsp;</p>
+                <p>Ocorrências indisponíveis.</p>
+                <p>&nbsp;</p>
+                {{/logged}}
             </div>
 
         </div>
