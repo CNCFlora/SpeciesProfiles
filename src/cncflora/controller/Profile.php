@@ -128,6 +128,7 @@ class Profile implements \Rest\Controller {
         $data->_rev = $doc->_rev;
         $data->metadata = $doc->metadata;
         $data->taxon = $doc->taxon;
+        $data->validations = $doc->validations;
         $repo->update($data);
         return new \Rest\View\JSon($data);
     }
