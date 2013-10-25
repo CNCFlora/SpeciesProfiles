@@ -75,9 +75,15 @@ head
                 e.preventDefault();
                 $("#data .actions button").attr("disabled",true).addClass("disabled").text("Wait...");
                 var data = form.getData().data;
-                $.post($("#data").attr("action"),JSON.stringify(data),function(){
+                $.post($("#data").attr("action"),JSON.stringify(data),function(r){
                     window.localStorage.removeItem("temp:form:"+data._id);
-                    location.href=$("#data").attr("action");
+                    if(r.error){
+                        var err = JSON.parse( r.reason.substr("Must follow schema: ".length) );
+                        alert("Error: "+err.message+" at "+err.dataPath.substr(1));
+                        $("#data .actions button").attr("disabled",false).removeClass("disabled").text("Save");
+                    } else {
+                        location.href=$("#data").attr("action");
+                    }
                 });
                 return false;
             });

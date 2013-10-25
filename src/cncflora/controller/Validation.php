@@ -26,7 +26,16 @@ class Validation implements \Rest\Controller {
         $v->comment = $r->getRequest()->getPost('comment');
         $profile->validations[] = $v;
 
-        $repo->update($profile);
+        $r = $repo->update($profile);
+        if(isset($r->error)) {
+            $j = json_decode(substr($r->reason,strpos( $r->reason,":" ) + 1));
+            $err = "Error: ".$j->message." at ".substr($j->dataPath,1);
+            echo $err;
+            echo "<hr>";
+            echo $v->field." -- ";
+            echo $v->comment;
+            exit;
+        }
 
         return new \Rest\Controller\Redirect('/'.BASE_PATH."profile/".$id."/validate");
     }

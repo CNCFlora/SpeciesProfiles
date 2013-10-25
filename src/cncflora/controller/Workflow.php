@@ -96,7 +96,13 @@ class Workflow implements \Rest\Controller {
         $doc = $repo->get($id);
         $doc->metadata->status= $status;
         if($status == 'done') $doc->metadata->valid = true;
-        $repo->update($doc);
+        $r = $repo->update($doc);
+        if(isset($r->error)) {
+            $j = json_decode(substr($r->reason,strpos( $r->reason,":" ) + 1));
+            $err = "Error: ".$j->message." at ".substr($j->dataPath,1);
+            echo $err;
+            exit;
+        }
         return new \Rest\Controller\Redirect('/'.BASE_PATH.'profile/'.$doc->_id);
     }
 }

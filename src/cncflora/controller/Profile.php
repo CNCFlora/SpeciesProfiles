@@ -45,12 +45,15 @@ class Profile implements \Rest\Controller {
         $s = "status_".$profile->metadata->status;
         $profile->$s = true;
 
-        $profile->distribution->brasilianEndemic = ($profile->distribution->brasilianEndemic === "yes");
-        $profile->economicValue->potentialEconomicValue = ($profile->economicValue->potentialEconomicValue === "yes");
+        if(isset($profile->distribution) && isset($profile->distribution->brasilianEndemic)) {
+            $profile->distribution->brasilianEndemic = ($profile->distribution->brasilianEndemic === "yes");
+        }
+        if(isset($profile->economicValue) && isset($profile->economicValue->potentialEconomicValue)) {
+            $profile->economicValue->potentialEconomicValue = ($profile->economicValue->potentialEconomicValue === "yes");
+        }
 
         return new View('profile.html',array('profile'=>$profile,'edit'=>$can_edit,'occurrences'=>$occs,$s=>true));
     }
-
 
     public function occs(\Rest\Server $r) {
         $id = $r->getRequest()->getParameter("id");
@@ -128,9 +131,10 @@ class Profile implements \Rest\Controller {
         $data->_rev = $doc->_rev;
         $data->metadata = $doc->metadata;
         $data->taxon = $doc->taxon;
+        if(!isset($doc->validations)) $doc->validations=array();
         $data->validations = $doc->validations;
-        $repo->update($data);
-        return new \Rest\View\JSon($data);
+        $r = $repo->update($data);
+        return new \Rest\View\JSon($r);
     }
 
 }

@@ -76,9 +76,12 @@ class Profiles extends Base {
         $profile->metadata = $metadata;
 
         $r = $this->db->insert($profile,$profile->_id);
-
-        $profile->_rev = $r->rev;
-        return $profile;
+        if(isset($r->error)) {
+            return $r;
+        } else {
+            $profile->_rev = $r->rev;
+            return $profile;
+        }
     }
 
     public function listByFamily($family) {
