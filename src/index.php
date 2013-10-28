@@ -57,6 +57,8 @@ $rest->addMap("POST","/profile/:id/occurrences/:oid/validate",'\cncflora\control
 $rest->addMap("POST","/profile/:id/send/:status","\cncflora\controller\Workflow::changeStatus");
 $rest->addMap("GET","/work","\cncflora\controller\Workflow");
 $rest->addMap("GET","/work/:family/:status","\cncflora\controller\Workflow::family");
+$rest->addMap("GET","/control","\cncflora\controller\Workflow::control");
+
 
 $rest->addMap("GET",'.*',function($r) {
     $uri = $r->getRequest()->getURI();

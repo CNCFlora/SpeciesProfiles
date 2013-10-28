@@ -7,7 +7,7 @@ head
     .js('resources/js/onde.js')
     .js('resources/js/jquery.ui.min.js')
     .ready(function(){
-            var base = window.base;
+        var base = window.base;
         Connect({
             onlogin: function(user) {
                 if(!logged) {
@@ -131,6 +131,10 @@ head
                 .ready(function(){
                     map.init();
                 });
+        }
+        if($("html").attr("id") == "control-page") {
+            $(".collapse").collapse();
+            $(".tab-pane:eq(0)").addClass('active');
         }
     });
 });

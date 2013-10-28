@@ -105,5 +105,62 @@ class Workflow implements \Rest\Controller {
         }
         return new \Rest\Controller\Redirect('/'.BASE_PATH.'profile/'.$doc->_id);
     }
+
+    public function control(\Rest\Server $r) {
+
+        $data = array('empty'=>array(),'open'=>array(),'validation'=>array(),'review'=>array(),'done'=>array());
+
+        $couchdb = new \Nano\Nano('http://'.COUCH_USER.":".COUCH_PASS."@".COUCH_HOST.":".COUCH_PORT);
+        $db = $couchdb->db->use(COUCH_BASE);
+
+        $docs = $db->view('species_profiles','by_family_and_status',array("reduce"=>false));
+        $profiles = array();
+        foreach($docs->rows as $doc) {
+            $profiles[$doc->value->taxon->lsid] = $doc->value->metadata->status;
+        }
+
+        $sppRepo = new \cncflora\repository\Species;
+        $families = $sppRepo->getFamilies();
+
+        foreach($families as $family) {
+            $species = $sppRepo->getSpecies($family);
+            foreach($species as $spp) {
+                $notOpen = !isset($profiles[$spp->_id]);
+                if($notOpen) {
+                    $status = 'empty';
+                } else {
+                    $status = $profiles[$spp->_id];
+                }
+                $found = false;
+                foreach($data[$status] as $k=>$list) {
+                    if($list['family'] == $spp->family) {
+                        $found = true;
+                        $data[$status][$k]['count']++;
+                        $data[$status][$k]['species'][] = array(
+                            'taxon'=>array( 'lsid'=>$spp->_id,'scientificName'=>$spp->scientificName)
+                        );
+                    }
+                }
+                if(!$found) {
+                    $data[$status][] = array(
+                        'family'=>$family,
+                        'total'=>count($species),
+                        'count'=>1,
+                        'species'=> array( 
+                            array('taxon'=>array('lsid'=>$spp->_id,'scientificName'=>$spp->scientificName))
+                        )
+                    );
+                }
+            }
+        }
+
+        $statuses  =array();
+        foreach($data as $status=>$list) {
+            $statuses[] = array('status'=>$status,'list'=>$list);
+        }
+
+        return new View('control.html',array('statuses'=> $statuses ));
+    }
+
 }
 
