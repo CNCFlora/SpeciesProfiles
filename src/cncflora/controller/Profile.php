@@ -42,7 +42,7 @@ class Profile implements \Rest\Controller {
         $repoOcc = new \cncflora\repository\Occurrences();
         $occs = $repoOcc->listByName($profile->taxon->scientificName);
 
-        if(!isset($profile->distribution)) $profile->distribution = new StdClass;
+        if(!isset($profile->distribution)) $profile->distribution = new \StdClass;
         $profile->distribution->eoo = $repoOcc->eoo($profile->taxon->scientificName);
         $profile->distribution->aoo = $repoOcc->aoo($profile->taxon->scientificName);
 
