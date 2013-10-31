@@ -52,5 +52,32 @@ class Occurrences  {
         return $r;
     }
 
+    public function eoo($name) {
+        $query = $this->db->prepare('select count(distinct(coordinates)) from occurrences where "scientificName" in (select "scientificName" from taxon where "acceptedNameUsage" = ? ) and coordinates is not null;');
+        $query->execute(array($name));
+        $count = $query->fetchColumn(0);
+        $eoo = 0 ;
+        if($count <= 2) {
+            $q = $this->db->prepare('select ST_Area(ST_Union(ST_Buffer_Meters(ST_SetSrid(coordinates,4326),10000))) * 10000 as eoo from occurrences where "scientificName" in (select "scientificName" from taxon where "acceptedNameUsage" = ? ) and coordinates is not null');
+            $q->execute(array($name));
+            $eoo = $q->fetchColumn(0);
+        } else {
+            $q = $this->db->prepare('select ST_Area(ST_ConvexHull(ST_Collect(ST_SetSrid(coordinates,4326)))) * 10000 as eoo from occurrences  where "scientificName" in (select "scientificName" from taxon where "acceptedNameUsage" = ? ) and coordinates is not null');
+            $q->execute(array($name));
+            $eoo = $q->fetchColumn(0);
+        }
+        $eoo = number_format($eoo,2);
+        return $eoo;
+    }
+
+    public function aoo($name) {
+        $aoo = 0;
+        $q = 'select count(cells)*4 as aoo from (select distinct((st_dump(cells)).geom) as cells from grid_20km where intersects(the_geom, (select st_collect(coordinates) from occurrences where "scientificName" in (select "scientificName" from taxon where "acceptedNameUsage" = ?)))) as grid where intersects(cells, (select st_collect(coordinates) from occurrences where "scientificName" in (select "scientificName" from taxon where "acceptedNameUsage" = ?)));';
+        $query = $this->db->prepare($q);
+        $query->execute(array($name,$name));
+        $aoo = $query->fetchColumn(0);
+        return $aoo;
+    }
+
 }
 
