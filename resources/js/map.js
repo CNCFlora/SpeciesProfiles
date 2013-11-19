@@ -9,25 +9,45 @@ var map = (function() {
 
             lemap.map = map;
 
-            var markers = new L.MarkerClusterGroup();
-            var points  = new L.layerGroup();
+            /*
+            var Icon = L.Icon.extend(L.Icon.Default.prototype.options);
+            var blueIcon = new Icon({iconUrl: 'resources/js/images/marker-blue.png'}),
+                redIcon = new Icon({iconUrl: 'resources/js/images/marker-red.png'});
+            */
+
+            var markersOk = new L.MarkerClusterGroup();
+            var pointsOk  = new L.layerGroup();
+
+            var markersNok = new L.MarkerClusterGroup();
+            var pointsNok  = new L.layerGroup();
 
             var rePoints  = {};
 
             for(var i in occurrences) {
                 var feature = occurrences[i];
                 if(!feature.geometry || !feature.geometry.coordinates[0] || !feature.geometry.coordinates[1]) continue;
+
+                //var icon = (feature.properties.valid?blueIcon:redIcon);
+                //var icon = L.Icon.Default;
+
                 var marker = L.marker(new L.LatLng(feature.geometry.coordinates[0],feature.geometry.coordinates[1]));
                 marker.bindPopup(feature.content);
-                markers.addLayer(marker);
+
                 var marker2 = L.marker(new L.LatLng(feature.geometry.coordinates[0],feature.geometry.coordinates[1]));
                 marker2.bindPopup(feature.content);
-                points.addLayer(marker2);
+
+                if(feature.properties.valid) {
+                    markersOk.addLayer(marker);
+                    pointsOk.addLayer(marker2);
+                } else {
+                    markersNok.addLayer(marker);
+                    pointsNok.addLayer(marker2);
+                }
 
                 rePoints[feature.properties.occurrenceID] = marker2;
             }
 
-            map.addLayer(markers);
+            map.addLayer(markersOk);
 
             var base = {
                 Landscape: land,
@@ -36,9 +56,17 @@ var map = (function() {
             };
 
             var layers = {
-                'Points': points,
-                'Points clustered': markers,
+                'Valid points': pointsOk,
+                'Valid points clustered': markersOk,
+                'Non-valid points': pointsNok,
+                'Non-valid points clustered': markersNok,
             };
+
+            if(typeof eooPolygon != "undefined" && eooPolygon) {
+                var points = eooPolygon.substr(7).replace(/[\(\)]/g,'').split(',').map(function(s) { return s.split(" ").map(function(s){return parseFloat(s)});}).map(function(point) { return new L.LatLng(point[1],point[0])});
+                var polygon = L.polygon(points);
+                layers[ 'EOO' ] = polygon;
+            }
 
             L.control.layers(base,layers).addTo(map);
 

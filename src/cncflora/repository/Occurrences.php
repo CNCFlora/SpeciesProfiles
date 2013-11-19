@@ -17,10 +17,13 @@ class Occurrences  {
 
     public function listByName($name) {
         $occs = array();
-        $query  = $this->db->prepare('select * from occurrences where "scientificName" in (select "scientificName" from taxon where "acceptedNameUsage" = ? )');
+        $query  = $this->db->prepare('select * from occurrences where "georeferenceVerificationStatus" = \'1\' and "scientificName" in (select "scientificName" from taxon where "acceptedNameUsage" = ? )');
         $query->execute(array($name));
         while($occ = $query->fetchObject()) {
             $m = new \Mustache_Engine();
+
+            $status = $occ->validationStatus;
+            $occ->valid = ($status != 'duplicate' && $status != 'uncertain taxonomy' && $status != 'wrong taxonomy' && $status != 'cultivated');
             $content = $m->render(file_get_contents("../resources/templates/unit.html"),$occ);
             $occ->content = $content;
 
@@ -53,16 +56,31 @@ class Occurrences  {
     }
 
     public function eoo($name) {
-        $query = $this->db->prepare('select count(distinct(coordinates)) from occurrences where "scientificName" in (select "scientificName" from taxon where "acceptedNameUsage" = ? ) and coordinates is not null;');
+        $query = $this->db->prepare('select count(*) from occurrences where '
+                                    .' "scientificName" in (select "scientificName" from taxon where "acceptedNameUsage" = ? ) '
+                                    .' and coordinates is not null and "georeferenceVerificationStatus" = \'1\' '
+                                    .' and ("validationStatus" not in (\'duplicate\',\'uncertain taxonomy\',\'wrong taxonomy\',\'cultivated\') '
+                                        .' or "validationStatus" is null)');
         $query->execute(array($name));
         $count = $query->fetchColumn(0);
         $eoo = 0 ;
+        var_dump($count);
         if($count <= 2) {
-            $q = $this->db->prepare('select ST_Area(ST_Union(ST_Buffer_Meters(ST_SetSrid(coordinates,4326),10000))) * 10000 as eoo from occurrences where "scientificName" in (select "scientificName" from taxon where "acceptedNameUsage" = ? ) and coordinates is not null');
+            $q = $this->db->prepare('select ST_Area(ST_Union(ST_Buffer_Meters(ST_SetSrid(coordinates,4326),10000))) * 10000 '
+                .' as eoo from occurrences where '
+                .' "scientificName" in (select "scientificName" from taxon where "acceptedNameUsage" = ? )'
+                .' and coordinates is not null and "georeferenceVerificationStatus" = \'1\' '
+                .' and ("validationStatus" not in (\'duplicate\',\'uncertain taxonomy\',\'wrong taxonomy\',\'cultivated\') '
+                    .' or "validationStatus" is null)');
             $q->execute(array($name));
             $eoo = $q->fetchColumn(0);
         } else {
-            $q = $this->db->prepare('select ST_Area(ST_ConvexHull(ST_Collect(ST_SetSrid(coordinates,4326)))) * 10000 as eoo from occurrences  where "scientificName" in (select "scientificName" from taxon where "acceptedNameUsage" = ? ) and coordinates is not null');
+            $q = $this->db->prepare('select ST_Area(ST_ConvexHull(ST_Collect(ST_SetSrid(coordinates,4326)))) * 10000 '
+                .' as eoo from occurrences where '
+                .' "scientificName" in (select "scientificName" from taxon where "acceptedNameUsage" = ? )'
+                .' and coordinates is not null and "georeferenceVerificationStatus" = \'1\' '
+                .' and ("validationStatus" not in (\'duplicate\',\'uncertain taxonomy\',\'wrong taxonomy\',\'cultivated\') '
+                    .' or "validationStatus" is null)');
             $q->execute(array($name));
             $eoo = $q->fetchColumn(0);
         }
@@ -70,9 +88,50 @@ class Occurrences  {
         return $eoo;
     }
 
+    public function eooPolygon($name) {
+        $query = $this->db->prepare('select count(*) from occurrences where '
+                                    .' "scientificName" in (select "scientificName" from taxon where "acceptedNameUsage" = ? ) '
+                                    .' and coordinates is not null and "georeferenceVerificationStatus" = \'1\' '
+                                    .' and ("validationStatus" not in (\'duplicate\',\'uncertain taxonomy\',\'wrong taxonomy\',\'cultivated\') '
+                                        .' or "validationStatus" is null)');
+        $query->execute(array($name));
+        $count = $query->fetchColumn(0);
+        $eoo = '()' ;
+        if($count <= 2) {
+            $q = $this->db->prepare('select ST_AsText(ST_Union(ST_Buffer_Meters(ST_SetSrid(coordinates,4326),10000))) '
+                .' as eoo from occurrences where '
+                .' "scientificName" in (select "scientificName" from taxon where "acceptedNameUsage" = ? )'
+                .' and coordinates is not null and "georeferenceVerificationStatus" = \'1\' '
+                .' and ("validationStatus" not in (\'duplicate\',\'uncertain taxonomy\',\'wrong taxonomy\',\'cultivated\') '
+                    .' or "validationStatus" is null)');
+            $q->execute(array($name));
+            $eoo = $q->fetchColumn(0);
+        } else {
+            $q = $this->db->prepare('select ST_AsText(ST_ConvexHull(ST_Collect(ST_SetSrid(coordinates,4326)))) '
+                .' as eoo from occurrences where '
+                .' "scientificName" in (select "scientificName" from taxon where "acceptedNameUsage" = ? )'
+                .' and coordinates is not null and "georeferenceVerificationStatus" = \'1\' '
+                .' and ("validationStatus" not in (\'duplicate\',\'uncertain taxonomy\',\'wrong taxonomy\',\'cultivated\') '
+                    .' or "validationStatus" is null)');
+            $q->execute(array($name));
+            $eoo = $q->fetchColumn(0);
+        }
+        return $eoo;
+    }
+
     public function aoo($name) {
         $aoo = 0;
-        $q = 'select count(cells)*4 as aoo from (select distinct((st_dump(cells)).geom) as cells from grid_20km where intersects(the_geom, (select st_collect(coordinates) from occurrences where "scientificName" in (select "scientificName" from taxon where "acceptedNameUsage" = ?)))) as grid where intersects(cells, (select st_collect(coordinates) from occurrences where "scientificName" in (select "scientificName" from taxon where "acceptedNameUsage" = ?)));';
+        $q = 'select count(cells)*4 as aoo from '
+             .'(select distinct((st_dump(cells)).geom) as cells from grid_20km 
+                    where intersects(the_geom, 
+                                        (select st_collect(coordinates) from occurrences where 
+                                            "scientificName" in (select "scientificName" from taxon where "acceptedNameUsage" = ?)
+                                             and coordinates is not null and "georeferenceVerificationStatus" = \'1\' 
+                                             and ("validationStatus" not in (\'duplicate\',\'uncertain taxonomy\',\'wrong taxonomy\',\'cultivated\') 
+                                             or "validationStatus" is null)
+                                        )
+                                    )
+                ) as grid where intersects(cells, (select st_collect(coordinates) from occurrences where "scientificName" in (select "scientificName" from taxon where "acceptedNameUsage" = ?)));';
         $query = $this->db->prepare($q);
         $query->execute(array($name,$name));
         $aoo = $query->fetchColumn(0);

@@ -56,7 +56,9 @@ class Profile implements \Rest\Controller {
             $profile->economicValue->potentialEconomicValue = ($profile->economicValue->potentialEconomicValue === "yes");
         }
 
-        return new View('profile.html',array('profile'=>$profile,'edit'=>$can_edit,'occurrences'=>$occs,$s=>true));
+        $eoo = $repoOcc->eooPolygon($profile->taxon->scientificName);
+
+        return new View('profile.html',array('profile'=>$profile,'edit'=>$can_edit,'occurrences'=>$occs,$s=>true,'eooPolygon'=> $eoo));
     }
 
     public function occs(\Rest\Server $r) {
