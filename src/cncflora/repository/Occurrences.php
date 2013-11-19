@@ -56,7 +56,7 @@ class Occurrences  {
     }
 
     public function eoo($name) {
-        $query = $this->db->prepare('select count(*) from occurrences where '
+        $query = $this->db->prepare('select count(distinct(coordinates)) from occurrences where '
                                     .' "scientificName" in (select "scientificName" from taxon where "acceptedNameUsage" = ? ) '
                                     .' and coordinates is not null and "georeferenceVerificationStatus" = \'1\' '
                                     .' and ("validationStatus" not in (\'duplicate\',\'uncertain taxonomy\',\'wrong taxonomy\',\'cultivated\') '
@@ -89,7 +89,7 @@ class Occurrences  {
     }
 
     public function eooPolygon($name) {
-        $query = $this->db->prepare('select count(*) from occurrences where '
+        $query = $this->db->prepare('select count(distinct(coordinates)) from occurrences where '
                                     .' "scientificName" in (select "scientificName" from taxon where "acceptedNameUsage" = ? ) '
                                     .' and coordinates is not null and "georeferenceVerificationStatus" = \'1\' '
                                     .' and ("validationStatus" not in (\'duplicate\',\'uncertain taxonomy\',\'wrong taxonomy\',\'cultivated\') '
