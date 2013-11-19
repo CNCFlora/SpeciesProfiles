@@ -17,7 +17,7 @@ class Occurrences  {
 
     public function listByName($name) {
         $occs = array();
-        $query  = $this->db->prepare('select * from occurrences where "georeferenceVerificationStatus" = \'1\' and "scientificName" in (select "scientificName" from taxon where "acceptedNameUsage" = ? )');
+        $query  = $this->db->prepare('select * from occurrences where ("georeferenceVerificationStatus" = \'1\' or "georeferenceVerificationStatus" is null) and "scientificName" in (select "scientificName" from taxon where "acceptedNameUsage" = ? )');
         $query->execute(array($name));
         while($occ = $query->fetchObject()) {
             $m = new \Mustache_Engine();
