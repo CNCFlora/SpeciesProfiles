@@ -27,6 +27,8 @@ var map = (function() {
                 var feature = occurrences[i];
                 if(!feature.geometry || !feature.geometry.coordinates[0] || !feature.geometry.coordinates[1]) continue;
 
+                feature.geometry.coordinates = feature.geometry.coordinates.map(function(c) { return parseFloat(c);});
+
                 //var icon = (feature.properties.valid?blueIcon:redIcon);
                 //var icon = L.Icon.Default;
 
@@ -63,7 +65,7 @@ var map = (function() {
             };
 
             if(typeof eooPolygon != "undefined" && eooPolygon) {
-                var points = eooPolygon.substr(7).replace(/[\(\)]/g,'').split(',').map(function(s) { return s.split(" ").map(function(s){return parseFloat(s)});}).map(function(point) { return new L.LatLng(point[1],point[0])});
+                var points = eooPolygon.substr(eooPolygon.indexOf('(')).replace(/[\(\)]/g,'').split(',').map(function(s) { return s.split(" ").map(function(s){return parseFloat(s)});}).map(function(point) { return new L.LatLng(point[1],point[0])});
                 var polygon = L.polygon(points);
                 layers[ 'EOO' ] = polygon;
             }
