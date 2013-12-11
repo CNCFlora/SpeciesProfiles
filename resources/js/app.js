@@ -49,7 +49,7 @@ head
                                                            +r[i].scientificName+'</a></li>');
                             } else {
                                 $("#"+status+" ul").append('<li><i class="icon-leaf"></i>'
-                                                           +'<a href="'+base+'profile/'+r[i]._id+'/'+link+'">'
+                                                           +'<a href="'+base+'profile/'+r[i]._id+'">'
                                                            +r[i].taxon.scientificName+'</a></li>');
                             }
                         }

@@ -20,15 +20,34 @@ class Profile implements \Rest\Controller {
         $profile->metadata->created_date = date('d-m-Y',$profile->metadata->created);
         $meta = $profile->metadata;
 
-        $can_edit=(($meta->status == 'open' || $meta->status == 'review') && $r->getParameter("logged")) ;
-        if($can_edit) {
+        $can_edit = false;
+        $can_validate = false;
+        if($r->getParameter("logged")) {
             $user = $r->getParameter("user");
-            $can_edit = false;
             foreach($user->roles as $role) {
                 if($role->role == "Analyst") {
                     foreach($role->entities as $ent) {
-                        if(strpos($profile->taxon->lsid,$ent->value) !== false) {
+                        if(strpos($ent->name,$profile->taxon->family) !== false) {
                             $can_edit = true;
+                            break;
+                        }
+                        if(strpos($ent->name,$profile->taxon->scientificName) !== false) {
+                            $can_edit = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            $user = $r->getParameter("user");
+            foreach($user->roles as $role) {
+                if($role->role == "Validator") {
+                    foreach($role->entities as $ent) {
+                        if(strpos($profile->taxon->family,$ent->name) !== false) {
+                            $can_validate = true;
+                            break;
+                        }
+                        if(strpos($profile->taxon->scientificName,$ent->name) !== false) {
+                            $can_validate = true;
                             break;
                         }
                     }
@@ -58,7 +77,7 @@ class Profile implements \Rest\Controller {
 
         $eoo = $repoOcc->eooPolygon($profile->taxon->scientificName);
 
-        return new View('profile.html',array('profile'=>$profile,'edit'=>$can_edit,'occurrences'=>$occs,$s=>true,'eooPolygon'=> $eoo));
+        return new View('profile.html',array('profile'=>$profile,'edit'=>$can_edit,'occurrences'=>$occs,$s=>true,'eooPolygon'=> $eoo,'can_edit'=>$can_edit,'can_validate'=>$can_validate));
     }
 
     public function occs(\Rest\Server $r) {

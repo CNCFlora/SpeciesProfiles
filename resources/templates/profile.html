@@ -2,7 +2,7 @@
 
 <div class="span8">
     {{#profile}}
-    <h3><i>{{taxon.scientificName}}</i> {{taxon.scientificNameAuthorship}}</h3>
+    <h3>{{taxon.family}}<br /> <i>{{taxon.scientificName}}</i> {{taxon.scientificNameAuthorship}}</h3>
     {{#logged}}
     {{/logged}}
     <ul class="nav nav-tabs">
@@ -72,17 +72,23 @@
     {{#logged}}
         {{#role-analyst}}
         {{#status_open}}
+        {{#can_edit}}
             <a href="/profile/{{profile._id}}/edit" class="btn btn-mini"><i class='icon-edit'></i> {{strings.edit}}</a>
+        {{/can_edit}}
         {{/status_open}}
         {{/role-analyst}}
         {{#role-validator}}
         {{#status_validation}}
+        {{#can_validate}}
             <a href="/profile/{{profile._id}}/validate" class="btn btn-mini"><i class='icon-edit'></i> {{strings.validate}}</a>
+            {{/can_validate}}
         {{/status_validation}}
         {{/role-validator}}
         {{#role-analyst}}
         {{#status_review}}
+        {{#can_edit}}
             <a href="/profile/{{profile._id}}/review" class="btn btn-mini"><i class='icon-edit'></i> {{strings.review}}</a>
+        {{/can_edit}}
         {{/status_review}}
         {{/role-analyst}}
     {{/logged}}
