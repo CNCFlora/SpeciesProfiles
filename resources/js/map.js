@@ -71,6 +71,7 @@ var map = (function() {
             }
 
             L.control.layers(base,layers).addTo(map);
+            L.control.scale().addTo(map);
 
             window.onhashchange = function() {
                 if(location.hash.match(/occ-/)) {
