@@ -55,6 +55,7 @@ $rest->addMap("POST","/profile/:id/occurrences/:oid/comment",'\cncflora\controll
 $rest->addMap("POST","/profile/:id/occurrences/:oid/validate",'\cncflora\controller\Occurrences::validate');
 
 $rest->addMap("POST","/profile/:id/send/:status","\cncflora\controller\Workflow::changeStatus");
+$rest->addMap("POST","/profile/:id/sendTo","\cncflora\controller\Workflow::changeStatusForce");
 $rest->addMap("GET","/work","\cncflora\controller\Workflow");
 $rest->addMap("GET","/work/:family/:status","\cncflora\controller\Workflow::family");
 $rest->addMap("GET","/control","\cncflora\controller\Workflow::control");

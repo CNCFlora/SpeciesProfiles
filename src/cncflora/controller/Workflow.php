@@ -106,6 +106,24 @@ class Workflow implements \Rest\Controller {
         return new \Rest\Controller\Redirect('/'.BASE_PATH.'profile/'.$doc->_id);
     }
 
+    function changeStatusForce($r) {
+        $id = $r->GetRequest()->getparameter("id");
+        $status = $r->getRequest()->getPost("status");
+        $user = $r->getParameter("user");
+        $repo = new \cncflora\repository\Profiles($user);
+        $doc = $repo->get($id);
+        $doc->metadata->status= $status;
+        if($status == 'done') $doc->metadata->valid = true;
+        $r = $repo->update($doc,false);
+        if(isset($r->error)) {
+            $j = json_decode(substr($r->reason,strpos( $r->reason,":" ) + 1));
+            $err = "Error: ".$j->message." at ".substr($j->dataPath,1);
+            echo $err;
+            exit;
+        }
+        return new \Rest\Controller\Redirect('/'.BASE_PATH.'profile/'.$doc->_id);
+    }
+
     public function control(\Rest\Server $r) {
 
         $data = array('empty'=>array(),'open'=>array(),'validation'=>array(),'review'=>array(),'done'=>array());

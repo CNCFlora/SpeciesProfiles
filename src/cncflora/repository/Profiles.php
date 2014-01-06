@@ -47,33 +47,35 @@ class Profiles extends Base {
         }
     }
 
-    public function update($profile) {
-        $metadata = $profile->metadata;
-        if(strpos($metadata->contact,$this->user->email) === false) {
-            $metadata->contributor = $this->user->name ." ; ".$metadata->contributor;
-            $metadata->contact = $this->user->email ." ; ".$metadata->contact;
-        }
-
-        $contributors = explode(" ; ",$metadata->contributor);
-        $contributorsFinal = array();
-        foreach($contributors as $contributor) {
-            if($contributor != null && strlen($contributor) >= 3) {
-                $contributorsFinal[] = $contributor;
+    public function update($profile,$log=true) {
+        if($log) {
+            $metadata = $profile->metadata;
+            if(strpos($metadata->contact,$this->user->email) === false) {
+                $metadata->contributor = $this->user->name ." ; ".$metadata->contributor;
+                $metadata->contact = $this->user->email ." ; ".$metadata->contact;
             }
-        }
-        $metadata->contributor = implode(" ; ",$contributorsFinal);
 
-        $contacts = explode(" ; ",$metadata->contact);
-        $contactsFinal = array();
-        foreach($contacts as $contact) {
-            if($contact != null && strlen($contact) >= 3) {
-                $contactsFinal[] = $contact;
+            $contributors = explode(" ; ",$metadata->contributor);
+            $contributorsFinal = array();
+            foreach($contributors as $contributor) {
+                if($contributor != null && strlen($contributor) >= 3) {
+                    $contributorsFinal[] = $contributor;
+                }
             }
-        }
-        $metadata->contact = implode(" ; ",$contactsFinal);
+            $metadata->contributor = implode(" ; ",$contributorsFinal);
 
-        $metadata->modified = time();
-        $profile->metadata = $metadata;
+            $contacts = explode(" ; ",$metadata->contact);
+            $contactsFinal = array();
+            foreach($contacts as $contact) {
+                if($contact != null && strlen($contact) >= 3) {
+                    $contactsFinal[] = $contact;
+                }
+            }
+            $metadata->contact = implode(" ; ",$contactsFinal);
+
+            $metadata->modified = time();
+            $profile->metadata = $metadata;
+        }
 
         $r = $this->db->insert($profile,$profile->_id);
         if(isset($r->error)) {

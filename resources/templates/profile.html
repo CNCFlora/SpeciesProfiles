@@ -92,6 +92,20 @@
         {{/status_review}}
         {{/role-analyst}}
     {{/logged}}
+    {{#role-admin}}
+        <form action="/profile/{{profile._id}}/sendTo" method='POST'>
+            <fieldset>
+                <legend>{{strings.change-status}}</legend>
+                <select name="status">
+                    <option>open</option>
+                    <option>validate</option>
+                    <option>review</option>
+                    <option>done</option>
+                </select>
+                <button class="btn btn-primary">{{strings.send}}</button>
+            </fieldset>
+        </form>
+    {{/role-admin}}
 </div>
 
 {{> footer}}

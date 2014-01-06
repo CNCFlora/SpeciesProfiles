@@ -10,6 +10,7 @@
     "save":"Salvar",
     "metadata":"Metadata",
     "send-to-validation":"Enviar para validação",
+    "send":"Enviar",
     "creator":"Criador",
     "contributor":"Contribuidor(es)",
     "created":"Criado",
@@ -99,5 +100,6 @@
     "validator-comment":"Comentários do validador",
     "validate":"Validar",
     "review":"Revisar",
-    "control":"Controle"
+    "control":"Controle",
+    "change-status":"Mudar etapa"
 }
