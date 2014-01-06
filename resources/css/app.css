@@ -149,3 +149,10 @@ li.spp a.got {
     display: none;
 }
 
+.hero-unit {
+    border-left: 4px #F89406 solid;
+}
+
+.validated {
+    border-left: 4px #0088CC solid;
+}
