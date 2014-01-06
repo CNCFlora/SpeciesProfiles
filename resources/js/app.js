@@ -32,7 +32,11 @@ head
             });
         });
         $("form.send-to").submit(function(){
-            return confirm("Confirm?");
+            if($("html").attr("id") == "validate-page") {
+                return confirm("Confirma essa ação? Por favor conferir também se validou todos os pontos de ocorrências em 'abrir mapa'.");
+            } else {
+                return confirm("Confirm?");
+            }
         });
         $("select.families").change(function(evt){
             var el = $(evt.target),family = el.val(), status = el.parent().attr("id") ;
