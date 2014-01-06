@@ -64,7 +64,6 @@ class Occurrences  {
         $query->execute(array($name));
         $count = $query->fetchColumn(0);
         $eoo = 0 ;
-        var_dump($count);
         if($count <= 2) {
             $q = $this->db->prepare('select ST_Area(ST_Union(ST_Buffer_Meters(ST_SetSrid(coordinates,4326),10000))) * 10000 '
                 .' as eoo from occurrences where '
