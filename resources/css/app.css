@@ -153,6 +153,34 @@ li.spp a.got {
     border-left: 4px #F89406 solid;
 }
 
-.validated {
-    border-left: 4px #0088CC solid;
+.validated { /* a.k.a non-valid */
+    border-left: 4px #DA4F49 solid;
+}
+
+.validated.valid {
+    border-left: 4px #20AE54 solid;
+}
+
+.missing {
+    font-weight: bold;
+}
+
+.alabel {
+    float: right;
+    width: 190px;
+    border: 1px #F89406 dotted;
+    padding: 5px;
+}
+
+.alabel .label, .alabel.label{
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.validated .alabel{
+    border-color: #DA4F49;
+}
+
+.validated.valid .alabel {
+    border-color: #20AE54;
 }

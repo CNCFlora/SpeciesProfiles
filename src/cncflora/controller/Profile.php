@@ -60,6 +60,14 @@ class Profile implements \Rest\Controller {
 
         $repoOcc = new \cncflora\repository\Occurrences();
         $occs = $repoOcc->listByName($profile->taxon->scientificName);
+        $profile->occsDone = 0;
+        $profile->occsTotal = count($occs);
+        foreach($occs as $occ) {
+            if(isset($occ->validationBy) && $occ->validationBy != null){
+                $profile->occsDone++;
+            }
+        }
+        $profile->ocssMissing = $profile->ocssTodo >= 1;
 
         if(!isset($profile->distribution)) $profile->distribution = new \StdClass;
         $profile->distribution->eoo = $repoOcc->eoo($profile->taxon->scientificName);

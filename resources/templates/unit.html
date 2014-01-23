@@ -1,4 +1,26 @@
-<div class="hero-unit {{#validationBy}} validated {{/validationBy}}"  id="occ-{{occurrenceID}}">
+<div class="hero-unit {{#validationBy}} validated {{/validationBy}} {{#valid}} valid {{/valid}}"  id="occ-{{occurrenceID}}">
+    <div class='actions alabel'>
+        {{^georeferenceVerificationStatus}}
+        <p  class='label label-warning'>missing GIS verification</p>
+        {{/georeferenceVerificationStatus}}
+        {{^validationBy}}
+            <p class='label label-warning'>missing validation</p>
+        {{/validationBy}}
+        {{#decimalLatitude}}
+        <p>
+            <button class="to-map btn btn-mini" rel='{{occurrenceID}}'><i class='icon-eye-open'></i> view in map</button>
+        </p>
+        {{/decimalLatitude}}
+        {{^decimalLatitude}}
+        <p class='label label-warning'>point not available</p>
+        {{/decimalLatitude}}
+        {{#role-validator}}
+        <p><a href="#validate-{{occurrenceID}}" data-toggle="modal" class='btn btn-mini'><i class='icon-edit'></i> edit validation</a></p>
+        {{/role-validator}}
+        {{#role-analyst}}
+        <p><a href="#analysis-{{occurrenceID}}" data-toggle="modal" class='btn btn-mini'><i class='icon-edit'></i> edit analysis</a></p>
+        {{/role-analyst}}
+    </div>
     <a name="occ-{{occurrenceID}}"></a>
     <p><strong>Occurrence ID</strong>: <a href="#occ-{{occurrenceID}}">{{occurrenceID}}</a></p>
     <p><strong>Taxon</strong>:{{family}} {{scientificName}}</p>
@@ -31,11 +53,6 @@
         <strong>Literature</strong>: {{bibliographicCitation}}
     </p>
     <p><strong>Remarks</strong>: {{occurrenceRemarks}}</p>
-    {{^georeferenceVerificationStatus}}
-    <p>
-        <span class='label label-warning'>missing GIS verification</span>
-    </p>
-    {{/georeferenceVerificationStatus}}
     {{#georeferenceBy}}
         <p><strong>Georeference Remarks</strong>: {{georeferenceBy}} - {{georeferenceRemarks}}</p>
     {{/georeferenceBy}}
@@ -50,23 +67,6 @@
         <strong>Validation Remarks</strong>: {{validationBy}} - {{validationStatus}}: {{validationRemarks}}
     </p>
     {{/validationBy}}
-    {{^validationBy}}
-        <p class='label label-warning'>missing validation</p>
-    {{/validationBy}}
-    <p class='actions'>
-        {{#decimalLatitude}}
-        <button class="to-map btn btn-mini" rel='{{occurrenceID}}'>view in map</button>
-        {{/decimalLatitude}}
-        {{^decimalLatitude}}
-        <p class='label label-warning'>point not available</p>
-        {{/decimalLatitude}}
-        {{#role-validator}}
-        <p><a href="#validate-{{occurrenceID}}" data-toggle="modal" class='btn btn-mini'><i class='icon-edit'></i> edit validation</a></p>
-        {{/role-validator}}
-        {{#role-analyst}}
-        <p><a href="#analysis-{{occurrenceID}}" data-toggle="modal" class='btn btn-mini'><i class='icon-edit'></i> edit analysis</a></p>
-        {{/role-analyst}}
-    </p>
     {{#role-validator}}
     <form method="POST" action="/profile/{{profile._id}}/occurrences/{{occurrenceID}}/validate" class="modal hide" id="validate-{{occurrenceID}}">
         <fieldset>
