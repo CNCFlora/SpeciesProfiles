@@ -83,7 +83,7 @@ class Occurrences  {
             $q->execute(array($name));
             $eoo = $q->fetchColumn(0);
         }
-        $eoo = number_format($eoo,2,'.','.');
+        $eoo = number_format($eoo,2,',','.');
         return $eoo;
     }
 
@@ -134,7 +134,7 @@ class Occurrences  {
         $query = $this->db->prepare($q);
         $query->execute(array($name,$name));
         $aoo = $query->fetchColumn(0);
-        $aoo = number_format($aoo,2,'.','.');
+        $aoo = number_format($aoo,2,',','.');
         return $aoo;
     }
 
