@@ -7,7 +7,8 @@
     "require": {
         "restserver/restserver": "dev-master",
         "mustache/mustache": "dev-master",
-        "nano-php/nano-php": "dev-master"
+        "nano-php/nano-php": "dev-master",
+        "symfony/yaml": "2.5.*@dev"
     },
     "require-dev": {
         "jaz303/phake": "dev-master",

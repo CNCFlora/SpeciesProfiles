@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="/resources/css/ui-lightness/jquery-ui-1.10.1.custom.min.css" />
     <script>
         var base = '/{{BASE_PATH}}';
-        var couchdb = 'http://{{COUCH_HOST}}/{{COUCH_BASE}}';
-        var connect = '{{CONNECT}}';
+        var couchdb = 'http://{{COUCHDB_HOST}}:{{COUCHDB_PORT}}/{{COUCHDB_BASE}}';
+        var connect = 'http://{{CONNECT_HOST}}:{{CONNECT_PORT}}';
         {{#logged}}var logged = true;{{/logged}}
         {{^logged}}var logged = false;{{/logged}}
     </script>

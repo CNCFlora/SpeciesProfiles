@@ -2,6 +2,8 @@
 
 namespace cncflora;
 
+use Symfony\Component\Yaml\Yaml;
+
 class Utils {
     public static $db;
     public static $data;
@@ -14,7 +16,7 @@ class Utils {
     public static function init() {
         self::$config  = self::config();
         self::$data    = __DIR__.'/../../data';
-        self::$couchdb = "http://".COUCH_HOST.":".COUCH_PORT."/".COUCH_BASE;
+        self::$couchdb = "http://".COUCHDB_HOST.":".COUCHDB_PORT."/".COUCHDB_BASE;
         self::$strings = json_decode(file_get_contents(__DIR__."/../../resources/locales/".LANG.".json"));
         self::$taxons  = self::taxons();
     }
@@ -40,19 +42,38 @@ class Utils {
         if(!defined('TEST')) {
             define('TEST',true);
         }
-        self::$couchdb = "http://".COUCH_HOST.":".COUCH_PORT."/".COUCH_BASE."_test";
+        self::$couchdb = "http://".COUCHDB_HOST.":".COUCHDB_PORT."/".COUCHDB_BASE."_test";
     }
 
     public static function config() {
-        $ini = parse_ini_file(__DIR__."/../../resources/config.ini");
-        $arr = array();
-        foreach($ini as $k=>$v) {
-            if(!defined($k)){
+        $data = array();
+
+        $array = Yaml::parse(__DIR__."/../../resources/config.yml");
+        foreach($array as $key=>$value) {
+            $data[strtoupper($key)] = $value;
+        }
+
+        if(isset($data['ETCD'])) {
+            $keys = json_decode( file_get_contents($data['ETCD']."/v2/keys/?recursive=true") );
+            foreach($keys->node->nodes as $node) {
+                if(isset($node->nodes)) {
+                    foreach($node->nodes as $entry) {
+                        $key  = strtoupper(str_replace("/","_",substr($entry->key,1)));
+                        if(isset($entry->value) && !is_null($entry->value)) {
+                            $data[$key] = $entry->value;
+                        }
+                    }
+                }
+            }
+        }
+
+        foreach($data as $k=>$v) {
+            if(!defined($k)) {
                 define($k,$v);
             }
-            $arr[$k] = $v;
         }
-        return $arr;
+
+        return $data;
     }
 
     public static function schema() {
