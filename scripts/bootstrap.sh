@@ -28,6 +28,7 @@ echo 'SUBSYSTEM=="bdi",ACTION=="add",RUN+="/vagrant/scripts/register.sh >> /var/
 cd /vagrant
 [[ ! -e composer.phar ]] && su vagrant -c "curl -sS https://getcomposer.org/installer | php"
 [[ ! -e vendor ]] && su vagrant -c "./composer.phar install"
+[[ ! -e resources/config.yml ]]  && su vagrant -c "cp resources/config.yml.dist resources/config.yml"
 
 # register the service
 cd /vagrant && ./scripts/register.sh
