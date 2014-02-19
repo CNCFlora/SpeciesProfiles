@@ -90,6 +90,7 @@ class Utils {
         $schema->properties->ecology->properties->biomas->items->enum = json_decode(file_get_contents( __DIR__."/../../resources/dicts/biomas.json" ));
         $schema->properties->ecology->properties->fitofisionomies->items->enum = json_decode(file_get_contents( __DIR__."/../../resources/dicts/fitofisionomies.json" ));
         $schema->properties->threats->items->properties->threat->enum = json_decode(file_get_contents(__DIR__."/../../resources/dicts/threats.json"));
+        $schema->properties->threats->items->properties->stress->enum = json_decode(file_get_contents(__DIR__."/../../resources/dicts/stress.json"));
         $schema->properties->actions->items->properties->action->enum = json_decode(file_get_contents(__DIR__."/../../resources/dicts/actions.json"));
         $schema->properties->uses->items->properties->use->enum = json_decode(file_get_contents(__DIR__."/../../resources/dicts/uses.json"));
 
