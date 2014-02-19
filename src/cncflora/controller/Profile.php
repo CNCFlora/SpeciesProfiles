@@ -170,5 +170,25 @@ class Profile implements \Rest\Controller {
         return new \Rest\View\JSon($r);
     }
 
+    function habitats2fito($r) {
+        $habitats = json_decode($r->getRequest()->getGet("q"));
+        $f = fopen(__DIR__."/../../../resources/dicts/habitats2fito.csv",'r');
+        $res = array() ;
+        while($row = fgetcsv($f,0,',','')) {
+            foreach($habitats as $habitat) {
+                if(strpos($habitat,$row[0]) !== false)
+                    foreach(explode(";",$row[1]) as $fito)  {
+                        $res[] = trim($fito);
+                    }
+                }
+            }
+        }
+        fclose($f);
+        $res = array_unique($res);
+        sort($res);
+        $res = implode(" ; ",$res)
+        return new \Rest\View\JSon($res);
+    }
+
 }
 

@@ -121,6 +121,13 @@ head
                     });
                 }
             });
+            setInterval(function(){
+                var habitats = $("select").filter(function(i,f){ return $(f).attr("id").match(/ecology-habitat/);}).map(function(i,f){ return f.value});
+                $.getJSON(base+'habitats2fito?q='+URIEncodeComponent(JSON.stringify(habitats)),function(data){
+                    var label = $("li[id*='fitofisionomies']>label").first();
+                    label.html(label.html()+" <small>recommends: "+data+"</small>");
+                });
+            },1000);
         }
         if($("html").attr("id") == "validate-page") {
             for(var i in schema.properties) {
