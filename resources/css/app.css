@@ -149,6 +149,10 @@ li.spp a.got {
     display: none;
 }
 
+.leaflet-popup-content .actions{
+    display: none;
+}
+
 .hero-unit {
     border-left: 4px #F89406 solid;
 }

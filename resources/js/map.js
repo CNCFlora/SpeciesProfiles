@@ -22,6 +22,7 @@ var map = (function() {
             var pointsNok  = new L.layerGroup();
 
             var rePoints  = {};
+            var rePoints2  = {};
 
             for(var i in occurrences) {
                 var feature = occurrences[i];
@@ -47,6 +48,7 @@ var map = (function() {
                 }
 
                 rePoints[feature.properties.occurrenceID] = marker2;
+                rePoints2[feature.properties.occurrenceID] = marker;
             }
 
             map.addLayer(markersOk);
@@ -76,13 +78,14 @@ var map = (function() {
             window.onhashchange = function() {
                 if(location.hash.match(/occ-/)) {
                     $(".hero-unit").removeClass("active");
-                    $(window.location.hash).addClass("active");
+                    $(window.location.hash+"-unit").addClass("active");
                 }
             }
 
             $(".to-map").click(function(evt){
                 var id = $(evt.target).attr("rel");
                 rePoints[id].openPopup();
+                rePoints2[id].openPopup();
                 location.hash="map";
             });
 

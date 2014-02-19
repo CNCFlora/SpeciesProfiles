@@ -27,6 +27,6 @@ class Occurrences implements \Rest\Controller {
         $comment = $r->getRequest()->getPost("comment");
         $repo = new \cncflora\repository\Occurrences($user);
         $repo->validate($repo->getById($oid),$presence,$status,$comment);
-        return new \Rest\Controller\Redirect('/'.BASE_PATH."profile/".$id."#occurrences");
+        return new \Rest\Controller\Redirect('/'.BASE_PATH."profile/".$id."#occurrences-".$oid);
     }
 }

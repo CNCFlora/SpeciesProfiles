@@ -134,8 +134,11 @@ head
                 $("#field").append("<option>"+ schema.properties[i].label +"</option>");
             }
         }
-        if(location.hash == "#occurrences") {
+        if(location.hash.match(/#occurrences/)) {
             $("a[href='#occ']").click();
+            setTimeout(function(){
+                    location.hash = location.hash.replace("occurrences-","")+"-unit";
+            },1000);
         }
         if($("#map").length >= 1) {
             head.js("resources/js/map.js")
