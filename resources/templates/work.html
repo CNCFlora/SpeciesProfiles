@@ -6,9 +6,15 @@
         <li class='active'><a href="#empty" data-toggle="tab">{{strings.not-started}}</a></li>
         <li><a href="#open" data-toggle="tab">{{strings.analisys}}</a></li>
         {{/role-analyst}}
+        {{#role-sig}}
+        <li><a href="#sig" data-toggle="tab">{{strings.sig}}</a></li>
+        {{/role-sig}}
         {{#role-validator}}
         <li><a href="#validation" data-toggle="tab">{{strings.validation}}</a></li>
         {{/role-validator}}
+        {{#role-sig}}
+        <li><a href="#sig-revision" data-toggle="tab">{{strings.sig-revision}}</a></li>
+        {{/role-sig}}
         {{#role-analyst}}
         <li><a href="#review" data-toggle="tab">{{strings.revision}}</a></li>
         {{/role-analyst}}
@@ -35,6 +41,17 @@
             <ul></ul>
         </div>
         {{/role-analyst}}
+        {{#role-sig}}
+        <div id="sig" class="tab-pane">
+            <select class="families">
+                <option></option>
+                {{#families}}
+                <option>{{.}}</option>
+                {{/families}}
+            </select>
+            <ul></ul>
+        </div>
+        {{/role-sig}}
         {{#role-validator}}
         <div id="validation" class="tab-pane">
             <select class="families">
@@ -46,6 +63,17 @@
             <ul></ul>
         </div>
         {{/role-validator}}
+        {{#role-sig}}
+        <div id="sig-revision" class="tab-pane">
+            <select class="families">
+                <option></option>
+                {{#families}}
+                <option>{{.}}</option>
+                {{/families}}
+            </select>
+            <ul></ul>
+        </div>
+        {{/role-sig}}
         {{#role-analyst}}
         <div id="review" class="tab-pane">
             <select class="families">

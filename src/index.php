@@ -42,6 +42,7 @@ $rest->addMap("POST","/profile",'\cncflora\controller\Profile::createProfile');
 $rest->addMap("GET","/profile/:id",'\cncflora\controller\Profile');
 $rest->addMap("GET","/profile/:id/occs",'\cncflora\controller\Profile::occs');
 $rest->addMap("GET","/profile/:id/view",'\cncflora\controller\Profile::view');
+$rest->addMap("GET","/profile/:id/sig",'\cncflora\controller\Profile::sig');
 $rest->addMap("GET","/profile/:id/edit",'\cncflora\controller\Profile::edit');
 $rest->addMap("POST","/profile/:id","\cncflora\controller\Profile::save");
 

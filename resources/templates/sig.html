@@ -70,55 +70,17 @@
     {{#profile.metadata}}
     {{> metadata}}
     {{/profile.metadata}}
-    {{#logged}}
-        {{#role-analyst}}
-        {{#status_open}}
-        {{#can_edit}}
-            <a href="/profile/{{profile._id}}/edit" class="btn btn-mini"><i class='icon-edit'></i> {{strings.edit}}</a>
-        {{/can_edit}}
-        {{/status_open}}
-        {{/role-analyst}}
-        {{#role-sig}}
-        {{#status_sig-review}}
-            <a href="/profile/{{profile._id}}/sig" class="btn btn-mini"><i class='icon-edit'></i> {{strings.sig}}</a>
-        {{/status_sig-review}}
-        {{/role-sig}}
-        {{#role-validator}}
-        {{#status_validation}}
-        {{#can_validate}}
-            <a href="/profile/{{profile._id}}/validate" class="btn btn-mini"><i class='icon-edit'></i> {{strings.validate}}</a>
-        {{/can_validate}}
-        {{/status_validation}}
-        {{/role-validator}}
-        {{#role-sig}}
-        {{#status_sig-review}}
-            <a href="/profile/{{profile._id}}/sig" class="btn btn-mini"><i class='icon-edit'></i> {{strings.sig-review}}</a>
-        {{/status_sig-review}}
-        {{/role-sig}}
-        {{#role-analyst}}
-        {{#status_review}}
-        {{#can_edit}}
-            <a href="/profile/{{profile._id}}/review" class="btn btn-mini"><i class='icon-edit'></i> {{strings.review}}</a>
-        {{/can_edit}}
-        {{/status_review}}
-        {{/role-analyst}}
-    {{/logged}}
-    {{#role-admin}}
-        <form action="/profile/{{profile._id}}/sendTo" method='POST'>
-            <fieldset>
-                <legend>{{strings.change-status}}</legend>
-                <select name="status">
-                    <option>open</option>
-                    <option>sig</option>
-                    <option>validation</option>
-                    <option>sig-review</option>
-                    <option>review</option>
-                    <option>done</option>
-                </select>
-                <button class="btn btn-primary">{{strings.send}}</button>
-            </fieldset>
-        </form>
-    {{/role-admin}}
+    {{#status_sig}}
+    <form action="/profile/{{profile._id}}/send/validation" method="POST" class='send-to'>
+        <button class="btn btn-success">{{strings.send-to-validation}}</button>
+    </form>
+    {{/status_sig}}
+    {{#status_sig-review}}
+    <form action="/profile/{{profile._id}}/send/review" method="POST" class='send-to'>
+        <button class="btn btn-success">{{strings.send-to-review}}</button>
+    </form>
+    {{/status_sig-review}}
 </div>
 
 {{> footer}}
+
