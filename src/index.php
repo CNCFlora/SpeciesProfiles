@@ -61,6 +61,8 @@ $rest->addMap("GET","/work","\cncflora\controller\Workflow");
 $rest->addMap("GET","/work/:family/:status","\cncflora\controller\Workflow::family");
 $rest->addMap("GET","/control","\cncflora\controller\Workflow::control");
 
+$rest->addMap("GET","/habitats2fito",'\cncflora\controller\Profile::habitats2fito');
+
 
 $rest->addMap("GET",'.*',function($r) {
     $uri = $r->getRequest()->getURI();

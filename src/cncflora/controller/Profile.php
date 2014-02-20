@@ -171,12 +171,12 @@ class Profile implements \Rest\Controller {
     }
 
     function habitats2fito($r) {
-        $habitats = json_decode($r->getRequest()->getGet("q"));
+        $habitats = json_decode($r->getRequest()->getGet("habitats"));
         $f = fopen(__DIR__."/../../../resources/dicts/habitats2fito.csv",'r');
         $res = array() ;
-        while($row = fgetcsv($f,0,',','')) {
+        while($row = fgetcsv($f)) {
             foreach($habitats as $habitat) {
-                if(strpos($habitat,$row[0]) !== false)
+                if(strpos($habitat,$row[0]) !== false) {
                     foreach(explode(";",$row[1]) as $fito)  {
                         $res[] = trim($fito);
                     }
@@ -186,7 +186,7 @@ class Profile implements \Rest\Controller {
         fclose($f);
         $res = array_unique($res);
         sort($res);
-        $res = implode(" ; ",$res)
+        $res = implode(" ; ",$res);
         return new \Rest\View\JSon($res);
     }
 
