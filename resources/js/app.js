@@ -145,7 +145,7 @@ head
         if(location.hash.match(/#occurrences/)) {
             $("a[href='#occ']").click();
             setTimeout(function(){
-                    location.hash = location.hash.replace("occurrences-","")+"-unit";
+                    location.hash = '#occ-'+location.hash.replace("occurrences-","").slice(1)+"-unit";
             },1000);
         }
         if($("#map").length >= 1) {
