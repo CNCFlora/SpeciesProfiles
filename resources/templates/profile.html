@@ -72,38 +72,51 @@
     {{> metadata}}
     {{/profile.metadata}}
     {{#logged}}
+
         {{#role-analyst}}
-        {{#status_open}}
-        {{#can_edit}}
-            <a href="/profile/{{profile._id}}/edit" class="btn btn-mini"><i class='icon-edit'></i> {{strings.edit}}</a>
-        {{/can_edit}}
-        {{/status_open}}
+		{{#status_open}}
+			{{#can_edit}}
+			    <a href="/profile/{{profile._id}}/edit" class="btn btn-mini"><i class='icon-edit'></i> {{strings.edit}}</a>
+			{{/can_edit}}
+		{{/status_open}}
+
+		{{#status_validation}}
+			{{#can_edit}}
+			    <a href="/profile/{{profile._id}}/validate" class="btn btn-mini"><i class='icon-edit'></i> {{strings.comunicacao}}</a>
+			{{/can_edit}}
+		{{/status_validation}}
         {{/role-analyst}}
+
         {{#role-sig}}
-        {{#status_sig-review}}
+        	{{#status_sig-review}}
             <a href="/profile/{{profile._id}}/sig" class="btn btn-mini"><i class='icon-edit'></i> {{strings.sig}}</a>
-        {{/status_sig-review}}
+	        {{/status_sig-review}}
         {{/role-sig}}
+
         {{#role-validator}}
-        {{#status_validation}}
-        {{#can_validate}}
+		{{#status_validation}}
+			{{#can_validate}}
             <a href="/profile/{{profile._id}}/validate" class="btn btn-mini"><i class='icon-edit'></i> {{strings.validate}}</a>
-        {{/can_validate}}
-        {{/status_validation}}
+			{{/can_validate}}
+		{{/status_validation}}
         {{/role-validator}}
+
         {{#role-sig}}
-        {{#status_sig-review}}
+		{{#status_sig-review}}
             <a href="/profile/{{profile._id}}/sig" class="btn btn-mini"><i class='icon-edit'></i> {{strings.sig-review}}</a>
-        {{/status_sig-review}}
+		{{/status_sig-review}}
         {{/role-sig}}
+
         {{#role-analyst}}
-        {{#status_review}}
-        {{#can_edit}}
+		{{#status_review}}
+			{{#can_edit}}
             <a href="/profile/{{profile._id}}/review" class="btn btn-mini"><i class='icon-edit'></i> {{strings.review}}</a>
-        {{/can_edit}}
-        {{/status_review}}
+			{{/can_edit}}
+		{{/status_review}}
         {{/role-analyst}}
+
     {{/logged}}
+
     {{#role-admin}}
         <form action="/profile/{{profile._id}}/sendTo" method='POST'>
             <fieldset>
