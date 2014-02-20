@@ -126,7 +126,7 @@ class Workflow implements \Rest\Controller {
 
     public function control(\Rest\Server $r) {
 
-        $data = array('empty'=>array(),'open'=>array(),'validation'=>array(),'review'=>array(),'done'=>array());
+        $data = array('empty'=>array(),'open'=>array(),'sig'=>array(),'validation'=>array(),'review'=>array(),'review-sig'=>array(),'done'=>array());
 
         $couchdb = new \Nano\Nano('http://'.COUCH_USER.":".COUCH_PASS."@".COUCH_HOST.":".COUCH_PORT);
         $db = $couchdb->db->use(COUCH_BASE);
