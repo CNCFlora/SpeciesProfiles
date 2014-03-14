@@ -87,10 +87,11 @@ var map = (function() {
                 var id = $(evt.target).attr("rel");
                 map.setView(rePoints[id]._latlng,10)
                 setTimeout(function(){
+                    location.hash="map";
                     rePoints[id].openPopup();
                     rePoints2[id].openPopup();
-                },1000);
-                location.hash="map";
+                },200);
+                location.hash="";
             });
 
             $(".hero-unit").click(function(evt) {
