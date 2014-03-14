@@ -47,11 +47,12 @@ var map = (function() {
                     pointsNok.addLayer(marker2);
                 }
 
-                rePoints[feature.properties.occurrenceID] = marker2;
-                rePoints2[feature.properties.occurrenceID] = marker;
+                rePoints[feature.properties.occurrenceID] = marker;
+                rePoints2[feature.properties.occurrenceID] = marker2;
             }
 
             map.addLayer(markersOk);
+            map.addLayer(markersNok);
 
             var base = {
                 Landscape: land,
@@ -84,8 +85,11 @@ var map = (function() {
 
             $(".to-map").click(function(evt){
                 var id = $(evt.target).attr("rel");
-                rePoints[id].openPopup();
-                rePoints2[id].openPopup();
+                map.setView(rePoints[id]._latlng,10)
+                setTimeout(function(){
+                    rePoints[id].openPopup();
+                    rePoints2[id].openPopup();
+                },1000);
                 location.hash="map";
             });
 
