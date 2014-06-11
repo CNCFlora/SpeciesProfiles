@@ -1,14 +1,14 @@
 {{> header}}
 
-<form action="/" class='span12'>
-    <div class="input-append input-prepend">
-        <input class="span4" type="text" name="query"
+<form action="/" class='col-md-8 form-inline'>
+    <div class="form-group">
+        <input class="form-control" type="text" name="query" id="query"
                 placeholder="Search..." value="{{query}}">
-        <button class="btn" type="search">{{strings.search}}</button>
     </div>
+    <button class="btn btn-default" type="search" id="search-btn" >{{strings.search}}</button>
 </form>
 
-<div class="span12">
+<div class="col-md-12">
     {{^result}}
         <p>{{strings.no-result}}</p>
     {{/result}}

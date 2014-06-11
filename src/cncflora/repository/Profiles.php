@@ -21,63 +21,28 @@ class Profiles extends Base {
         $metadata->source = "cncflora";
         $metadata->type = "profile";
         $metadata->valid = false;
-        $metadata->identifier = "urn:lsid:cncflora.jbrj.gov.br:profile:".str_replace(' ',':',strtolower($taxon->scientificName)).":".time();
+        $metadata->identifier = 'profile:'.uniqid();
 
         $profile = new \StdClass;
-        $profile->metadata = $metadata;
         $profile->_id = $metadata->identifier;
+        $profile->metadata = $metadata;
         $profile->taxon = new \StdClass;
         $profile->taxon->family = $taxon->family;
         $profile->taxon->scientificName = $taxon->scientificName;
         $profile->taxon->scientificNameAuthorship = $taxon->scientificNameAuthorship;
-        $profile->taxon->lsid = $taxon->_id;
 
-        $r = $this->db->insert($profile,$profile->_id);
+        $r = $this->put($profile);
 
         $profile->_rev = $r->rev;
         return $profile;
     }
 
-    public function get($id) {
-        $obj = $this->db->get($id);
-        if(!isset($obj->error))  {
-            return $obj;
-        } else {
-            return null;
-        }
-    }
-
     public function update($profile,$log=true) {
         if($log) {
-            $metadata = $profile->metadata;
-            if(strpos($metadata->contact,$this->user->email) === false) {
-                $metadata->contributor = $this->user->name ." ; ".$metadata->contributor;
-                $metadata->contact = $this->user->email ." ; ".$metadata->contact;
-            }
-
-            $contributors = explode(" ; ",$metadata->contributor);
-            $contributorsFinal = array();
-            foreach($contributors as $contributor) {
-                if($contributor != null && strlen($contributor) >= 3) {
-                    $contributorsFinal[] = $contributor;
-                }
-            }
-            $metadata->contributor = implode(" ; ",$contributorsFinal);
-
-            $contacts = explode(" ; ",$metadata->contact);
-            $contactsFinal = array();
-            foreach($contacts as $contact) {
-                if($contact != null && strlen($contact) >= 3) {
-                    $contactsFinal[] = $contact;
-                }
-            }
-            $metadata->contact = implode(" ; ",$contactsFinal);
-
-            $metadata->modified = time();
-            $profile->metadata = $metadata;
+            $this->metalog($profile);
         }
 
-        $r = $this->db->insert($profile,$profile->_id);
+        $r = $this->put($profile);
         if(isset($r->error)) {
             return $r;
         } else {
@@ -88,32 +53,25 @@ class Profiles extends Base {
 
     public function listByFamily($family) {
         $profiles = array();
-        $docs = $this->db->view('species_profiles','by_family',array('key'=>$family));
-        foreach($docs->rows as $doc) {
-            $profiles[] = $doc->value;
+        $docs = $this->search("profile","taxon.family='".$family."'");
+        foreach($docs as $doc) {
+            $profiles[] = $doc;
         }
         return $profiles;
     }
 
-    public function latestByTaxon($lsid) {
+    public function latestByTaxon($name) {
         $profile = null;
-        $docs = $this->db->view('species_profiles','by_taxon_lsid',array('key'=>$lsid));
-        foreach($docs->rows as $doc) {
-            if(is_null( $profile )) {
-                $profile = $doc->value;
-            } else if($profile->metadata->created <= $doc->value->metadata->created ) {
-                $profile = $doc->value;
+        $docs = $this->search("profile","taxon.scientificName='".$name."'");
+        foreach($docs as $doc) {
+            if(is_null($profile)) {
+                $profile = $doc;
+            } else if($profile->metadata->created <= $doc->metadata->created ) {
+                $profile = $doc;
             }
         }
         return $profile;
     }
 
-    public function delete($profile) {
-        return $this->db->destroy($profile->_id,$profile->_rev);
-    }
-
-
-    public function addThreat($profile,$threat) {
-    }
 }
 

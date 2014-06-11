@@ -7,13 +7,14 @@
 	<meta name="author" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/resources/css/bootstrap-theme.min.css" />
     <link rel="stylesheet" href="/resources/css/onde.css" />
     <link rel="stylesheet" href="/resources/css/app.css" />
     <link rel="stylesheet" href="/resources/css/ui-lightness/jquery-ui-1.10.1.custom.min.css" />
     <script>
-        var base = '/{{BASE_PATH}}';
-        var couchdb = 'http://{{COUCHDB_HOST}}:{{COUCHDB_PORT}}/{{COUCHDB_BASE}}';
-        var connect = 'http://{{CONNECT_HOST}}:{{CONNECT_PORT}}';
+        var base = '/{{BASE}}';
+        var couchdb = '{{COUCHDB_URL}}';
+        var connect = '{{CONNECT_URL}}';
         {{#logged}}var logged = true;{{/logged}}
         {{^logged}}var logged = false;{{/logged}}
     </script>
@@ -25,17 +26,14 @@
 </head>
 <body>
     <div class="container">
-        <header class="sixteen columns">
+        <header class="col-md-12">
             <h1>{{strings.species-profiles}}</h1>
-            {{#BETA}}<img src="/resources/img/beta.jpg" />{{/BETA}}
         </header>
-        <nav class="navbar">
+        <nav class="col-md-12 navbar navbar-default">
             <div class="navbar-inner">
-                <ul class="nav">
+                <ul class="nav navbar-nav">
                     <li><a href="/">{{strings.search}}</a></li>
                     <li><a href="/families">{{strings.families}}</a></li>
-                    <li><a href="/../biblio">{{strings.bibliography}}</a></li>
-                    <li><a href="{{OCC_APP}}/upload">{{strings.occurrences}}</a></li>
                     {{^logged}}
                     <li id='login'><a href="#">{{strings.login}}</a></li>
                     {{/logged}}
@@ -43,7 +41,6 @@
                     <li><a href="/work">{{strings.workflow}}</a></li>
                     <li><a href="/control">{{strings.control}}</a></li>
                     <li id='logout'><a href="#">{{strings.logout}}</a></li>		    	
-                    <li id='assessments'><a href='http://ipt.jbrj.gov.br/assessments/'>Avaliações</a></li>
                     {{/logged}}
                 </ul>
             </div>

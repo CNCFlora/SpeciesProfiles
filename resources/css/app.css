@@ -1,5 +1,4 @@
 
-
 header img {
     width:100px;
     margin-top: -100px;
@@ -21,45 +20,26 @@ body {
     padding-bottom: 50px;
 }
 
-[class*="span"] {
-    margin-left: 10px;
-}
-
-[class^="icon-"], [class*=" icon-"] {
-    margin-right:5px;
-}
-li.spp [class^="icon-"], li.spp [class*=" icon-"] {
-    vertical-align: middle;
-    margin-right:0;
-}
-
 .add-on {
     width: 100px !important;
     text-align:left !important;
 }
 
-.span12 input[type='text'] {
+.col-md-12 input[type='text'] {
     width: 300px;
 }
 
-.span12 select {
+.col-md-12 select {
     width: 315px;
 }
 
-.span12 a.file-input-wrapper {
+.col-md-12 a.file-input-wrapper {
     width: 400px
 }
 
-.span12 textarea {
+.col-md-12 textarea {
     width: 410px;
     height: 80px;
-}
-
-
-iframe {
-    border: none;
-    height: 500px;
-    width: 600px;
 }
 
 li {
@@ -87,10 +67,6 @@ li.spp a.got {
     margin-right: 10px;
 }
 
-.nav-tabs {
-    margin-bottom: 0;
-}
-
 .tab-content {
     border-left: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
@@ -101,6 +77,7 @@ li.spp a.got {
 .profile section {
     margin-left: 15px;
 }
+
 .profile section strong {
     font-weight:normal;
 }
@@ -121,70 +98,4 @@ li.spp a.got {
 .profile section p.resume strong {
     font-weight:bold;
 }
-#map {
-    height: 470px;
-    width: 100%;
-    overflow: hidden;
-    border: 1px #ddd solid;
-    border-radius: 3px;
-    margin-top: 20px;
-}
 
-.hero-unit {
-    padding: 5px;
-    font-size: 12px;
-    line-height: 13px;
-    border: 1px #ddd solid;
-}
-
-.hero-unit.active {
-    border: 1px black solid;
-}
-
-.leaflet-popup-content p {
-    margin: 0 !important;
-}
-
-.leaflet-popup-content .to-map {
-    display: none;
-}
-
-.leaflet-popup-content .actions{
-    display: none;
-}
-
-.hero-unit {
-    border-left: 4px #F89406 solid;
-}
-
-.validated { /* a.k.a non-valid */
-    border-left: 4px #DA4F49 solid;
-}
-
-.validated.valid {
-    border-left: 4px #20AE54 solid;
-}
-
-.missing {
-    font-weight: bold;
-}
-
-.alabel {
-    float: right;
-    width: 190px;
-    border: 1px #F89406 dotted;
-    padding: 5px;
-}
-
-.alabel .label, .alabel.label{
-    font-size: 16px;
-    line-height: 20px;
-}
-
-.validated .alabel{
-    border-color: #DA4F49;
-}
-
-.validated.valid .alabel {
-    border-color: #20AE54;
-}

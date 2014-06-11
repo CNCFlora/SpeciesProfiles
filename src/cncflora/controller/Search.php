@@ -11,20 +11,17 @@ class Search implements \Rest\View {
         $query  = null;
         if(isset($_GET["query"])) {
             $query = $r->GetRequest()->getGet("query");
-            $r  = json_decode(file_get_contents(ES."/profile/_search?q=".rawurlencode($query)))->hits->hits;
-            foreach($r as $rr) {
-                $result[] = $rr->_source;
-            }
+            $result = \cncflora\Utils::search("profile",$query);
         }
         return new View("index.html",array("result"=>$result,"query"=>$query));
     }
 
     public function biblio($r) {
         $term=$r->getRequest()->getGet("term");
-        $r  = json_decode(file_get_contents(ES."/biblio/_search?q=".rawurlencode($term)))->hits->hits;
+        $r = \cncflora\Utils::search("biblio",$term);
         $res = array();
         foreach($r as $row) {
-            $res[] = array("label"=>$row->_source->fullCitation,'value'=>$row->_source->_id);
+            $res[] = array("label"=>$row->fullCitation,'value'=>$row->_id);
         }
         return new \Rest\View\JSon($res);
     }

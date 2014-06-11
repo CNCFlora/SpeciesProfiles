@@ -6,7 +6,6 @@ use Symfony\Component\Yaml\Yaml;
 
 class Utils {
     public static $db;
-    public static $data;
     public static $couchdb;
     public static $couch;
     public static $config;
@@ -15,40 +14,25 @@ class Utils {
 
     public static function init() {
         self::$config  = self::config();
-        self::$data    = __DIR__.'/../../data';
-        self::$couchdb = "http://".COUCHDB_HOST.":".COUCHDB_PORT."/".COUCHDB_BASE;
+        self::$couchdb = DATAHUB_URL."/".DB;
         self::$strings = json_decode(file_get_contents(__DIR__."/../../resources/locales/".LANG.".json"));
-        self::$taxons  = self::taxons();
-    }
-
-    public static function taxons() {
-        $arr =  array();
-        $f = fopen(__DIR__."/../../resources/checklist.csv",'r');
-        while($l = fgetcsv($f,0,';','"')) {
-            $name = strtolower(trim(implode(" ",$l)));
-            $arr[strtolower( $l[0] )] = true;
-            $arr[$name] = true;
-        }
-        fclose($f);
-        return $arr;
-    }
-
-    public static function taxonOk($t) {
-       if(isset(self::$taxons[strtolower($t)]) && self::$taxons[strtolower( $t )] === true) return true;
-       else return false;
-    }
-
-    public static function setupTest() {
-        if(!defined('TEST')) {
-            define('TEST',true);
-        }
-        self::$couchdb = "http://".COUCHDB_HOST.":".COUCHDB_PORT."/".COUCHDB_BASE."_test";
+        //self::$taxons  = self::taxons();
     }
 
     public static function config() {
         $data = array();
 
-        $array = Yaml::parse(__DIR__."/../../resources/config.yml");
+        $raw = Yaml::parse(file_get_contents( __DIR__."/../../config.yml" ));
+
+        $env = getenv("PHP_ENV");
+        if($env == null) {
+            $env = 'development';
+        }
+
+        $data["ENV"] = $env;
+
+        $array = $raw[$env];
+
         foreach($array as $key=>$value) {
             $data[strtoupper($key)] = $value;
         }
@@ -58,7 +42,7 @@ class Utils {
             foreach($keys->node->nodes as $node) {
                 if(isset($node->nodes)) {
                     foreach($node->nodes as $entry) {
-                        $key  = strtoupper(str_replace("/","_",substr($entry->key,1)));
+                        $key  = strtoupper(str_replace("-","_",( str_replace("/","_",substr($entry->key,1)))));
                         if(isset($entry->value) && !is_null($entry->value)) {
                             $data[$key] = $entry->value;
                         }
@@ -69,30 +53,84 @@ class Utils {
 
         foreach($data as $k=>$v) {
             if(!defined($k)) {
-                define($k,$v);
+                define(strtoupper($k),$v);
             }
         }
 
         return $data;
     }
 
+    public static function http_get($url) {
+        return json_decode(file_get_contents($url));
+    }
+
+    public static function http_post($url,$doc) {
+        $opts = ['http'=>['method'=>'POST','content'=>json_encode($doc),'header'=>'Content-type: application/json']];
+        $r = file_get_contents($url, NULL, stream_context_create($opts));
+        return json_decode($r);
+    }
+
+    public static function http_put($url,$doc) {
+        $opts = ['http'=>['method'=>'PUT','content'=>json_encode($doc),'header'=>'Content-type: application/json']];
+        $r = file_get_contents($url, NULL, stream_context_create($opts));
+        return json_decode($r);
+    }
+
+    public static function http_delete($url) {
+        $opts = ['http'=>['method'=>'DELETE']];
+        $r = file_get_contents($url, NULL, stream_context_create($opts));
+        return json_decode($r);
+    }
+
+    public static function search($idx,$q) {
+        $url = DATAHUB_URL.'/'.DB.'/'.$idx.'/_search?size=999&q='.urlencode($q);
+        $r = Utils::http_get($url);
+        $arr =array();
+        $ids = [];
+        foreach($r->hits->hits as $hit) {
+            $arr[] = $hit->_source;
+            $ids[] = $hit->_source->id;
+        }
+
+        $r = Utils::http_get(DATAHUB_URL.'/'.DB.'/_all_docs?keys='.json_encode($ids));
+        foreach($r->rows as $row) {
+            foreach($arr as $a) {
+                if($a->id == $row->id) {
+                    $a->_id = $row->id;
+                    $a->_rev = $row->value->rev;
+                }
+            }
+        }
+
+        foreach($arr as $a) {
+            unset($a->id);
+        }
+
+        return $arr;
+    }
+
     public static function schema() {
-        $ddoc_json = file_get_contents(Utils::$couchdb.'/_design/species_profiles');
-        $ddoc = json_decode($ddoc_json);
-        $schema_json = substr($ddoc->schema->profile,24,-2);
-        $schema = json_decode($schema_json);
+        $schema = json_decode(file_get_contents(__DIR__.'/../../resources/schema.json'));
+
         unset($schema->properties->taxon);
         unset($schema->properties->metadata);
         unset($schema->properties->validations);
         unset($schema->required);
 
-        $schema->properties->ecology->properties->habitats->items->enum = json_decode(file_get_contents( __DIR__."/../../resources/dicts/habitats.json" ));
-        $schema->properties->ecology->properties->biomas->items->enum = json_decode(file_get_contents( __DIR__."/../../resources/dicts/biomas.json" ));
-        $schema->properties->ecology->properties->fitofisionomies->items->enum = json_decode(file_get_contents( __DIR__."/../../resources/dicts/fitofisionomies.json" ));
-        $schema->properties->threats->items->properties->threat->enum = json_decode(file_get_contents(__DIR__."/../../resources/dicts/threats.json"));
-        $schema->properties->threats->items->properties->stress->enum = json_decode(file_get_contents(__DIR__."/../../resources/dicts/stress.json"));
-        $schema->properties->actions->items->properties->action->enum = json_decode(file_get_contents(__DIR__."/../../resources/dicts/actions.json"));
-        $schema->properties->uses->items->properties->use->enum = json_decode(file_get_contents(__DIR__."/../../resources/dicts/uses.json"));
+        $schema->properties->ecology->properties->habitats->items->enum
+            = json_decode(file_get_contents( __DIR__."/../../resources/dicts/habitats.json" ));
+        $schema->properties->ecology->properties->biomas->items->enum 
+            = json_decode(file_get_contents( __DIR__."/../../resources/dicts/biomas.json" ));
+        $schema->properties->ecology->properties->fitofisionomies->items->enum 
+            = json_decode(file_get_contents( __DIR__."/../../resources/dicts/fitofisionomies.json" ));
+        $schema->properties->threats->items->properties->threat->enum
+            = json_decode(file_get_contents(__DIR__."/../../resources/dicts/threats.json"));
+        $schema->properties->threats->items->properties->stress->enum 
+            = json_decode(file_get_contents(__DIR__."/../../resources/dicts/stress.json"));
+        $schema->properties->actions->items->properties->action->enum
+            = json_decode(file_get_contents(__DIR__."/../../resources/dicts/actions.json"));
+        $schema->properties->uses->items->properties->use->enum 
+            = json_decode(file_get_contents(__DIR__."/../../resources/dicts/uses.json"));
 
         return $schema;
     }

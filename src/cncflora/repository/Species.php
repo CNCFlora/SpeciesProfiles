@@ -5,22 +5,21 @@ namespace cncflora\repository;
 class Species extends Base {
 
     public function getFamilies() {
-        $response = $this->db->view('taxonomy','species_by_family',array('reduce'=>true,'group'=>true));
+        $response = $this->search("taxon","taxonomicStatus:'accepted'");
         $families = array();
-        foreach($response->rows as $row) {
-            if(\cncflora\Utils::taxonOk($row->key)) $families[] = strtoupper( $row->key );
+        foreach($response as $row) {
+            $families[] = strtoupper($row->family);
         }
-        return $families;
+
+        return array_unique( $families );
     }
 
     public function getSpecies($family) {
-        $response = $this->db->view('taxonomy','species_by_family',array('reduce'=>false,'key'=>$family));
+        $response = $this->search("taxon","taxonomicStatus:'accepted' AND family='".$family."'");
         $species = array();
-        foreach($response->rows as $row) {
-            if(\cncflora\Utils::taxonOk($row->value->family." ".$row->value->scientificName)) {
-                $row->value->family = strtoupper($row->value->family);
-                $species[] = $row->value;
-            }
+        foreach($response as $row) {
+            $row->family = strtoupper($row->family);
+            $species[] = $row;
         }
         return $species;
     }
@@ -34,11 +33,12 @@ class Species extends Base {
         }
     }
 
-    public function getSynonyms($id) {
-        $response = $this->db->view('taxonomy','synonyms',array('reduce'=>false,'key'=>$id));
+    public function getSynonyms($name) {
+        $response = $this->search("taxon","taxonomicStatus:'synonym' AND acceptedNameUsage='".$name."'");
         $taxons = array();
-        foreach($response->rows as $row) {
-            $taxons[] = $row->value;
+        foreach($response as $row) {
+            $row->family = strtoupper($row->family);
+            $taxons[] = $row;
         }
         return $taxons;
     }

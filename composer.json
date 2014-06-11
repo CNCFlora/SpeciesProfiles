@@ -7,12 +7,16 @@
     "require": {
         "restserver/restserver": "dev-master",
         "mustache/mustache": "dev-master",
-        "nano-php/nano-php": "dev-master",
         "symfony/yaml": "2.5.*@dev"
     },
     "require-dev": {
         "jaz303/phake": "dev-master",
         "phpunit/phpunit": "*",
-        "phpunit/phpunit-story": "*"
+        "phpunit/phpunit-story": "*",
+        "behat/behat": "2.4.*@stable",
+        "behat/mink": "1.4.*@stable",
+        "behat/mink-extension": "*",
+        "behat/mink-goutte-driver": "*",
+        "behat/mink-selenium2-driver": "*"
     }
 }

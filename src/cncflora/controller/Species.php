@@ -17,7 +17,11 @@ class Species implements \Rest\Controller {
 
     public function execute(\Rest\Server $r) {
         $families = $this->repo->getFamilies();
-        return new View('families.html',array('families'=>$families));
+        $arr = array();
+        foreach($families as $f) {
+            $arr[] = ['family'=>$f];
+        }
+        return new View('families.html',array('families'=>$arr));
     }
 
     function family($r) {

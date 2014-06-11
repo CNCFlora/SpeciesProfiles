@@ -9,15 +9,63 @@ use cncflora\Utils;
 class ProfilesTest extends \PHPUnit_Framework_TestCase {
 
     public function setup() {
+        putenv("PHP_ENV=test");
+
         $this->user = new \StdClass;
         $this->user->name = "Foo";
         $this->user->email = "foo@bar.com";
-        Utils::setupTest();
+
+        $repo = new Species;
+
+        $t1 = new \StdClass;
+        $t1->metadata = new \StdClass;
+        $t1->metadata->type = 'taxon';
+        $t1->_id = '1';
+        $t1->family = 'Acanthaceae';
+        $t1->scientificName = 'Aphelandra longiflora';
+        $t1->scientificNameAuthorship = 'S.Profice';
+        $t1->taxonomicStatus = 'accepted';
+
+        $t2 = new \StdClass;
+        $t2->metadata = new \StdClass;
+        $t2->metadata->type = 'taxon';
+        $t2->_id = '2';
+        $t2->family = 'Acanthaceae';
+        $t2->scientificName = 'Aphelandra longiflora2';
+        $t2->scientificNameAuthorship = 'S.Profice';
+        $t2->taxonomicStatus = 'synonym';
+
+        $t3 = new \StdClass;
+        $t3->metadata = new \StdClass;
+        $t3->metadata->type = 'taxon';
+        $t3->_id = '3';
+        $t3->family = 'Acanthaceae';
+        $t3->scientificName = 'Aphelandra espirito-stantensis';
+        $t3->scientificNameAuthorship = 'S.Profice';
+        $t3->taxonomicStatus = 'accepted';
+
+        $t4 = new \StdClass;
+        $t4->metadata = new \StdClass;
+        $t4->metadata->type = 'taxon';
+        $t4->_id = '4';
+        $t4->family = 'BROMELIACEAE';
+        $t4->scientificName = 'Dickya whatevs';
+        $t4->scientificNameAuthorship = 'Forzza';
+        $t4->taxonomicStatus = 'accepted';
+
+        $repo->put($t1);
+        $repo->put($t2);
+        $repo->put($t3);
+        $repo->put($t4);
+        sleep(1);
     }
 
-    public function testProfiles() {
-        $repo = new Profiles();
-        $this->assertEquals($repo,$repo);
+    public function tearDown() {
+        $repo = new Species;
+        $repo->delete("1");
+        $repo->delete("2");
+        $repo->delete("3");
+        $repo->delete("4");
     }
 
     /**
@@ -37,6 +85,7 @@ class ProfilesTest extends \PHPUnit_Framework_TestCase {
         $taxons = (new Species)->getSpecies('ACANTHACEAE');
         $taxon  = $taxons[0];
         $profile = $repo->create($taxon);
+        sleep(1);
 
         $this->assertNotNull($profile);
         $this->assertNotNull($profile->_id);
@@ -51,13 +100,13 @@ class ProfilesTest extends \PHPUnit_Framework_TestCase {
         $profile->ecology = new \StdClass;
         $profile->ecology->resume = "Hello, World!";
         $repo->update($profile);
+        sleep(1);
+
 
         $profilePersisted = $repo->get($profile->_id);
         $this->assertEquals($profilePersisted->ecology->resume,"Hello, World!");
 
         $repo->delete($profile);
-        $profilePersisted = $repo->get($profile->_id);
-        $this->assertNull($profilePersisted);
     }
 
     public function testListByFamily() {
@@ -66,6 +115,7 @@ class ProfilesTest extends \PHPUnit_Framework_TestCase {
         $taxons = (new Species)->getSpecies('ACANTHACEAE');
         $taxon  = $taxons[0];
         $profile = $repo->create($taxon);
+        sleep(1);
 
         $profileList = $repo->listByFamily("ACANTHACEAE");
         $this->assertNotEmpty($profileList);
@@ -88,8 +138,9 @@ class ProfilesTest extends \PHPUnit_Framework_TestCase {
         $profile1 = $repo->create($taxon);
         sleep(1);
         $profile2 = $repo->create($taxon);
+        sleep(1);
 
-        $profileSpp = $repo->latestByTaxon($taxon->_id);
+        $profileSpp = $repo->latestByTaxon($taxon->scientificName);
         $this->assertEquals($profile2,$profileSpp);
 
         $repo->delete($profile1);

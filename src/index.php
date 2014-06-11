@@ -7,6 +7,7 @@ require '../vendor/autoload.php';
 $rest = new \Rest\Server($_GET['q']);
 $rest->setAccept(array("*"));
 $rest->setParameter("strings",\cncflora\Utils::$strings);
+
 foreach(\cncflora\Utils::$config as $k=>$v)
     $rest->setParameter($k,$v);
 
@@ -62,7 +63,6 @@ $rest->addMap("GET","/work/:family/:status","\cncflora\controller\Workflow::fami
 $rest->addMap("GET","/control","\cncflora\controller\Workflow::control");
 
 $rest->addMap("GET","/habitats2fito",'\cncflora\controller\Profile::habitats2fito');
-
 
 $rest->addMap("GET",'.*',function($r) {
     $uri = $r->getRequest()->getURI();
