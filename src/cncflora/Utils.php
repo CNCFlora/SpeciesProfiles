@@ -29,6 +29,13 @@ class Utils {
             $env = 'development';
         }
 
+        if(isset($_SERVER) && isset($_SERVER['HTTP_HOST'])) {
+            if($_SERVER['HTTP_HOST'] == 'test.localhost') {
+                $env = "test";
+            }
+        }
+
+        putenv("PHP_ENV=${env}");
         $data["ENV"] = $env;
 
         $array = $raw[$env];

@@ -16,6 +16,13 @@ class View implements \Rest\View {
         else if(is_object($props)) $this->props = (array) $props;
         else $this->props = array();
 
+        $cfg = Utils::config();
+        foreach($cfg as $k=>$v) {
+            if(!isset($this->props)) {
+                $this->props[$k] =$v;
+            }
+        }
+
         $iterator = new \DirectoryIterator(__DIR__."/../../resources/templates");
         foreach ($iterator as $file) {
             if($file->isFile() && preg_match("/\.html$/",$file->getFilename())) {
