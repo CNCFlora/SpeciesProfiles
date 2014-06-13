@@ -22,6 +22,7 @@ if [[ ! -e ~/.apache_done ]]; then
     sed -i -e 's/upload_max_filesize.*/upload_max_filesize=128M/g' /etc/php5/apache2/php.ini
     sed -i -e 's/post_max_size.*/post_max_size=128M/g' /etc/php5/apache2/php.ini
     sed -i -e 's/display_errors.*/display_erros=On/g' /etc/php5/apache2/php.ini
+    echo "127.0.0.1 test.localhost" >> /etc/hosts
     # restart
     service apache2 start
     touch ~/.apache_done

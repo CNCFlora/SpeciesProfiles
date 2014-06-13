@@ -5,6 +5,7 @@ Feature: Test homepage load
 
     Scenario: Open homepage 
         Given I am on "/"
+        Then I should see "ENV=test"
         Then I should see "Sem resultados"
 
     Scenario: Perform search
