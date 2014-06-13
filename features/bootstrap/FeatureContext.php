@@ -43,5 +43,12 @@ class FeatureContext extends MinkContext {
         $this->getMainContext()->getSession()->executeScript('$.post("/logout","",function(){location.reload()})');
         $this->getSession()->wait(2000);
     }
+
+    /**
+     * @Given /^I save the page "([^"]*)"$/
+     */
+    public function iSeeAll($name) {
+        file_put_contents($name,$this->getMainContext()->getSession()->getPage()->getHtml());
+    }
 }
 

@@ -34,7 +34,7 @@ class SpeciesTest extends \PHPUnit_Framework_TestCase {
         $t3->metadata->type = 'taxon';
         $t3->_id = '3';
         $t3->family = 'Acanthaceae';
-        $t3->scientificName = 'Aphelandra espirito-stantensis';
+        $t3->scientificName = 'Aphelandra espirito-santensis';
         $t3->taxonomicStatus = 'accepted';
 
         $t4 = new \StdClass;
