@@ -34,6 +34,11 @@ if [[ ! -e ~/.app_done ]]; then
     touch ~/.app_done
 fi
 
+if [[ ! -e ~/.phantom_done ]]; then
+    apt-get install -y phantomjs
+    echo 'phantomjs --webdriver=8643' > /etc/rc.local
+fi
+
 # docker register to etcd
 if [[ ! -e /usr/bin/docker2etcd ]]; then
     wget https://gist.githubusercontent.com/diogok/24cf050e880731783d40/raw/e0f0e05e532488fec803c68022d514975034e8d8/docker2etcd.rb \
