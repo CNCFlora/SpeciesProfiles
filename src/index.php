@@ -18,6 +18,7 @@ if(($user = $rest->getRequest()->getSession('user')) != null) {
         $rest->setParameter("role-".strtolower( $r->role ),true);
     }
 } else {
+    $rest->setParameter("user",null);
     $rest->setParameter("logged",false);
 }
 
@@ -32,8 +33,8 @@ $rest->addMap('POST',"/logout",function($r) {
     return new Rest\View\JSon(null);
 });
 
+
 $rest->addMap("GET","/",'\cncflora\controller\Search');
-$rest->addMap("GET","/biblio",'\cncflora\controller\Search::biblio');
 
 $rest->addMap("GET","/families",'\cncflora\controller\Species'); 
 $rest->addMap("GET","/family/:family",'\cncflora\controller\Species::family'); 
@@ -68,7 +69,7 @@ $rest->addMap("GET",'.*',function($r) {
     $uri = $r->getRequest()->getURI();
     if(strpos($uri,'resources') === false) return new Rest\Controller\NotFound;
     $file = substr($uri,strpos($uri,'resources'));
-    return new Rest\Controller\Redirect("/".BASE_PATH.$file);
+    return new Rest\Controller\Redirect("/".BASE.$file);
 });
 
 $rest->execute();

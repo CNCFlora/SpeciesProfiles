@@ -33,6 +33,7 @@ class View implements \Rest\View {
 
     function execute(\Rest\Server $rest) {
         $props = array_merge($rest->getParameters(),$this->props);
+        $props['user_json']=json_encode($props['user']);
 
         $m = new \Mustache_Engine(array('partials'=>$this->partials));
         $content = $m->render($this->template,$props);
