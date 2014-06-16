@@ -32,7 +32,21 @@ class FeatureContext extends MinkContext {
             $doc['roles'][] = ['role'=>$role,'entities'=>[]];
         }
         $this->getMainContext()->getSession()->executeScript('$.post("/login",JSON.stringify('.json_encode($doc).'),function(){location.reload()})');
-        $this->getSession()->wait(2000);
+        $this->getSession()->wait(10000);
+    }
+
+    /**
+     * @Then /^I login as "([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)"$/
+     */
+    public function iLoginAs2($name,$email,$roles,$ents) {
+        $doc = ['name'=>$name,'email'=>$email];
+        $roles = explode(",",$roles);
+        $ents  = explode(",",$ents);
+        foreach($roles as $role) {
+            $doc['roles'][] = ['role'=>$role,'entities'=>$ents];
+        }
+        $this->getMainContext()->getSession()->executeScript('$.post("/login",JSON.stringify('.json_encode($doc).'),function(){location.reload()})');
+        $this->getSession()->wait(10000);
     }
 
 
@@ -41,13 +55,13 @@ class FeatureContext extends MinkContext {
      */
     public function iLogout() {
         $this->getMainContext()->getSession()->executeScript('$.post("/logout","",function(){location.reload()})');
-        $this->getSession()->wait(2000);
+        $this->getSession()->wait(10000);
     }
 
     /**
      * @Given /^I save the page "([^"]*)"$/
      */
-    public function iSeeAll($name) {
+    public function iSaveThePage($name) {
         file_put_contents($name,$this->getMainContext()->getSession()->getPage()->getHtml());
     }
 }
