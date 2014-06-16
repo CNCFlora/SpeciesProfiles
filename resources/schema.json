@@ -27,17 +27,7 @@
                     "type": "array",
                     "label": "References",
                     "items": {
-                        "type": "object",
-                        "properties": {
-                            "citation": {
-                                "type":"string",
-                                "label": "Citation"
-                            },
-                            "ref":  {
-                                "type": "string",
-                                "label": "Ref"
-                            }
-                        }
+                        "type": "string"
                     }
                 }
             }
@@ -49,7 +39,7 @@
                 "potentialEconomicValue": {
                     "label": "Specie have potential economic value",
                     "type" : "string",
-                    "enum" : [null,"yes","no","unkown"]
+                    "enum" : ["","yes","no","unkown"]
                 },
                 "details":{
                     "label":"Details",
@@ -60,17 +50,7 @@
                     "type": "array",
                     "label": "References",
                     "items": {
-                        "type": "object",
-                        "properties": {
-                            "citation": {
-                                "type":"string",
-                                "label": "Citation"
-                            },
-                            "ref":  {
-                                "type": "string",
-                                "label": "Ref"
-                            }
-                        }
+                        "type": "string"
                     }
                 }
             }
@@ -83,7 +63,7 @@
                     "type": "object",
                     "label":"Estimated size",
                     "properties": {
-                        "type": {"type":"string", "enum":[null,"absolute","range","less then","greater then","circa"]},
+                        "type": {"type":"string", "enum":["","absolute","range","less then","greater then","circa"]},
                         "minimum": {"type":"number"},
                         "maximum": {"type":"number"},
                         "absolute": {"type":"number"}
@@ -93,7 +73,7 @@
                     "type": "object",
                     "label":"Number of subpopulations",
                     "properties": {
-                        "type": {"type":"string", "enum":[null,"absolute","range","less then","greater then","circa"]},
+                        "type": {"type":"string", "enum":["","absolute","range","less then","greater then","circa"]},
                         "minimum": {"type":"number"},
                         "maximum": {"type":"number"},
                         "absolute": {"type":"number"}
@@ -103,7 +83,7 @@
                     "type": "object",
                     "label":"Number of individuals in biggest subpopulation",
                     "properties": {
-                        "type": {"type":"string", "enum":[null,"absolute","range","less then","greater then","circa"]},
+                        "type": {"type":"string", "enum":["","absolute","range","less then","greater then","circa"]},
                         "minimum": {"type":"number"},
                         "maximum": {"type":"number"},
                         "absolute": {"type":"number"}
@@ -113,7 +93,7 @@
                     "type": "object",
                     "label":"Populational reduction",
                     "properties": {
-                        "type": {"type":"string", "enum":[null,"absolute","range","less then","greater then","circa"]},
+                        "type": {"type":"string", "enum":["","absolute","range","less then","greater then","circa"]},
                         "minimum": {"type":"number"},
                         "maximum": {"type":"number"},
                         "absolute": {"type":"number"}
@@ -126,7 +106,7 @@
                         "extremeFluctuation": {
                             "type":"string",
                             "label":"Specie have extreme fluctuation",
-                            "enum":[null,"unkown","no","yes"]
+                            "enum":["","unkown","no","yes"]
                         }
                     }
                 },
@@ -134,7 +114,7 @@
                     "type": "object",
                     "label":"Generation timing (in months)",
                     "properties": {
-                        "type": {"type":"string", "enum":[null,"absolute","range","less then","greater then","circa"]},
+                        "type": {"type":"string", "enum":["","absolute","range","less then","greater then","circa"]},
                         "minimum": {"type":"number"},
                         "maximum": {"type":"number"},
                         "absolute": {"type":"number"},
@@ -154,17 +134,7 @@
                     "type": "array",
                     "label": "References",
                     "items": {
-                        "type": "object",
-                        "properties": {
-                            "citation": {
-                                "type":"string",
-                                "label": "Citation"
-                            },
-                            "ref":  {
-                                "type": "string",
-                                "label": "Ref"
-                            }
-                        }
+                        "type": "string"
                     }
                 }
             }
@@ -176,7 +146,7 @@
                 "fragmented": {
                     "label":"Fragmented distribution",
                     "type": "string",
-                    "enum":[null,"unkown","yes","no"]
+                    "enum":["","unkown","yes","no"]
                 },
                 "eoo": {
                     "label":"Extent of occurrence (in km²)",
@@ -190,7 +160,7 @@
                     "type":"object",
                     "label":"Altitude",
                     "properties": {
-                        "type": {"type":"string", "enum":[null,"absolute","range","less then","greater then","circa"]},
+                        "type": {"type":"string", "enum":["","absolute","range","less then","greater then","circa"]},
                         "minimum": {"type":"number"},
                         "maximum": {"type":"number"},
                         "absolute": {"type":"number"}
@@ -199,7 +169,7 @@
                 "brasilianEndemic": {
                     "type":"string",
                     "label":"Endemic",
-                    "enum":[null,"yes","no","unkown"]
+                    "enum":["","yes","no","unkown"]
                 },
                 "resume": { 
                     "label": "Distribution resume",
@@ -210,17 +180,7 @@
                     "type": "array",
                     "label": "References",
                     "items": {
-                        "type": "object",
-                        "properties": {
-                            "citation": {
-                                "type":"string",
-                                "label": "Citation"
-                            },
-                            "ref":  {
-                                "type": "string",
-                                "label": "Ref"
-                            }
-                        }
+                        "type": "string"
                     }
                 }
             }
@@ -232,37 +192,37 @@
                 "lifeForm": {
                     "label":"Life Form",
                     "type":"string",
-                    "enum":[null,"","herb","bush","tree","liana","subshrub","small tree"]
+                    "enum":["","","herb","bush","tree","liana","subshrub","small tree"]
                 },
                 "substratum": {
                     "label":"Substratum",
                     "type":"string",
-                    "enum":[null,"","terrestrial","aquatic","rupicolous","saxicolous","epiphytic","hemiepiphytes"]
+                    "enum":["","","terrestrial","aquatic","rupicolous","saxicolous","epiphytic","hemiepiphytes"]
                 },
                 "luminosity": {
                     "label":"Luminosity",
                     "type":"string",
-                    "enum":[null,"","heliophytic","esciophytic","mesophytic"]
+                    "enum":["","","heliophytic","esciophytic","mesophytic"]
                 },
                 "longevity": {
                     "label":"Longivity",
                     "type":"string",
-                    "enum":[null,"","unkown","anual","bianual","perennial"]
+                    "enum":["","","unkown","anual","bianual","perennial"]
                 },
                 "fenology": {
                     "label":"Fenology",
                     "type":"string",
-                    "enum":[null,"","deciduifolia","semideciduifolia","perenifolia"]
+                    "enum":["","","deciduifolia","semideciduifolia","perenifolia"]
                 },
                 "clonal": {
                     "label":"Clonal",
                     "type":"string",
-                    "enum":[null,"","unkown","yes","no"]
+                    "enum":["","","unkown","yes","no"]
                 },
                 "resprout": {
                     "label":"Resprout",
                     "type":"string",
-                    "enum":[null,"","unkown","yes","no"]
+                    "enum":["","","unkown","yes","no"]
                 },
                 "habitats": {
                     "label":"Major Habitats",
@@ -288,17 +248,7 @@
                     "type": "array",
                     "label": "References",
                     "items": {
-                        "type": "object",
-                        "properties": {
-                            "citation": {
-                                "type":"string",
-                                "label": "Citation"
-                            },
-                            "ref":  {
-                                "type": "string",
-                                "label": "Ref"
-                            }
-                        }
+                        "type": "string"
                     }
                 }
             }
@@ -310,18 +260,18 @@
                 "sexualSystem": {
                     "type":"string",
                     "label":"Sexual System",
-                    "enum":[null,"","hermafrodita","monoecious","dioecious","andromonoecious","ginomonóicious","trimonoicious","androidioecious","ginodiecious","trioecious"]
+                    "enum":["","","hermafrodita","monoecious","dioecious","andromonoecious","ginomonóicious","trimonoicious","androidioecious","ginodiecious","trioecious"]
                     
                 },
                 "system": {
                     "type":"string",
                     "label":"Reproduction System",
-                    "enum":[null,"","self-compatible","self-incompatible","angopermia","geitonogamia","unkown"]
+                    "enum":["","","self-compatible","self-incompatible","angopermia","geitonogamia","unkown"]
                 },
                 "strategy": {
                     "type":"string",
                     "label": "Reproduction Strategy",
-                    "enum":[null,"","semelpara","iteropara","unknown"]
+                    "enum":["","","semelpara","iteropara","unknown"]
                 },
                 "fenology": {
                     "type":"array",
@@ -332,17 +282,17 @@
                             "fenology": {
                                 "type":"string",
                                 "label": "Fenology",
-                                "enum":[null,"","flowering","fruiting","unknown"]
+                                "enum":["","","flowering","fruiting","unknown"]
                             },
                             "start": {
                                 "type":"string",
                                 "label":"Start",
-                                "enum":[null,"Jan","Fev","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+                                "enum":["","Jan","Fev","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
                             },
                             "end": {
                                 "type":"string",
                                 "label":"End",
-                                "enum":[null,"Jan","Fev","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+                                "enum":["","Jan","Fev","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
                             }
                         }
                     }
@@ -352,7 +302,7 @@
                     "label":"Pollination System",
                     "items":{
                         "type":"string",
-                        "enum":[null,"anemophily","hidrophily","entomophily","ornitophily","quiropterophily","falenophily","psicophily","melitophily","miophily","cantarophily","malacophily","mamaliophily"]
+                        "enum":["","anemophily","hidrophily","entomophily","ornitophily","quiropterophily","falenophily","psicophily","melitophily","miophily","cantarophily","malacophily","mamaliophily"]
                     }
                 },
                 "pollinatorInformation": {
@@ -365,7 +315,7 @@
                     "label":"Disperson Syndrome",
                     "items":{
                         "type":"string",
-                        "enum":[null,"anemochory","hidrochory","barochory","zoochory","ornitochory","mamaliochory","mimecochory","quirepterochory","saurochory","ictiochory","endozoochory","sinzoochory","epizocoria"]
+                        "enum":["","anemochory","hidrochory","barochory","zoochory","ornitochory","mamaliochory","mimecochory","quirepterochory","saurochory","ictiochory","endozoochory","sinzoochory","epizocoria"]
                     }
                 },
                 "dispersorInformation":{
@@ -382,17 +332,7 @@
                     "type": "array",
                     "label": "References",
                     "items": {
-                        "type": "object",
-                        "properties": {
-                            "citation": {
-                                "type":"string",
-                                "label": "Citation"
-                            },
-                            "ref":  {
-                                "type": "string",
-                                "label": "Ref"
-                            }
-                        }
+                        "type": "string"
                     }
                 }
             }
@@ -414,12 +354,12 @@
                     "incidence":{
                         "label":"Incidence",
                         "type":"string",
-                        "enum":[null,"local","regional","national"]
+                        "enum":["","local","regional","national"]
                     },
                     "severity": {
                         "label":"Severity",
                         "type":"string",
-                        "enum":[null,"very low","low","medium","high","very high"]
+                        "enum":["","very low","low","medium","high","very high"]
                     },
                     "reversible": {
                         "label":"Reversible",
@@ -432,12 +372,12 @@
                     "timing": {
                         "label": "Timing",
                         "type": "array",
-                        "items":{"type":"string","enum":[null,"past","present","future"]}
+                        "items":{"type":"string","enum":["","past","present","future"]}
                     },
                     "decline": {
                         "label": "Decline",
                         "type": "array",
-                        "items":{"type":"string","enum":[null,"locality","habitat","occupancy","occurrence","mature individuals"]}
+                        "items":{"type":"string","enum":["","locality","habitat","occupancy","occurrence","mature individuals"]}
                     },
                     "details": {
                         "label":"Details",
@@ -448,17 +388,7 @@
                         "type": "array",
                         "label": "References",
                         "items": {
-                            "type": "object",
-                            "properties": {
-                                "citation": {
-                                    "type":"string",
-                                    "label": "Citation"
-                                },
-                                "ref":  {
-                                    "type": "string",
-                                    "label": "Ref"
-                                }
-                            }
+                            "type": "string"
                         }
                     }
                 }
@@ -477,7 +407,7 @@
                     "situation": {
                         "label":"Situation",
                         "type":"string",
-                        "enum":[null,"on going","needed"]
+                        "enum":["","on going","needed"]
                     },
                     "details": {
                         "label":"Details",
@@ -488,17 +418,7 @@
                         "type": "array",
                         "label": "References",
                         "items": {
-                            "type": "object",
-                            "properties": {
-                                "citation": {
-                                    "type":"string",
-                                    "label": "Citation"
-                                },
-                                "ref":  {
-                                    "type": "string",
-                                    "label": "Ref"
-                                }
-                            }
+                            "type": "string"
                         }
                     }
                 }
@@ -517,12 +437,12 @@
                     "resource": {
                         "type":"string",
                         "label":"Resource used",
-                        "enum":[null,"leaf","flower","fruit","stalk","root","seed","sap","whole plant"]
+                        "enum":["","leaf","flower","fruit","stalk","root","seed","sap","whole plant"]
                     },
                     "provenance": {
                         "type":"string",
                         "label":"Provenance",
-                        "enum":[null,"natural","cultivated"]
+                        "enum":["","natural","cultivated"]
                     },
                     "details": {
                         "label":"Details",
@@ -533,17 +453,7 @@
                         "type": "array",
                         "label": "References",
                         "items": {
-                            "type": "object",
-                            "properties": {
-                                "citation": {
-                                    "type":"string",
-                                    "label": "Citation"
-                                },
-                                "ref":  {
-                                    "type": "string",
-                                    "label": "Ref"
-                                }
-                            }
+                            "type": "string"
                         }
                     }
                 }

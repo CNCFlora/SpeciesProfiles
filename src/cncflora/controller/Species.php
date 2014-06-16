@@ -43,11 +43,11 @@ class Species implements \Rest\Controller {
     function specie($r) {
         $id  = $r->getRequest()->getParameter('id');
         $spp = $this->repo->getSpecie($id);
-        $doc = $this->repoProfiles->latestByTaxon($spp->_id);
+        $doc = $this->repoProfiles->latestByTaxon($spp->scientificName);
         if(is_null($doc)) {
             return new View('specie.html',array('specie'=>$spp));
         } else {
-            return new \Rest\Controller\Redirect('/'.BASE_PATH.'profile/'.$doc->_id);
+            return new \Rest\Controller\Redirect(BASE.'/profile/'.$doc->_id);
         }
     }
 }

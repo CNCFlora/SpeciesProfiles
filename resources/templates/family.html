@@ -1,11 +1,11 @@
 {{> header}}
 
-<div class="span12">
+<div class="col-md-12">
     <h2>{{family}}</h2>
     <ul>
         {{#species}}
-            <li class='spp span5'>
-                <i class='icon-leaf'></i>
+            <li class='spp'>
+                <span class='glyphicon glyphicon-leaf'></span>
                 <i><a href="/specie/{{_id}}" {{#have}} class='got' {{/have}}>{{scientificName}}</a></i>
                 <small>{{scientificNameAuthorship}}</small>
             </li>

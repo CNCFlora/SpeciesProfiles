@@ -25,7 +25,7 @@ class Species extends Base {
     }
 
     public function getSpecie($id) {
-        $r = $this->db->get($id);
+        $r = $this->get($id);
         if(isset($r->error)) {
             return null;
         } else {

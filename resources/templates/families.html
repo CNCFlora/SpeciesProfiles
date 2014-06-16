@@ -1,10 +1,13 @@
 {{> header}}
 
 <div class="col-md-12">
-    <h2>Perfis de esp&eacute;cies</h2>
+    <h2>{{strings.families}}</h2>
     <ul>
         {{#families}}
-            <li class='span5'><i class='icon-folder-open'></i><a href="/family/{{family}}">{{family}}</a></li>
+            <li>
+                <span class='glyphicon glyphicon-folder-open'></span> 
+                <a href="/family/{{family}}">{{family}}</a>
+            </li>
         {{/families}}
     </ul>
 </div>

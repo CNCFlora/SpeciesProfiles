@@ -106,5 +106,8 @@
     "validate":"Validar",
     "review":"Revisar",
     "control":"Controle",
-    "change-status":"Mudar etapa"
+    "change-status":"Mudar etapa",
+    "no-profile":"Não há perfil cadastrado para essa espécie",
+    "create-profile":"Iniciar perfil",
+    "see-profile":"Ver perfil"
 }

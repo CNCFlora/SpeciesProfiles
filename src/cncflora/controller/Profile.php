@@ -25,13 +25,13 @@ class Profile implements \Rest\Controller {
         if($r->getParameter("logged")) {
             $user = $r->getParameter("user");
             foreach($user->roles as $role) {
-                if($role->role == "Analyst") {
+                if(strtolower( $role->role ) == "analyst") {
                     foreach($role->entities as $ent) {
-                        if(strpos($ent->name,$profile->taxon->family) !== false) {
+                        if(strpos(strtolower( $ent ),strtolower( $profile->taxon->family )) !== false) {
                             $can_edit = true;
                             break;
                         }
-                        if(strpos($ent->name,$profile->taxon->scientificName) !== false) {
+                        if(strpos(strtolower( $ent ),strtolower( $profile->taxon->scientificName )) !== false) {
                             $can_edit = true;
                             break;
                         }
@@ -40,13 +40,13 @@ class Profile implements \Rest\Controller {
             }
             $user = $r->getParameter("user");
             foreach($user->roles as $role) {
-                if($role->role == "Validator") {
+                if(strtolower( $role->role ) == "validator") {
                     foreach($role->entities as $ent) {
-                        if(strpos($profile->taxon->family,$ent->name) !== false) {
+                        if(strpos(strtolower( $profile->taxon->family ),strtolower( $ent )) !== false) {
                             $can_validate = true;
                             break;
                         }
-                        if(strpos($profile->taxon->scientificName,$ent->name) !== false) {
+                        if(strpos(strtolower( $profile->taxon->scientificName ),strtolower( $ent )) !== false) {
                             $can_validate = true;
                             break;
                         }
@@ -56,22 +56,7 @@ class Profile implements \Rest\Controller {
         }
 
         $r2 = new \cncflora\repository\Species;
-        $profile->synonyms = $r2->getSynonyms($profile->taxon->lsid);
-
-        $repoOcc = new \cncflora\repository\Occurrences();
-        $occs = $repoOcc->listByName($profile->taxon->scientificName);
-        $profile->occsDone = 0;
-        $profile->occsTotal = count($occs);
-        foreach($occs as $occ) {
-            if(isset($occ->validationBy) && $occ->validationBy != null){
-                $profile->occsDone++;
-            }
-        }
-        $profile->ocssMissing = $profile->ocssTodo >= 1;
-
-        if(!isset($profile->distribution)) $profile->distribution = new \StdClass;
-        $profile->distribution->eoo = $repoOcc->eoo($profile->taxon->scientificName);
-        $profile->distribution->aoo = $repoOcc->aoo($profile->taxon->scientificName);
+        $profile->synonyms = $r2->getSynonyms($profile->taxon->scientificName);
 
         $s = "status_".$profile->metadata->status;
         $profile->$s = true;
@@ -83,49 +68,22 @@ class Profile implements \Rest\Controller {
             $profile->economicValue->potentialEconomicValue = ($profile->economicValue->potentialEconomicValue === "yes");
         }
 
-        $eoo = $repoOcc->eooPolygon($profile->taxon->scientificName);
-
-        return new View('profile.html',array('profile'=>$profile,'edit'=>$can_edit,'occurrences'=>$occs,$s=>true,'eooPolygon'=> $eoo,'can_edit'=>$can_edit,'can_validate'=>$can_validate));
+        return new View('profile.html',array('profile'=>$profile,'edit'=>$can_edit,$s=>true,'can_edit'=>$can_edit,'can_validate'=>$can_validate));
     }
 
-    public function occs(\Rest\Server $r) {
-        $id = $r->getRequest()->getParameter("id");
-        $repo = new \cncflora\repository\Profiles;
-
-        $profile = $repo->get($id);
-        $profile->metadata->modified_date = date('d-m-Y',$profile->metadata->modified);
-        $profile->metadata->created_date = date('d-m-Y',$profile->metadata->created);
-        $meta = $profile->metadata;
-
-        $r2 = new \cncflora\repository\Species;
-        $profile->synonyms = $r2->getSynonyms($profile->taxon->lsid);
-
-        $repoOcc = new \cncflora\repository\Occurrences();
-        $occs = $repoOcc->listByName($profile->taxon->scientificName);
-
-        $s = "status_".$profile->metadata->status;
-        $profile->$s = true;
-
-        /*
-        $profile->distribution->brasilianEndemic = ($profile->distribution->brasilianEndemic === "yes");
-        $profile->economicValue->potentialEconomicValue = ($profile->economicValue->potentialEconomicValue === "yes");
-        */
-
-        return new View('occs.html',array('profile'=>$profile,'occurrences'=>$occs,$s=>true));
-    }
 
     function view($r) {
         $id = $r->getRequest()->getParameter("id");
-        return new \Rest\Controller\Redirect('/'.BASE_PATH."profile/".$id);
+        return new \Rest\Controller\Redirect(BASE."/profile/".$id);
     }
 
     function createProfile($r) {
-        $id = $r->getRequest()->getPost("lsid");
+        $id = $r->getRequest()->getPost("id");
         $spp = r2(new \cncflora\repository\Species)->getSpecie($id);
         $user = $r->getParameter("user");
         $repo  = new \cncflora\repository\Profiles($user);
         $profile = $repo->create($spp);
-        return new \Rest\Controller\Redirect('/'.BASE_PATH.'profile/'.$profile->_id.'/edit');
+        return new \Rest\Controller\Redirect(BASE.'/profile/'.$profile->_id.'/edit');
     }
 
     function edit($r) {
