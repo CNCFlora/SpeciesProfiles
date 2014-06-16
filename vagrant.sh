@@ -35,8 +35,13 @@ if [[ ! -e ~/.app_done ]]; then
 fi
 
 if [[ ! -e ~/.phantom_done ]]; then
-    apt-get install -y phantomjs
-    echo 'phantomjs --webdriver=8643' > /etc/rc.local
+    #apt-get install -y phantomjs
+    wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.7-linux-x86_64.tar.bz2 -O /opt/phantomjs.tar.bz2
+    cd /opt 
+    tar -xvf phantomjs.tar.bz2
+    mv phantomjs-1.9.7-linux-x86_64 phantomjs
+    ln -s /opt/phantomjs/bin/phantomjs /usr/bin/phantomjs
+    echo 'nohup phantomjs --webdriver=8643 > /dev/null 2>&1 &' > /etc/rc.local
 fi
 
 # docker register to etcd
