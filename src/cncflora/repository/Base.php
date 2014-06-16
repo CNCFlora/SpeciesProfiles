@@ -4,7 +4,7 @@ namespace cncflora\repository;
 
 use cncflora\Utils ;
 
-abstract class Base {
+class Base {
     public $user = null;
     public $couchdb = null;
     public $db = null;
