@@ -35,6 +35,7 @@ class FeatureContext extends MinkContext {
     public function iLogout() {
         $this->getMainContext()->getSession()->executeScript('$.post("/logout","",function(){})');
         $this->getSession()->wait(500);
+        $this->getMainContext()->getSession()->reload();
     }
 
     /**

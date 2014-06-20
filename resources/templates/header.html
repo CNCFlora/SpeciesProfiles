@@ -33,14 +33,11 @@
         <nav class="col-md-12 navbar navbar-default">
             <div class="navbar-inner">
                 <ul class="nav navbar-nav">
-                    <li><a href="/">{{strings.search}}</a></li>
-                    <li><a href="/families">{{strings.families}}</a></li>
                     {{^logged}}
                     <li id='login'><a href="#">{{strings.login}}</a></li>
                     {{/logged}}
                     {{#logged}}
                     <li><a href="/work">{{strings.workflow}}</a></li>
-                    <li><a href="/control">{{strings.control}}</a></li>
                     <li id='logout'><a href="#">{{strings.logout}}</a></li>		    	
                     {{/logged}}
                 </ul>

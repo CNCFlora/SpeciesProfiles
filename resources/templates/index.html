@@ -1,22 +1,11 @@
 {{> header}}
 
-<form action="/" class='col-md-8 form-inline'>
-    <div class="form-group">
-        <input class="form-control" type="text" name="query" id="query"
-                placeholder="Search..." value="{{query}}">
-    </div>
-    <button class="btn btn-default" type="search" id="search-btn" >{{strings.search}}</button>
-</form>
+{{^logged}}
+    <p class="col-md-12">{{strings.login-to-begin}}.</p>
+{{/logged}}
 
-<div class="col-md-12">
-    {{^result}}
-        <p>{{strings.no-result}}</p>
-    {{/result}}
-    <ul>
-        {{#result}}
-        <li><a href="/profile/{{_id}}"><i>{{taxon.scientificName}}</i> {{taxon.scientificNameAuthorship}}</a></li>
-        {{/result}}
-    </ul>
-</div>
+{{#logged}}
+    <p class="col-md-12">{{strings.welcome}}, {{user.name}}.</p>
+{{/logged}}
 
 {{> footer}}
