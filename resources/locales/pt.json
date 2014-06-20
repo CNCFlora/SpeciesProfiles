@@ -1,7 +1,7 @@
 {
     "species-profiles":"Perfis de espécies",
-    "search":"Buscar",
     "families":"Familias",
+    "family":"Familia",
     "workflow":"Workflow",
     "sig":"GIS",
     "sig-revision":"Revisão GIS",
@@ -10,7 +10,6 @@
     "bibliography":"Bibliografia",
     "logout":"Logout",
     "login":"Login",
-    "no-result":"Sem resultados",
     "save":"Salvar",
     "metadata":"Metadata",
     "send-to-validation":"Enviar para validação",
@@ -111,5 +110,6 @@
     "create-profile":"Iniciar perfil",
     "see-profile":"Ver perfil",
     "login-to-begin":"Faça login para começar",
-    "welcome":"Bem vindo"
+    "welcome":"Bem vindo",
+    "species-count":"Número de espécies"
 }

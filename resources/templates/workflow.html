@@ -1,0 +1,22 @@
+{{> header}}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>{{strings.family}}</th>
+            <th>{{strings.species-count}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#families}}
+        <tr>
+            <td>
+                <a href='/workflow/{{family}}'>{{family}}</a>
+            </td>
+            <td>{{count}}</td>
+        </tr>
+        {{/families}}
+    </tbody>
+</table>
+
+{{> footer}}

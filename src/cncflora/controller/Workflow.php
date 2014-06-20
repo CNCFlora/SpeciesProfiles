@@ -7,38 +7,38 @@ use cncflora\Utils;
 
 class Workflow implements \Rest\Controller {
 
-    public function getAccess($user) {
-        $access = array();
-        foreach($user->roles as $role) {
-            if($role->role == 'Analyst' || $role->role == 'Validator') {
-                foreach($role->entities as $ent) {
-                    $access[] = $ent->value;
-                }
-            }
-        }
-        return $access;
-    }
-
     public function execute(\Rest\Server $r) {
-        $access = $this->getAccess($r->getParameter("user"));
+        $user =$r->getParameter("user");
 
         $repo = new \cncflora\repository\Species;
         $docs = $repo->getFamilies();
         $families = array();
         foreach($docs as $f) {
-            foreach($access as $a) {
-                if(preg_match('/:'.$f.'/i',$a)) {
+            foreach($user->roles as $role) {
+                if(strtolower($role->role) == 'admin') {
                     $families[] = $f;
                     break;
+                } else {
+                    foreach($role->entities as $ent) {
+                        if(strtolower($f) == strtolower($ent)) {
+                            $families[] = $f;
+                            break;
+                        }
+                    }
                 }
             }
         }
 
-        $data = array(
-            'families'=>$families
-        );
+        $data = array();
+        foreach($families as $f) {
+            $c=count($repo->getSpecies($f));
+            $data[] = array(
+                "family"=>$f,
+                "count"=>$c
+            );
+        }
 
-        return new View('work.html',$data);
+        return new View('workflow.html',array('families'=>$data));
     }
 
     function family($r) {
@@ -88,6 +88,7 @@ class Workflow implements \Rest\Controller {
         return new \Rest\View\JSon($spps);
     }
 
+
     function changeStatus($r) {
         $id = $r->GetRequest()->getparameter("id");
         $status = $r->GetRequest()->getparameter("status");
@@ -106,6 +107,7 @@ class Workflow implements \Rest\Controller {
         return new \Rest\Controller\Redirect('/'.BASE.'profile/'.$doc->_id);
     }
 
+
     function changeStatusForce($r) {
         $id = $r->GetRequest()->getparameter("id");
         $status = $r->getRequest()->getPost("status");
@@ -123,6 +125,7 @@ class Workflow implements \Rest\Controller {
         }
         return new \Rest\Controller\Redirect('/'.BASE.'profile/'.$doc->_id);
     }
+
 
     public function control(\Rest\Server $r) {
 
