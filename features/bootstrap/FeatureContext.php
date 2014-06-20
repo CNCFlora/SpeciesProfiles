@@ -1,4 +1,5 @@
 <?php
+putenv("PHP_ENV=test");
 
 include __DIR__.'/../../vendor/autoload.php';
 
@@ -12,8 +13,14 @@ use Behat\Gherkin\Node\PyStringNode,
 
 use Behat\MinkExtension\Context\MinkContext;
 
+use cncflora\Utils;
 
 class FeatureContext extends MinkContext {
+
+    /** @BeforeFeature */
+    public static function prepareForTheFeature(){
+        include __DIR__.'/setup.php';
+    }
 
     /**
      * @When /^I click on "([^"]*)"$/
