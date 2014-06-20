@@ -28,6 +28,7 @@ class SpeciesTest extends \PHPUnit_Framework_TestCase {
         $t2->family = 'Acanthaceae';
         $t2->scientificName = 'Aphelandra longiflora2';
         $t2->taxonomicStatus = 'synonym';
+        $t2->acceptedNameUsage = 'Aphelandra longiflora';
 
         $t3 = new \StdClass;
         $t3->metadata = new \StdClass;
@@ -49,7 +50,7 @@ class SpeciesTest extends \PHPUnit_Framework_TestCase {
         $repo->put($t2);
         $repo->put($t3);
         $repo->put($t4);
-        sleep(1);
+        sleep(2);
     }
 
     public function tearDown() {
@@ -74,9 +75,24 @@ class SpeciesTest extends \PHPUnit_Framework_TestCase {
         foreach($species as $spp) {
             $this->assertEquals($spp->family,'ACANTHACEAE','Return only species of provided family');
         }
+        $this->assertEquals(2,count($species));
+        $this->assertEquals("Aphelandra longiflora",$species[1]->scientificName);
+        $this->assertEquals("Aphelandra espirito-santensis",$species[0]->scientificName);
 
         $species  = $repo->getSpecies('NONEXISTENTFAMILY');
         $this->assertEmpty($species,'Species from a invalid family should come empty');
+    }
+
+    public function testSynonyns() {
+        $repo = new Species;
+
+        $syns = $repo->getSynonyms("Aphelandra longiflora");
+        $this->assertEquals(1,count($syns));
+        $this->assertEquals("Aphelandra longiflora2",$syns[0]->scientificName);
+        $this->assertEquals("Aphelandra longiflora",$syns[0]->acceptedNameUsage);
+
+        $syns = $repo->getSynonyms("Aphelandra espirito-santensis");
+        $this->assertEmpty($syns);
     }
 
     public function testPermissions() {

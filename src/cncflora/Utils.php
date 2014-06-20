@@ -37,6 +37,7 @@ class Utils {
 
         putenv("PHP_ENV=${env}");
         $data["ENV"] = $env;
+        $data["TEST"]=($env=='test');
 
         $array = $raw[$env];
 
@@ -90,6 +91,7 @@ class Utils {
     }
 
     public static function search($idx,$q) {
+        $q = str_replace("=",":",$q);
         $url = DATAHUB_URL.'/'.DB.'/'.$idx.'/_search?size=999&q='.urlencode($q);
         $r = Utils::http_get($url);
         $arr =array();

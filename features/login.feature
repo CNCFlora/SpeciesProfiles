@@ -2,6 +2,7 @@ Feature: Login and logout
 
     Scenario: Non user should not see certain links
         Given I am on "/"
+        Then I logout
         Then I should see "Login"
         And I should not see "Logout"
         And I should not see "Workflow"
@@ -12,5 +13,13 @@ Feature: Login and logout
         Then I should see "Logout"
         And I should see "Workflow"
         And I should not see "Login"
+        Then I reload the page
+        Then I should see "Logout"
+        And I should see "Workflow"
+        And I should not see "Login"
         Then I logout
+        Then I reload the page
+        Then I should see "Login"
+        And I should not see "Logout"
+        And I should not see "Workflow"
 

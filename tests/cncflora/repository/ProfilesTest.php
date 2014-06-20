@@ -143,6 +143,10 @@ class ProfilesTest extends \PHPUnit_Framework_TestCase {
         $profileSpp = $repo->latestByTaxon($taxon->scientificName);
         $this->assertEquals($profile2,$profileSpp);
 
+        $taxon  = $taxons[1];
+        $profileSpp = $repo->latestByTaxon($taxon->scientificName);
+        $this->assertNull($profileSpp);
+
         $repo->delete($profile1);
         $repo->delete($profile2);
     }

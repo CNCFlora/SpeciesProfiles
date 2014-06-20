@@ -16,6 +16,7 @@
         var couchdb = '{{COUCHDB_URL}}';
         var connect = '{{CONNECT_URL}}';
         var user = {{{user_json}}};
+        var test = {{#TEST}}true{{/TEST}}{{^TEST}}false{{/TEST}};
         {{#logged}}var logged = true;{{/logged}}
         {{^logged}}var logged = false;{{/logged}}
     </script>

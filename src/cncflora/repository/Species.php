@@ -5,17 +5,18 @@ namespace cncflora\repository;
 class Species extends Base {
 
     public function getFamilies() {
-        $response = $this->search("taxon","taxonomicStatus:'accepted'");
+        $response = $this->search("taxon","taxonomicStatus:\"accepted\"");
         $families = array();
         foreach($response as $row) {
             $families[] = strtoupper($row->family);
         }
 
-        return array_unique( $families );
+        return array_unique($families);
     }
 
     public function getSpecies($family) {
-        $response = $this->search("taxon","taxonomicStatus:'accepted' AND family='".$family."'");
+        $response = $this->search("taxon","taxonomicStatus:\"accepted\" AND "
+            ."(family:\"".ucfirst($family)."\" OR family:\"".strtoupper($family)."\" OR family:\"".strtolower( $family )."\")");
         $species = array();
         foreach($response as $row) {
             $row->family = strtoupper($row->family);
@@ -34,7 +35,7 @@ class Species extends Base {
     }
 
     public function getSynonyms($name) {
-        $response = $this->search("taxon","taxonomicStatus:'synonym' AND acceptedNameUsage='".$name."'");
+        $response = $this->search("taxon","taxonomicStatus:\"synonym\" AND acceptedNameUsage:\"".$name."\"");
         $taxons = array();
         foreach($response as $row) {
             $row->family = strtoupper($row->family);

@@ -6,7 +6,7 @@
     <form id="data" action="/profile/{{profile._id}}" method="POST">
         <fieldset>
             <div class="onde-panel"></div>
-            <p class="actions"><button class="btn btn-success">{{strings.save}}</button></p>
+            <p class="actions"><button type='submit' class="btn btn-success">{{strings.save}}</button></p>
         </fieldset>
     </form>
 </div>
@@ -16,8 +16,8 @@
     {{#metadata}}
     {{> metadata}}
     {{/metadata}}
-    <form action="/profile/{{profile._id}}/send/sig" method="POST" class='send-to form'>
-        <button class="btn btn-success">{{strings.send-to-sig}}</button>
+    <form action="/profile/{{profile._id}}/send/sig" method="POST" class='form'>
+        <button class="btn btn-success" type='submit'>{{strings.send-to-sig}}</button>
     </form>
 </div>
 

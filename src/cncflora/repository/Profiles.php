@@ -53,7 +53,7 @@ class Profiles extends Base {
 
     public function listByFamily($family) {
         $profiles = array();
-        $docs = $this->search("profile","taxon.family='".$family."'");
+        $docs = $this->search("profile","taxon.family=\"".$family."\"");
         foreach($docs as $doc) {
             $profiles[] = $doc;
         }
@@ -62,7 +62,7 @@ class Profiles extends Base {
 
     public function latestByTaxon($name) {
         $profile = null;
-        $docs = $this->search("profile","taxon.scientificName='".$name."'");
+        $docs = $this->search("profile","taxon.scientificName:\"".$name."\"");
         foreach($docs as $doc) {
             if(is_null($profile)) {
                 $profile = $doc;

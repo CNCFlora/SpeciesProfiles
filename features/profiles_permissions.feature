@@ -1,4 +1,4 @@
-Feature: Open and edit profiles
+Feature: Open and edit profiles permissions
 
     Scenario: Open a specie without a profile, can not create
         Given I am on "/specie/taxon:1"
@@ -39,10 +39,4 @@ Feature: Open and edit profiles
         When I login as "Bruno", "bruno@cncflora.net", "admin,analyst", "ACANTHACEAE"
         Then I should see "Aphelandra longiflora"
         And I should see "Editar"
-
-    Scenario: Edit a profile, changes and metadata
-        Given I am on "/specie/taxon:1"
-        When I login as "Bruno", "bruno@cncflora.net", "admin,analyst", "ACANTHACEAE"
-        And I follow "Editar"
-        Then I should see "Contributor: [ Bruno ]; Diogo"
 

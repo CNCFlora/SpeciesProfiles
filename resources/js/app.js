@@ -10,14 +10,14 @@ head
         var base = window.base;
         Connect({
             onlogin: function(user) {
-                if(!logged) {
+                if(!test && !logged) {
                     $.post(base+'login',JSON.stringify(user),function(){
                         location.reload();
                     });
                 }
             },
             onlogout: function(nothing){
-                if(logged) {
+                if(!test && logged) {
                     $.post(base+'logout',nothing,function(){
                         location.reload();
                     });
@@ -28,14 +28,14 @@ head
         $("#logout a").click(function(){ Connect.logout(); });
         $('form button[class*="btn-danger"]').each(function(i,e){
             $(e).parent().parent().submit(function(){
-                return confirm("Confirma excluir esse recurso?");
+                return test || confirm("Confirma excluir esse recurso?");
             });
         });
         $("form.send-to").submit(function(){
             if($("html").attr("id") == "validate-page") {
-                return confirm("Confirma essa ação? Por favor conferir também se validou todos os pontos de ocorrências em 'abrir mapa'.");
+                return test || confirm("Confirma essa ação? Por favor conferir também se validou todos os pontos de ocorrências em 'abrir mapa'.");
             } else {
-                return confirm("Confirm?");
+                return test || confirm("Confirm?");
             }
         });
         $("select.families").change(function(evt){

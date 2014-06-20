@@ -30,6 +30,7 @@ $t2->family = 'Acanthaceae';
 $t2->scientificName = 'Aphelandra longiflora2';
 $t2->scientificNameAuthorship = 'S.Profice';
 $t2->taxonomicStatus = 'synonym';
+$t2->acceptedNameUsage = 'Aphelandra longiflora';
 
 $t3 = new \StdClass;
 $t3->metadata = new \StdClass;
