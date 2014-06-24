@@ -19,9 +19,10 @@
     {{/metadata}}
 
     <form action="/profile/{{profile._id}}/send/review-sig" method="POST">
-        <fieldset>
-            <button class="btn btn-success">{{strings.send-to-sig}}</button>
-        </fieldset>
+        <button class="btn btn-success" type='submit'>
+            {{strings.send-to-sig}}
+            <span class='glyphicon glyphicon-arrow-right'></span>
+        </button>
     </form>
 
     <h3>{{strings.comments}}</h3>

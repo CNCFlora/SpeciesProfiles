@@ -31,7 +31,10 @@
 
     {{#role-analyst}}
     <form action="/profile/{{profile._id}}/send/open" method="POST" class='send-to form'>
-        <button class="btn btn-success">{{strings.back-to-analysis}}</button>
+        <button class="btn btn-success">
+            <span class='glyphicon glyphicon-arrow-left'></span>
+            {{strings.back-to-analysis}}
+        </button>
     </form>
     {{/role-analyst}}
 
@@ -39,7 +42,10 @@
 
     <form action="/profile/{{profile._id}}/send/review" method="POST" class="send-to send-to-review">
         <fieldset>
-            <button class="btn btn-success">{{strings.send-to-review}}</button>
+            <button class="btn btn-success">
+                {{strings.send-to-review}}
+                <span class='glyphicon glyphicon-arrow-right'></span>
+            </button>
         </fieldset>
     </form>
 

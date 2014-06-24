@@ -17,7 +17,10 @@
     {{> metadata}}
     {{/metadata}}
     <form action="/profile/{{profile._id}}/send/sig" method="POST" class='form'>
-        <button class="btn btn-success" type='submit'>{{strings.send-to-sig}}</button>
+        <button class="btn btn-success" type='submit'>
+            {{strings.send-to-sig}}
+            <span class='glyphicon glyphicon-arrow-right'></span>
+        </button>
     </form>
 </div>
 
