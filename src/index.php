@@ -39,7 +39,7 @@ $rest->addMap("GET","/",function($r){
 });
 
 
-$rest->addMap("GET","/specie/:id",'\cncflora\controller\Species::specie'); 
+$rest->addMap("GET","/specie/:name",'\cncflora\controller\Species::specie'); 
 
 $rest->addMap("POST","/profile",'\cncflora\controller\Profile::createProfile');
 $rest->addMap("POST","/profile/:id","\cncflora\controller\Profile::save");

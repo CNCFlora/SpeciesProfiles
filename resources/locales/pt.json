@@ -112,5 +112,8 @@
     "login-to-begin":"Faça login para começar",
     "welcome":"Bem vindo",
     "species-count":"Número de espécies",
-    "empty":"Vazio"
+    "empty":"Vazio",
+    "back-to-analysis":"Voltar para análise",
+    "communication":"Comunicação",
+    "send-to-done":"Concluir"
 }

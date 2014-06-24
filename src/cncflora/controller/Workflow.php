@@ -120,7 +120,7 @@ class Workflow implements \Rest\Controller {
             $final[]=['status'=>$k,'species'=>$v];
         }
 
-        return new View('workflow-in.html',array('data'=> $final,'family'=>$family ));
+        return new View('workflow-in.html',array('data'=> $final,'family'=>$family));
     }
 }
 

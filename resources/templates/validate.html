@@ -1,27 +1,54 @@
 {{> header}}
 
-<div class="span8 profile">
+<div class="col-md-7 profile">
     {{#profile}}
+
+    <h2>{{taxon.family}}</h2>
     <h3><i>{{taxon.scientificName}}</i> {{taxon.scientificNameAuthorship}}</h3>
-    <p><a href="/profile/{{profile._id}}/occs" target='_blank'>{{strings.open-map}}</a></p>
+
+    <h4>{{strings.synonyms}}</h4>
+
+    <ul>
+        {{#synonyms}}
+        <li><i>{{scientificName}}</i> {{scientificNameAuthorship}}</li>
+        {{/synonyms}}
+        {{^synonyms}}
+        <li>N/A</li>
+        {{/synonyms}}
+    </ul>
+
     {{> profile-in}}
+
     {{/profile}}
 </div>
 
-<div class="span4">
-    <h4>{{strings.metadata}}</h4>
+<div class="col-md-5">
+    <h3>{{strings.metadata}}</h3>
+
     {{#metadata}}
     {{> metadata}}
     {{/metadata}}
+
+    {{#role-analyst}}
+    <form action="/profile/{{profile._id}}/send/open" method="POST" class='send-to form'>
+        <button class="btn btn-success">{{strings.back-to-analysis}}</button>
+    </form>
+    {{/role-analyst}}
+
+    <br />
+
     <form action="/profile/{{profile._id}}/send/review" method="POST" class="send-to send-to-review">
         <fieldset>
             <button class="btn btn-success">{{strings.send-to-review}}</button>
         </fieldset>
     </form>
+
     <h3>{{strings.comments}}</h3>
+
     {{^validations}}
     <p>N/A</p>
     {{/validations}}
+
     {{#validations}}
     <p>
         <strong>{{strings.creator}}</strong>: {{metadata.creator}}<br />
@@ -32,17 +59,29 @@
         <pre>{{comment}}</pre>
     </p>
     {{/validations}}
-    <form action="/profile/{{profile._id}}/validate" method="POST">
+
+    <form action="/profile/{{profile._id}}/validate" method="POST" class='form'>
         <fieldset>
             <legend>{{strings.new-comment}}</legend>
-            <label for="field">{{strings.field}}</label>
-            <select id="field" name="field" class='span4'>
-                <option value="---">---</option>
-            </select>
-            <label for="comment">{{strings.comment}}</label>
-            <textarea name="comment" class='span4'></textarea>
-            <br />
-            <button class="btn">{{strings.add}}</button>
+            <div class='form-group'>
+                <label for="field">{{strings.field}}</label>
+                <select id="field" name="field" class='form-control'>
+                    <option value="---">---</option>
+                    <option value="taxonomicNotes">{{strings.taxonomic-notes}}</option>
+                    <option value="economics">{{strings.economics}}</option>
+                    <option value="population">{{strings.population}}</option>
+                    <option value="ecology">{{strings.ecology}}</option>
+                    <option value="reproduction">{{strings.reproduction}}</option>
+                    <option value="threats">{{strings.threats}}</option>
+                    <option value="actions">{{strings.conservation-actions}}</option>
+                    <option value="uses">{{strings.uses}}</option>
+                </select>
+            </div>
+            <div class='form-group'>
+                <label for="comment">{{strings.comment}}</label>
+                <textarea name="comment" class='form-control'></textarea>
+            </div>
+            <button class="btn btn-success">{{strings.add}}</button>
         </fieldset>
     </form>
 </div>

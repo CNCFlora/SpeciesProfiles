@@ -1,30 +1,34 @@
 {{> header}}
 
-<div class="span8">
+<div class="col-md-8">
+    <h3><i>{{taxon.scientificName}}</i> {{taxon.scientificNameAuthorship}}</h3>
+    <p><a href="/profile/{{profile._id}}">{{strings.see-profile}}</a></p>
     <form id="data" action="/profile/{{profile._id}}" method="POST">
         <fieldset>
-            <legend>{{taxon.scientificName}}</legend>
             <div class="onde-panel"></div>
-            <p class="actions"><button class="btn btn-success">{{strings.save}}</button></p>
+            <p class="actions"><button type='submit' class="btn btn-success">{{strings.save}}</button></p>
         </fieldset>
     </form>
 </div>
 
-
-<div class="span4">
+<div class="col-md-4">
     <h3>Metadata</h3>
+
     {{#metadata}}
     {{> metadata}}
     {{/metadata}}
+
     <form action="/profile/{{profile._id}}/send/review-sig" method="POST">
         <fieldset>
-            <button class="btn btn-success">{{strings.to-sig}}</button>
+            <button class="btn btn-success">{{strings.send-to-sig}}</button>
         </fieldset>
     </form>
+
     <h3>{{strings.comments}}</h3>
     {{^validations}}
     <p>N/A</p>
     {{/validations}}
+
     {{#validations}}
     <p>
         <strong>{{strings.creator}}</strong>: {{metadata.creator}}<br />

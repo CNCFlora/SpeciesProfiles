@@ -24,6 +24,7 @@ class Profile implements \Rest\Controller {
         $can_validate = false;
         if($r->getParameter("logged")) {
             $user = $r->getParameter("user");
+
             foreach($user->roles as $role) {
                 if(strtolower( $role->role ) == "analyst") {
                     foreach($role->entities as $ent) {
@@ -38,7 +39,7 @@ class Profile implements \Rest\Controller {
                     }
                 }
             }
-            $user = $r->getParameter("user");
+
             foreach($user->roles as $role) {
                 if(strtolower( $role->role ) == "validator") {
                     foreach($role->entities as $ent) {
@@ -158,36 +159,12 @@ class Profile implements \Rest\Controller {
         $meta = $profile->metadata;
 
         $r2 = new \cncflora\repository\Species;
-        $profile->synonyms = $r2->getSynonyms($profile->taxon->lsid);
-
-        $repoOcc = new \cncflora\repository\Occurrences();
-        $occs = $repoOcc->listByName($profile->taxon->scientificName);
-        $profile->occsDone = 0;
-        $profile->occsTotal = count($occs);
-        foreach($occs as $occ) {
-            if(isset($occ->validationBy) && $occ->validationBy != null){
-                $profile->occsDone++;
-            }
-        }
-        $profile->ocssMissing = $profile->ocssTodo >= 1;
-
-        if(!isset($profile->distribution)) $profile->distribution = new \StdClass;
-        $profile->distribution->eoo = $repoOcc->eoo($profile->taxon->scientificName);
-        $profile->distribution->aoo = $repoOcc->aoo($profile->taxon->scientificName);
+        $profile->synonyms = $r2->getSynonyms($profile->taxon->scientificName);
 
         $s = "status_".$profile->metadata->status;
         $profile->$s = true;
 
-        if(isset($profile->distribution) && isset($profile->distribution->brasilianEndemic)) {
-            $profile->distribution->brasilianEndemic = ($profile->distribution->brasilianEndemic === "yes");
-        }
-        if(isset($profile->economicValue) && isset($profile->economicValue->potentialEconomicValue)) {
-            $profile->economicValue->potentialEconomicValue = ($profile->economicValue->potentialEconomicValue === "yes");
-        }
-
-        $eoo = $repoOcc->eooPolygon($profile->taxon->scientificName);
-
-        return new View('sig.html',array('profile'=>$profile,'occurrences'=>$occs,'eooPolygon'=> $eoo));
+        return new View('sig.html',array('profile'=>$profile));
     }
 
 }

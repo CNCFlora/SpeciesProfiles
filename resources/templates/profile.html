@@ -12,6 +12,9 @@
         {{#synonyms}}
         <li><i>{{scientificName}}</i> {{scientificNameAuthorship}}</li>
         {{/synonyms}}
+        {{^synonyms}}
+        <li>N/A</li>
+        {{/synonyms}}
     </ul>
 
     {{> profile-in}}
@@ -32,38 +35,40 @@
 			    <a href="/profile/{{profile._id}}/edit" class="btn btn-default"><span class='glyphicon glyphicon-edit'></i> {{strings.edit}}</a>
 			{{/can_edit}}
 		{{/status_open}}
+        {{/role-analyst}}
 
+        {{#role-analyst}}
 		{{#status_validation}}
 			{{#can_edit}}
-			    <a href="/profile/{{profile._id}}/validate" class="btn btn-mini"><i class='icon-edit'></i> {{strings.comunicacao}}</a>
+			    <a href="/profile/{{profile._id}}/validate" class="btn btn-default"><i class='glyphicon glyphicon-edit'></i> {{strings.communication}}</a>
 			{{/can_edit}}
 		{{/status_validation}}
         {{/role-analyst}}
 
         {{#role-sig}}
-        	{{#status_sig-review}}
-            <a href="/profile/{{profile._id}}/sig" class="btn btn-mini"><i class='icon-edit'></i> {{strings.sig}}</a>
-	        {{/status_sig-review}}
+        	{{#status_sig}}
+            <a href="/profile/{{profile._id}}/sig" class="btn btn-default"><i class='glyphicon glyphicon-edit'></i> {{strings.sig}}</a>
+	        {{/status_sig}}
         {{/role-sig}}
 
         {{#role-validator}}
 		{{#status_validation}}
 			{{#can_validate}}
-            <a href="/profile/{{profile._id}}/validate" class="btn btn-mini"><i class='icon-edit'></i> {{strings.validate}}</a>
+            <a href="/profile/{{profile._id}}/validate" class="btn btn-default"><i class='glyphicon glyphicon-edit'></i> {{strings.validate}}</a>
 			{{/can_validate}}
 		{{/status_validation}}
         {{/role-validator}}
 
         {{#role-sig}}
-		{{#status_sig-review}}
-            <a href="/profile/{{profile._id}}/sig" class="btn btn-mini"><i class='icon-edit'></i> {{strings.sig-review}}</a>
-		{{/status_sig-review}}
+		{{#status_review-sig}}
+            <a href="/profile/{{profile._id}}/sig" class="btn btn-default"><i class='glyphicon glyphicon-edit'></i> {{strings.sig}}</a>
+		{{/status_review-sig}}
         {{/role-sig}}
 
         {{#role-analyst}}
 		{{#status_review}}
 			{{#can_edit}}
-            <a href="/profile/{{profile._id}}/review" class="btn btn-mini"><i class='icon-edit'></i> {{strings.review}}</a>
+            <a href="/profile/{{profile._id}}/review" class="btn btn-default"><i class='glyphicon glyphicon-edit'></i> {{strings.review}}</a>
 			{{/can_edit}}
 		{{/status_review}}
         {{/role-analyst}}
@@ -80,7 +85,7 @@
                         <option>sig</option>
                         <option>validation</option>
                         <option>review</option>
-                        <option>sig-review</option>
+                        <option>review-sig</option>
                         <option>done</option>
                     </select>
                     <button class="btn btn-primary">{{strings.send}}</button>

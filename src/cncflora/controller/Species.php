@@ -41,8 +41,8 @@ class Species implements \Rest\Controller {
     }
 
     function specie($r) {
-        $id  = $r->getRequest()->getParameter('id');
-        $spp = $this->repo->getSpecie($id);
+        $name  = $r->getRequest()->getParameter('name');
+        $spp = $this->repo->getSpecieByName($name);
         $doc = $this->repoProfiles->latestByTaxon($spp->scientificName);
         if(is_null($doc)) {
             return new View('specie.html',array('specie'=>$spp));

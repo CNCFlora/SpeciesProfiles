@@ -1,12 +1,12 @@
 Feature: Open and edit profiles
 
     Scenario: create profile
-        Given I am on "/specie/taxon:1"
+        Given I am on "/specie/Aphelandra longiflora"
         Then I login as "Diogo", "diogo@cncflora.net", "admin,analyst"
         And I press "create-btn"
 
     Scenario: Edit a profile, changes apply and metadata
-        Given I am on "/specie/taxon:1"
+        Given I am on "/specie/Aphelandra longiflora"
         When I login as "Bruno", "bruno@cncflora.net", "analyst", "ACANTHACEAE"
         And I follow "Editar"
         Then I should see "Contribuidor(es): [Bruno] ; Diogo"
@@ -20,7 +20,7 @@ Feature: Open and edit profiles
         Then I should see "Hello, notes."
 
     Scenario: Change workflow, and still save content
-        Given I am on "/specie/taxon:1"
+        Given I am on "/specie/Aphelandra longiflora"
         When I login as "Bruno", "bruno@cncflora.net", "analyst", "ACANTHACEAE"
         And I follow "Editar"
         Then I wait 5000

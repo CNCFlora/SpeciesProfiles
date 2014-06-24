@@ -34,6 +34,15 @@ class Species extends Base {
         }
     }
 
+    public function getSpecieByName($name) {
+        $r= $this->search('taxon','scientificName:"'.$name.'"');
+        if(isset($r[0])) {
+            return $r[0];
+        } else {
+            return null;
+        }
+    }
+
     public function getSynonyms($name) {
         $response = $this->search("taxon","taxonomicStatus:\"synonym\" AND acceptedNameUsage:\"".$name."\"");
         $taxons = array();

@@ -82,12 +82,6 @@ head
             },1000);
         }
 
-        if($("html").attr("id") == "validate-page") {
-            for(var i in schema.properties) {
-                $("#field").append("<option>"+ schema.properties[i].label +"</option>");
-            }
-        }
-
         $(".tab-pane:eq(0)").addClass('active');
 
     });
