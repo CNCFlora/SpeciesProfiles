@@ -38,8 +38,7 @@ $rest->addMap("GET","/",function($r){
     return new \cncflora\View('index.html',array());
 });
 
-$rest->addMap("GET","/families",'\cncflora\controller\Species'); 
-$rest->addMap("GET","/family/:family",'\cncflora\controller\Species::family'); 
+
 $rest->addMap("GET","/specie/:id",'\cncflora\controller\Species::specie'); 
 
 $rest->addMap("POST","/profile",'\cncflora\controller\Profile::createProfile');
@@ -59,7 +58,7 @@ $rest->addMap("POST","/profile/:id/send/:status","\cncflora\controller\Workflow:
 $rest->addMap("POST","/profile/:id/sendTo","\cncflora\controller\Workflow::changeStatusForce");
 
 $rest->addMap("GET","/workflow","\cncflora\controller\Workflow");
-$rest->addMap("GET","/workflow/:family/:status","\cncflora\controller\Workflow::family");
+$rest->addMap("GET","/workflow/:family","\cncflora\controller\Workflow::family");
 
 $rest->addMap("GET","/habitats2fito",'\cncflora\controller\Profile::habitats2fito');
 
@@ -69,6 +68,7 @@ $rest->addMap("GET",'.*',function($r) {
     $file = substr($uri,strpos($uri,'resources'));
     return new Rest\Controller\Redirect("/".BASE.$file);
 });
+
 
 $rest->execute();
 

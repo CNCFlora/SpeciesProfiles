@@ -1,6 +1,7 @@
 {{> header}}
 
-<div class="span8">
+<div class="col-md-12">
+    <h2>{{family}}</h2>
     <ul class="nav nav-tabs">
         <li class='active'><a href="#empty" data-toggle="tab">{{strings.not-started}}</a></li>
         <li><a href="#open" data-toggle="tab">{{strings.analisys}}</a></li>
@@ -11,32 +12,20 @@
         <li><a href="#done" data-toggle="tab">{{strings.done}}</a></li>
     </ul>
     <div class="tab-content">
-        {{#statuses}}
+        {{#data}}
         <div id="{{status}}" class='tab-pane'>
-            {{^list}}
-            <p>Vazio</p>
-            {{/list}}
-            {{#list}}
-                <div class="accordion" id="{{status}}-in">
-                    <div class="accordion-group">
-                        <div class="accordion-heading">
-                            <a class="accordion-toggle" data-toggle="collapse"
-                                data-parent="#{{status}}-in" href="#{{status}}-{{family}}">{{family}} ({{count}}/{{total}})</a> 
-                        </div>
-                        <div id="{{status}}-{{family}}" class="accordion-body collapse in">
-                            <div class="accordion-inner">
-                                <ul>
-                                {{#species}}
-                                <li><a href="/specie/{{taxon.lsid}}"><i>{{taxon.scientificName}}</i></a></li>
-                                {{/species}}
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {{/list}}
+            {{^species}}
+            <p>{{strings.empty}}</p>
+            {{/species}}
+            <ul>
+            {{#species}}
+                <li>
+                    <a href="/specie/{{taxon.scientificName}}"><i>{{taxon.scientificName}}</i></a>
+                </li>
+            {{/species}}
+            </ul>
         </div>
-        {{/statuses}}
+        {{/data}}
     </div>
 </div>
 

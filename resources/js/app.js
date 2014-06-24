@@ -88,10 +88,7 @@ head
             }
         }
 
-        if($("html").attr("id") == "control-page") {
-            $(".collapse").collapse();
-            $(".tab-pane:eq(0)").addClass('active');
-        }
+        $(".tab-pane:eq(0)").addClass('active');
 
     });
 });
