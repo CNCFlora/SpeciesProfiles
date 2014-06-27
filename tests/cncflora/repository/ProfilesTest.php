@@ -61,11 +61,11 @@ class ProfilesTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function tearDown() {
-        $repo = new Species;
-        $repo->delete("1");
-        $repo->delete("2");
-        $repo->delete("3");
-        $repo->delete("4");
+        $repo0 = new \cncflora\repository\Base;
+        $all = $repo0->get("_all_docs");
+        foreach($all->rows as $r) {
+            $repo0->delete($r->id);
+        }
     }
 
     /**

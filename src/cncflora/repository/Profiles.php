@@ -55,6 +55,7 @@ class Profiles extends Base {
         $profiles = array();
         $docs = $this->search("profile","taxon.family=\"".$family."\"");
         foreach($docs as $doc) {
+            $doc->taxon->family = strtoupper($doc->taxon->family);
             $profiles[] = $doc;
         }
         return $profiles;
@@ -64,6 +65,7 @@ class Profiles extends Base {
         $profile = null;
         $docs = $this->search("profile","taxon.scientificName:\"".$name."\"");
         foreach($docs as $doc) {
+            $doc->taxon->family = strtoupper($doc->taxon->family);
             if(is_null($profile)) {
                 $profile = $doc;
             } else if($profile->metadata->created <= $doc->metadata->created ) {
