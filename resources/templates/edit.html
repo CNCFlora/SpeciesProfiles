@@ -2,7 +2,18 @@
 
 <div class="col-md-8">
     <h3><i>{{taxon.scientificName}}</i> {{taxon.scientificNameAuthorship}}</h3>
-    <p><a href="/profile/{{profile._id}}">{{strings.see-profile}}</a></p>
+
+    <p>
+        <a href="/profile/{{profile._id}}" class='btn btn-default'>
+            <span class="glyphicon glyphicon-leaf"></span>
+            {{strings.see-profile}}
+        </a>
+        <a href="{{occurrences}}/specie/{{taxon.scientificName}}" class='btn btn-default btn-'>
+            <span class='glyphicon glyphicon-globe'></span>
+            {{strings.occurrence-map}}
+        </a>
+    </p>
+
     <form id="data" action="/profile/{{profile._id}}" method="POST">
         <fieldset>
             <div class="onde-panel"></div>
@@ -12,10 +23,12 @@
 </div>
 
 <div class="col-md-4">
-    <h4>{{strings.metadata}}</h4>
+    <h3>{{strings.metadata}}</h3>
+
     {{#metadata}}
     {{> metadata}}
     {{/metadata}}
+
     <form action="/profile/{{profile._id}}/send/sig" method="POST" class='form'>
         <button class="btn btn-success" type='submit'>
             {{strings.send-to-sig}}

@@ -6,6 +6,13 @@
     <h2>{{taxon.family}}</h2>
     <h3><i>{{taxon.scientificName}}</i> {{taxon.scientificNameAuthorship}}</h3>
 
+    <p>
+        <a href="{{occurrences}}/specie/{{taxon.scientificName}}" class='btn btn-default btn-'>
+            <span class='glyphicon glyphicon-globe'></span>
+            {{strings.occurrence-map}}
+        </a>
+    </p>
+
     <h4>{{strings.synonyms}}</h4>
 
     <ul>
