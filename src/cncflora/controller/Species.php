@@ -26,17 +26,7 @@ class Species implements \Rest\Controller {
 
     function family($r) {
         $family = $r->getRequest()->getParameter('family');
-        $docs = $this->repoProfiles->listByFamily($family);
-        $profiles = array();
-        foreach($docs as $p) {
-            $profiles[$p->taxon->scientificName] = true; 
-        }
         $species = $this->repo->getSpecies($family);
-        foreach($species as $spp) {
-            if(isset($profiles[$spp->scientificName])) {
-                $spp->have = true;
-            }
-        }
         return new View('family.html',array('species'=>$species,'family'=>$family));
     }
 
