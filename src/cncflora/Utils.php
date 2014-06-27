@@ -113,6 +113,7 @@ class Utils {
 
         foreach($arr as $a) {
             unset($a->id);
+            unset($a->rev);
         }
 
         return $arr;

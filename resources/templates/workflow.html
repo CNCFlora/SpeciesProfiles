@@ -4,7 +4,14 @@
     <thead>
         <tr>
             <th>{{strings.family}}</th>
-            <th>{{strings.species-count}}</th>
+            <th>{{strings.not-started}}</th>
+            <th>{{strings.sig}}</th>
+            <th>{{strings.analisys}}</th>
+            <th>{{strings.validation}}</th>
+            <th>{{strings.revision}}</th>
+            <th>{{strings.sig-revision}}</th>
+            <th>{{strings.done}}</th>
+            <th>{{strings.total}}</th>
         </tr>
     </thead>
     <tbody>
@@ -13,6 +20,13 @@
             <td>
                 <a href='/workflow/{{family}}'>{{family}}</a>
             </td>
+            <td>{{empty}}</td>
+            <td>{{sig}}</td>
+            <td>{{open}}</td>
+            <td>{{validation}}</td>
+            <td>{{review}}</td>
+            <td>{{review-sig}}</td>
+            <td>{{done}}</td>
             <td>{{count}}</td>
         </tr>
         {{/families}}

@@ -32,56 +32,33 @@ class Workflow implements \Rest\Controller {
             }
         }
 
+        $statuses=['empty','open','sig','validation','review','review-sig','done'];
+
         $data = array();
         foreach($families as $f) {
-            $c=count($repo->getSpecies($f));
-            $data[] = array(
+            $spps = $repo->getSpecies($f);
+
+            $s = array(
                 "family"=>$f,
-                "count"=>$c
+                "count"=>count($spps)
             );
+
+            foreach($statuses as $status) {
+                $s[$status] = 0;
+            }
+
+            $repoProfiles = new \cncflora\repository\Profiles;
+            $docs = $repoProfiles->listByFamily($f);
+
+            foreach($docs as $doc) {
+                $s[$doc->metadata->status] += 1;
+            }
+
+            $data[] = $s;
         }
 
         return new View('workflow.html',array('families'=>$data));
     }
-
-
-    function changeStatus($r) {
-        $id = $r->GetRequest()->getparameter("id");
-        $status = $r->GetRequest()->getparameter("status");
-        $user = $r->getParameter("user");
-        $repo = new \cncflora\repository\Profiles($user);
-        $doc = $repo->get($id);
-        $doc->metadata->status= $status;
-        if($status == 'done') $doc->metadata->valid = true;
-        $r = $repo->update($doc);
-        if(isset($r->error)) {
-            $j = json_decode(substr($r->reason,strpos( $r->reason,":" ) + 1));
-            $err = "Error: ".$j->message." at ".substr($j->dataPath,1);
-            echo $err;
-            exit;
-        }
-        return new \Rest\Controller\Redirect('/'.BASE.'profile/'.$doc->_id);
-    }
-
-
-    function changeStatusForce($r) {
-        $id = $r->GetRequest()->getparameter("id");
-        $status = $r->getRequest()->getPost("status");
-        $user = $r->getParameter("user");
-        $repo = new \cncflora\repository\Profiles($user);
-        $doc = $repo->get($id);
-        $doc->metadata->status= $status;
-        if($status == 'done') $doc->metadata->valid = true;
-        $r = $repo->update($doc,false);
-        if(isset($r->error)) {
-            $j = json_decode(substr($r->reason,strpos( $r->reason,":" ) + 1));
-            $err = "Error: ".$j->message." at ".substr($j->dataPath,1);
-            echo $err;
-            exit;
-        }
-        return new \Rest\Controller\Redirect('/'.BASE.'profile/'.$doc->_id);
-    }
-
 
     function family($r) {
         $user =$r->getParameter("user");
@@ -91,7 +68,7 @@ class Workflow implements \Rest\Controller {
 
         $family = $r->getRequest()->getParameter('family');
 
-        $statuses=['empty','open','sig','validation','review','sig-revision','done'];
+        $statuses=['empty','open','sig','validation','review','review-sig','done'];
         $data=[];
 
         $repoProfiles = new \cncflora\repository\Profiles;
@@ -120,7 +97,51 @@ class Workflow implements \Rest\Controller {
             $final[]=['status'=>$k,'species'=>$v];
         }
 
-        return new View('workflow-in.html',array('data'=> $final,'family'=>$family));
+        $stats = [];
+        foreach($statuses as $status) {
+            $stats[$status] = count($data[$status]);
+        }
+
+        $stats['total']=count($species);
+
+        return new View('workflow-in.html',array('data'=> $final,'family'=>$family,'stats'=>$stats));
     }
+
+    function changeStatus($r) {
+        $id = $r->GetRequest()->getparameter("id");
+        $status = $r->GetRequest()->getparameter("status");
+        $user = $r->getParameter("user");
+        $repo = new \cncflora\repository\Profiles($user);
+        $doc = $repo->get($id);
+        $doc->metadata->status= $status;
+        if($status == 'done') $doc->metadata->valid = true;
+        $r = $repo->update($doc);
+        if(isset($r->error)) {
+            $j = json_decode(substr($r->reason,strpos( $r->reason,":" ) + 1));
+            $err = "Error: ".$j->message." at ".substr($j->dataPath,1);
+            echo $err;
+            exit;
+        }
+        return new \Rest\Controller\Redirect('/'.BASE.'profile/'.$doc->_id);
+    }
+
+    function changeStatusForce($r) {
+        $id = $r->GetRequest()->getparameter("id");
+        $status = $r->getRequest()->getPost("status");
+        $user = $r->getParameter("user");
+        $repo = new \cncflora\repository\Profiles($user);
+        $doc = $repo->get($id);
+        $doc->metadata->status= $status;
+        if($status == 'done') $doc->metadata->valid = true;
+        $r = $repo->update($doc,false);
+        if(isset($r->error)) {
+            $j = json_decode(substr($r->reason,strpos( $r->reason,":" ) + 1));
+            $err = "Error: ".$j->message." at ".substr($j->dataPath,1);
+            echo $err;
+            exit;
+        }
+        return new \Rest\Controller\Redirect('/'.BASE.'profile/'.$doc->_id);
+    }
+
 }
 
