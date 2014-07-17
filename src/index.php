@@ -23,9 +23,14 @@ if(($user = $rest->getRequest()->getSession('user')) != null) {
 }
 
 $rest->addMap('POST',"/login",function($r) {
-    $u = json_decode($r->getRequest()->getBody());
-    $r->getRequest()->setSession('user',$u);
-    return new Rest\View\JSon($u);
+    $preuser = json_decode($r->getRequest()->getBody());
+    if(ENV=='test') {
+        $r->getRequest()->setSession('user',$preuser);
+    } else {
+        $user = \cncflora\Utils::http_get(CONNECT_URL."/api/token?token=".$preuser->token);
+        $r->getRequest()->setSession('user',$user);
+    }
+    return new Rest\View\JSon($user);
 });
 
 $rest->addMap('POST',"/logout",function($r) {
