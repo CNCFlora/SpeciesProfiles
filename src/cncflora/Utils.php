@@ -47,18 +47,25 @@ class Utils {
 
         $context = getenv("CONTEXT");
         if($context != null) $data["CONTEXT"] = $context;
+
+        $etcd = getenv("ETCD");
+        if($etcd != null) $data["ETCD"] = $etcd;
+
+        $db = getenv("DB");
+        if($db != null) $data["DB"] = $db;
+
         $prefix = getenv("PREFIX");
         if($prefix != null && strlen($data["PREFIX"]) >= 1) $data["PREFIX"] = $prefix."_";
         else $data["PREFIX"] = "";
 
         if(isset($data['ETCD'])) {
-            $keys = json_decode( file_get_contents($data['ETCD']."/v2/keys/?recursive=true") );
+            $keys = json_decode(file_get_contents($data['ETCD']."/v2/keys/?recursive=true"));
             foreach($keys->node->nodes as $node) {
                 if(isset($node->nodes)) {
                     foreach($node->nodes as $entry) {
                         $key  = strtoupper(str_replace("-","_",( str_replace("/","_",substr($entry->key,1)))));
                         if(strlen($data["PREFIX"]) >= 1) {
-                            $key  = str_replace($data["PREFIX"],"");
+                            $key  = str_replace($data["PREFIX"],"",$key);
                         }
                         if(isset($entry->value) && !is_null($entry->value)) {
                             $data[$key] = $entry->value;

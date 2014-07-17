@@ -38,7 +38,7 @@ class View implements \Rest\View {
         $m = new \Mustache_Engine(array('partials'=>$this->partials));
         $content = $m->render($this->template,$props);
 
-        $content = preg_replace('@=[\'"]/([^\'"]*)[\'"]@','="/'.BASE.'\1"',$content);
+        $content = preg_replace('@=[\'"](/[^\'"]*)[\'"]@','="'.BASE.'\1"',$content);
 
         $rest->getResponse()->setResponse($content);
         return $rest ;

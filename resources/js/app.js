@@ -12,14 +12,14 @@ head
             context: context,
             onlogin: function(user) {
                 if(!test && !logged) {
-                    $.post(base+'login',JSON.stringify(user),function(){
+                    $.post(base+'/login',JSON.stringify(user),function(){
                         location.reload();
                     });
                 }
             },
             onlogout: function(nothing){
                 if(!test && logged) {
-                    $.post(base+'logout',nothing,function(){
+                    $.post(base+'/logout',nothing,function(){
                         location.reload();
                     });
                 }
@@ -72,7 +72,7 @@ head
                                     }
                                 ).map(function(i,f){return f.value});
 
-                $.getJSON(base+'habitats2fito?habitats='+encodeURIComponent(JSON.stringify(habits)),function(data){
+                $.getJSON(base+'/habitats2fito?habitats='+encodeURIComponent(JSON.stringify(habits)),function(data){
                     var label = $("li[id*='fitofisionomies']>label").first();
                     if(data.length >= 1) {
                         label.html("Fitofisionomies: <small>recommends: "+data+"</small>");
