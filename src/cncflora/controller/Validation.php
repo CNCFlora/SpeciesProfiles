@@ -37,7 +37,7 @@ class Validation implements \Rest\Controller {
             exit;
         }
 
-        return new \Rest\Controller\Redirect('/'.BASE_PATH."profile/".$id."/validate");
+        return new \Rest\Controller\Redirect(BASE."/profile/".$id."/validate");
     }
 
     function validateForm($r) {

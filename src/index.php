@@ -73,7 +73,7 @@ $rest->addMap("GET",'.*',function($r) {
     $uri = $r->getRequest()->getURI();
     if(strpos($uri,'resources') === false) return new Rest\Controller\NotFound;
     $file = substr($uri,strpos($uri,'resources'));
-    return new Rest\Controller\Redirect("/".BASE.$file);
+    return new Rest\Controller\Redirect(BASE.$file);
 });
 
 
