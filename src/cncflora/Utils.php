@@ -48,6 +48,9 @@ class Utils {
         $context = getenv("CONTEXT");
         if($context != null) $data["CONTEXT"] = $context;
 
+        $base = getenv("BASE");
+        if($base != null) $data["BASE"] = $base;
+
         $etcd = getenv("ETCD");
         if($etcd != null) $data["ETCD"] = $etcd;
 
@@ -55,7 +58,7 @@ class Utils {
         if($db != null) $data["DB"] = $db;
 
         $prefix = getenv("PREFIX");
-        if($prefix != null && strlen($data["PREFIX"]) >= 1) $data["PREFIX"] = $prefix."_";
+        if($prefix != null && strlen($prefix) >= 1) $data["PREFIX"] = $prefix."_";
         else $data["PREFIX"] = "";
 
         if(isset($data['ETCD'])) {
@@ -68,7 +71,9 @@ class Utils {
                             $key  = str_replace($data["PREFIX"],"",$key);
                         }
                         if(isset($entry->value) && !is_null($entry->value)) {
-                            $data[$key] = $entry->value;
+                            if(!isset($data[$key])) {
+                                $data[$key] = $entry->value;
+                            }
                         }
                     }
                 }
