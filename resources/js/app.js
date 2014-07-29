@@ -1,10 +1,10 @@
 head
 .js(connect+'/js/connect.js')
-.js('resources/js/jquery.min.js')
+//.js(base+'/resources/js/jquery.min.js')
 .ready(function(){
     head
-    .js('resources/js/bootstrap.min.js')
-    .js('resources/js/onde.js')
+    .js(base+'/resources/js/bootstrap.min.js')
+    .js(base+'/resources/js/onde.js')
     .ready(function(){
         var base = window.base;
 
@@ -65,12 +65,16 @@ head
             });
 
             setInterval(function(){
-                var habits = $("select")
-                                .filter(
-                                    function(i,f){ 
-                                        return $(f).attr("id").match(/ecology-habitat/);
-                                    }
-                                ).map(function(i,f){return f.value});
+
+                var habits = [];
+
+                 $("select")
+                     .filter(function(i,f){ 
+                        return $(f).attr("id").match(/ecology-habitat/);
+                     })
+                     .each(function(i,e){
+                        habits.push(e.value);
+                     });
 
                 $.getJSON(base+'/habitats2fito?habitats='+encodeURIComponent(JSON.stringify(habits)),function(data){
                     var label = $("li[id*='fitofisionomies']>label").first();
