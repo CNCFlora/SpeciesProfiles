@@ -20,7 +20,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provision "docker" do |d|
-    d.run "cncflora/etcd", name: "etcd", args: "-p 8001:80 -p 4001:4001"
+    d.run "coreos/etcd", name: "etcd", args: "-p 8001:80 -p 4001:4001"
     d.run "cncflora/connect", name: "connect", args: "-P -v /var/connect:/var/floraconnect:rw"
     d.run "cncflora/datahub", name: "datahub", args: "-P -v /var/lib/couchdb:/var/lib/couchdb:rw"
   end

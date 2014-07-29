@@ -42,20 +42,25 @@ if [[ ! -e ~/.phantom_done ]]; then
     mv phantomjs-1.9.7-linux-x86_64 phantomjs
     ln -s /opt/phantomjs/bin/phantomjs /usr/bin/phantomjs
     echo 'nohup phantomjs --webdriver=8643 > /dev/null 2>&1 &' > /etc/rc.local
+    touch ~/.phantom_done
 fi
 
 # docker register to etcd
-if [[ ! -e /usr/bin/docker2etcd ]]; then
-    wget https://gist.githubusercontent.com/diogok/24cf050e880731783d40/raw/e0f0e05e532488fec803c68022d514975034e8d8/docker2etcd.rb \
-          -O /usr/bin/docker2etcd 
-    chmod +x /usr/bin/docker2etcd 
+if [[ ! -e ~/.ops_done ]]; then
+    gem sources -r http://rubygems.org/
+    gem sources -a https://rubygems.org/
+    gem install small-ops
+    touch ~/.ops_done
 fi
-/usr/bin/docker2etcd
+docker2etcd -h 192.168.50.10
 
 # setup couchdb
-HUB=$(docker ps | grep datahub | awk '{ print $10 }' | grep -e '[0-9]\{5\}' -o)
-curl -X PUT http://localhost:$HUB/cncflora
-curl -X PUT http://localhost:$HUB/cncflora_test
+if [[ ! -e ~/.couchdb_done ]]; then
+    HUB=$(docker ps | grep datahub | awk '{ print $10 }' | grep -e '[0-9]\{5\}' -o)
+    curl -X PUT http://localhost:$HUB/cncflora
+    curl -X PUT http://localhost:$HUB/cncflora_test
+    touch ~/.couchdb_done
+fi
 
 # done
 echo "Done bootstraping"
