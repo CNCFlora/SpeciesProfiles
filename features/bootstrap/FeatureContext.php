@@ -49,7 +49,7 @@ class FeatureContext extends MinkContext {
             $doc['roles'][] = ['role'=>$role,'entities'=>[]];
         }
         $this->getMainContext()->getSession()->executeScript('$.post("/login",JSON.stringify('.json_encode($doc).'),function(){})');
-        $this->getMainContext()->getSession()->wait(1000);
+        $this->getMainContext()->getSession()->wait(1500);
         $this->getMainContext()->getSession()->reload();
     }
 

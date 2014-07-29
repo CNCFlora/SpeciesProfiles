@@ -14,7 +14,7 @@ Feature: Open and edit profiles
         Then I should see "Taxonomic Notes"
         Then I fill field "textarea[id*='-taxonomicNotes-notes']" with "Hello, notes."
         And I press "Salvar"
-        And I wait 5000
+        And I wait 7000
         Then I should see "Notas Taxonômicas"
         Then I should see "Status: open"
         Then I should see "Hello, notes."

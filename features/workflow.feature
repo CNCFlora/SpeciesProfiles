@@ -2,6 +2,7 @@ Feature: Workflow view
 
     Scenario: List families
         Given I am on "/workflow"
+        And I logout
         Then I should not see "ACANTHACEAE"
         Then I should not see "BROMELIACEAE"
         Then I login as "Diogo", "diogo@diogok.net", "analyst", "ACANTHACEAE"
