@@ -69,6 +69,7 @@ class Utils {
                         $key  = strtoupper(str_replace("-","_",( str_replace("/","_",substr($entry->key,1)))));
                         if(strlen($data["PREFIX"]) >= 1) {
                             $key  = str_replace($data["PREFIX"],"",$key);
+                            $key  = str_replace(strtoupper( $data["PREFIX"] ),"",$key);
                         }
                         if(isset($entry->value) && !is_null($entry->value)) {
                             if(!isset($data[$key])) {

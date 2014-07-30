@@ -53,6 +53,7 @@ class Workflow implements \Rest\Controller {
             foreach($docs as $doc) {
                 $s[$doc->metadata->status] += 1;
             }
+            $s["empty"] = count($spps) - count($docs);
 
             $data[] = $s;
         }
