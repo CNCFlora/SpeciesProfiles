@@ -119,23 +119,12 @@ class Utils {
         $arr =array();
         $ids = [];
         foreach($r->hits->hits as $hit) {
-            $arr[] = $hit->_source;
-            $ids[] = $hit->_source->id;
-        }
-
-        $r = Utils::http_get(DATAHUB_URL.'/'.DB.'/_all_docs?keys='.json_encode($ids));
-        foreach($r->rows as $row) {
-            foreach($arr as $a) {
-                if($a->id == $row->id) {
-                    $a->_id = $row->id;
-                    $a->_rev = $row->value->rev;
-                }
-            }
-        }
-
-        foreach($arr as $a) {
-            unset($a->id);
-            unset($a->rev);
+            $doc = $hit->_source;
+            $doc->_id = $doc->id;
+            $doc->_rev = $doc->rev;
+            unset($doc->id);
+            unset($doc->rev);
+            $arr[] = $doc;
         }
 
         return $arr;
