@@ -10,8 +10,8 @@ class Species extends Base {
         foreach($response as $row) {
             $families[] = strtoupper($row->family);
         }
-
-        return array_unique($families);
+        sort($families);
+        return array_unique($families) ;
     }
 
     public function getSpecies($family) {
@@ -22,6 +22,9 @@ class Species extends Base {
             $row->family = strtoupper($row->family);
             $species[] = $row;
         }
+        usort($species,function($s0,$s1){
+            return $s0->scientificName > $s1->scientificName;
+        });
         return $species;
     }
 
