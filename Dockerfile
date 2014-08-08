@@ -18,8 +18,11 @@ ENV APACHE_PID_FILE /var/apache2.pid
 ENV PHP_ENV production
 
 ADD default.conf /etc/apache2/sites-available/000-default.conf
-ADD . /var/www
 
+ADD vendor /var/www/vendor
+RUN chown www-data.www-data /var/www/vendor -Rf
+
+ADD . /var/www
 RUN chown www-data.www-data /var/www -Rf
 
 EXPOSE 80
