@@ -81,14 +81,14 @@ class Workflow implements \Rest\Controller {
 
         $got =array();
         foreach($docs as $p) {
-            $got[$p->taxon->scientificName] = true; 
+            $got[$p->taxon->scientificNameWithoutAuthorship] = true; 
             $data[$p->metadata->status][] = $p;
         }
 
         $repo = new \cncflora\repository\Species;
         $species = $repo->getSpecies($family);
         foreach($species as $spp) {
-            if(!isset($got[$spp->scientificName])) {
+            if(!isset($got[$spp->scientificNameWithoutAuthorship])) {
                 $data['empty'][] = ['taxon'=>$spp];
             }
         }

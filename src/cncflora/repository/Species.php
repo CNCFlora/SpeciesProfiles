@@ -38,7 +38,7 @@ class Species extends Base {
     }
 
     public function getSpecieByName($name) {
-        $r= $this->search('taxon','scientificName:"'.$name.'"');
+        $r= $this->search('taxon','scientificNameWithoutAuthorship:"'.$name.'"');
         if(isset($r[0])) {
             return $r[0];
         } else {
@@ -47,7 +47,7 @@ class Species extends Base {
     }
 
     public function getSynonyms($name) {
-        $response = $this->search("taxon","taxonomicStatus:\"synonym\" AND acceptedNameUsage:\"".$name."\"");
+        $response = $this->search("taxon","taxonomicStatus:\"synonym\" AND acceptedNameUsage:\"".$name."*\"");
         $taxons = array();
         foreach($response as $row) {
             $row->family = strtoupper($row->family);

@@ -32,7 +32,7 @@ class Profile implements \Rest\Controller {
                             $can_edit = true;
                             break;
                         }
-                        if(strpos(strtolower( $ent ),strtolower( $profile->taxon->scientificName )) !== false) {
+                        if(strpos(strtolower( $ent ),strtolower( $profile->taxon->scientificNameWithoutAuthorship )) !== false) {
                             $can_edit = true;
                             break;
                         }
@@ -47,7 +47,7 @@ class Profile implements \Rest\Controller {
                             $can_validate = true;
                             break;
                         }
-                        if(strpos(strtolower( $profile->taxon->scientificName ),strtolower( $ent )) !== false) {
+                        if(strpos(strtolower( $profile->taxon->scientificNameWithoutAuthorship ),strtolower( $ent )) !== false) {
                             $can_validate = true;
                             break;
                         }
@@ -57,7 +57,7 @@ class Profile implements \Rest\Controller {
         }
 
         $r2 = new \cncflora\repository\Species;
-        $profile->synonyms = $r2->getSynonyms($profile->taxon->scientificName);
+        $profile->synonyms = $r2->getSynonyms($profile->taxon->scientificNameWithoutAuthorship);
 
         $s = "status_".$profile->metadata->status;
         $profile->$s = true;
@@ -159,7 +159,7 @@ class Profile implements \Rest\Controller {
         $meta = $profile->metadata;
 
         $r2 = new \cncflora\repository\Species;
-        $profile->synonyms = $r2->getSynonyms($profile->taxon->scientificName);
+        $profile->synonyms = $r2->getSynonyms($profile->taxon->scientificNameWithoutAuthorship);
 
         $s = "status_".$profile->metadata->status;
         $profile->$s = true;

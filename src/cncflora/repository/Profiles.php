@@ -29,6 +29,7 @@ class Profiles extends Base {
         $profile->taxon = new \StdClass;
         $profile->taxon->family = $taxon->family;
         $profile->taxon->scientificName = $taxon->scientificName;
+        $profile->taxon->scientificNameWithoutAuthorship = $taxon->scientificNameWithoutAuthorship;
         $profile->taxon->scientificNameAuthorship = $taxon->scientificNameAuthorship;
 
         $r = $this->put($profile);
@@ -63,7 +64,7 @@ class Profiles extends Base {
 
     public function latestByTaxon($name) {
         $profile = null;
-        $docs = $this->search("profile","taxon.scientificName:\"".$name."\"");
+        $docs = $this->search("profile","taxon.scientificNameWithoutAuthorship:\"".$name."\"");
         foreach($docs as $doc) {
             $doc->taxon->family = strtoupper($doc->taxon->family);
             if(is_null($profile)) {

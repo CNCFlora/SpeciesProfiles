@@ -33,7 +33,7 @@ class Species implements \Rest\Controller {
     function specie($r) {
         $name  = $r->getRequest()->getParameter('name');
         $spp = $this->repo->getSpecieByName($name);
-        $doc = $this->repoProfiles->latestByTaxon($spp->scientificName);
+        $doc = $this->repoProfiles->latestByTaxon($spp->scientificNameWithoutAuthorship);
         if(is_null($doc)) {
             return new View('specie.html',array('specie'=>$spp));
         } else {

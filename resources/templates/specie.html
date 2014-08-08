@@ -1,7 +1,7 @@
 {{> header}}
 
 <div class="col-md-12">
-    <h3><i>{{specie.scientificName}}</i> {{specie.scientificNameAuthorship}}</h3>
+    <h3><i>{{specie.scientificNameWithoutAuthorship}}</i> {{specie.scientificNameAuthorship}}</h3>
     <p>{{strings.no-profile}}.</p>
     {{#logged}}
     {{#role-analyst}}
