@@ -3,6 +3,11 @@ FROM ubuntu:14.04
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install apache2 libapache2-mod-php5 php5 php5-cli php5-curl php5-common php5-sqlite php5-mysql php5-pgsql php5-gd -y 
+
+RUN apt-get install supervisor ruby -y
+RUN gem sources -r http://rubygems.org/ && gem sources -a https://rubygems.org/ && gem install small-ops -v 0.0.30
+RUN mkdir /var/log/supervisord 
+
 RUN a2enmod rewrite 
 
 RUN sed -i -e 's/memory_limit.*/memory_limit=512M/g' /etc/php5/apache2/php.ini && \
@@ -19,6 +24,8 @@ ENV PHP_ENV production
 
 ADD default.conf /etc/apache2/sites-available/000-default.conf
 
+ADD supervisord.conf /etc/supervisor/conf.d/proxy.conf
+
 ADD vendor /var/www/vendor
 RUN chown www-data.www-data /var/www/vendor -Rf
 
@@ -26,6 +33,7 @@ ADD . /var/www
 RUN chown www-data.www-data /var/www -Rf
 
 EXPOSE 80
+EXPOSE 9001
 
-CMD ["/usr/sbin/apache2","-D", "FOREGROUND"]
+CMD ["supervisord"]
 
