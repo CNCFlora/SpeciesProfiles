@@ -5,7 +5,7 @@ RUN apt-get update && \
     apt-get install apache2 libapache2-mod-php5 php5 php5-cli php5-curl php5-common php5-sqlite php5-mysql php5-pgsql php5-gd -y 
 
 RUN apt-get install supervisor ruby -y
-RUN gem sources -r http://rubygems.org/ && gem sources -a https://rubygems.org/ && gem install small-ops -v 0.0.30
+RUN gem sources -r http://rubygems.org/ && gem sources -a https://rubygems.org/ && gem install small-ops -v 0.0.32
 RUN mkdir /var/log/supervisord 
 
 RUN a2enmod rewrite 
