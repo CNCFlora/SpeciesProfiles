@@ -112,9 +112,20 @@ class Utils {
         return json_decode($r);
     }
 
+    public static function log($data) {
+        $output = fopen('php://stdout', 'w');
+        if(is_string($data)) {
+            fwrite($output, $data."\n");
+        } else {
+            fwrite($output, json_encode($data)."\n");
+        }
+        fclose($output);
+    }
+
     public static function search($idx,$q) {
         $q = str_replace("=",":",$q);
         $url = DATAHUB_URL.'/'.DB.'/'.$idx.'/_search?size=999&q='.urlencode($q);
+        self::log($url);
         $r = Utils::http_get($url);
         $arr =array();
         $ids = [];
