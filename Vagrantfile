@@ -24,6 +24,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     d.run "cncflora/connect", name: "connect", args: "-P -v /var/connect:/var/floraconnect:rw"
     d.run "cncflora/datahub", name: "datahub", args: "-P -v /var/lib/couchdb:/var/lib/couchdb:rw"
     d.run "cncflora/floradata", name: "floradata", args: "-P "
+    d.run "cncflora/checklist", name: "checklist", args: "-P "
   end
 
   config.vm.provision :shell, :path => "vagrant.sh"
