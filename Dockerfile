@@ -29,11 +29,11 @@ ADD supervisord.conf /etc/supervisor/conf.d/proxy.conf
 ADD vendor /var/www/vendor
 RUN chown www-data.www-data /var/www/vendor -Rf
 
-ADD . /var/www
-RUN chown www-data.www-data /var/www -Rf
-
 EXPOSE 80
 EXPOSE 9001
 
 CMD ["supervisord"]
+
+ADD . /var/www
+RUN chown www-data.www-data /var/www -Rf
 
