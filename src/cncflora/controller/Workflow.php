@@ -35,6 +35,7 @@ class Workflow implements \Rest\Controller {
         $statuses=['empty','open','sig','validation','review','review-sig','done'];
 
         $data = array();
+        $families = array_unique($families);
         foreach($families as $f) {
             $spps = $repo->getSpecies($f);
 
