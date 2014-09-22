@@ -3,7 +3,11 @@
 <div class="col-md-8">
     {{#profile}}
 
-    <h2>{{taxon.family}}</h2>
+    <h2>
+        <a href='/family/{{taxon.family}}'>
+            {{taxon.family}}
+        </a>
+    </h2>
     <h3><i>{{taxon.scientificNameWithoutAuthorship}}</i> {{taxon.scientificNameAuthorship}}</h3>
 
     <p>
