@@ -6,4 +6,5 @@
 
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*)$ src/index.php?q=/$1  [QSA]
+#RewriteRule ^([^/]+)/(.*)$ src/index.php?db=$1&q=/$2 [QSA]
+RewriteRule ^(.*)$ src/index.php?q=/$1 [QSA]

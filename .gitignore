@@ -1,6 +1,5 @@
 *.swp
 *~
-config.yml
 composer.phar
 vendor
 data

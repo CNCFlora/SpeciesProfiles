@@ -10,6 +10,7 @@ class UtilsTest extends \PHPUnit_Framework_TestCase {
 
     public function setup() {
         putenv("PHP_ENV=test");
+        putenv("DB=cncflora_test");
     }
 
     public function tearDown() {
@@ -31,7 +32,7 @@ class UtilsTest extends \PHPUnit_Framework_TestCase {
         $r = Utils::http_put(DATAHUB_URL."/".DB."/foo",['foo'=>'bar','metadata'=>['type'=>'test']]);
         $r = Utils::http_get(DATAHUB_URL."/".DB."/foo");
         $this->assertEquals($r->foo,'bar');
-        sleep(5);
+        sleep(2);
         $s = Utils::search('test','bar');
         $this->assertEquals($s[0]->foo,'bar');
         $r->foo = 'baz';

@@ -14,7 +14,10 @@ class Utils {
 
     public static function init() {
         self::$config  = self::config();
-        self::$couchdb = DATAHUB_URL."/".DB;
+        if(defined('DB'))
+          self::$couchdb = DATAHUB_URL."/".DB;
+        else
+        self::$couchdb = DATAHUB_URL;
         self::$strings = json_decode(file_get_contents(__DIR__."/../../resources/locales/".LANG.".json"));
         //self::$taxons  = self::taxons();
     }
@@ -50,6 +53,7 @@ class Utils {
 
         $base = getenv("BASE");
         if($base != null) $data["BASE"] = $base;
+        if(!isset($data['BASE'])) $data['BASE'] = '';
 
         $etcd = getenv("ETCD");
         if($etcd != null) $data["ETCD"] = $etcd;
@@ -57,20 +61,12 @@ class Utils {
         $db = getenv("DB");
         if($db != null) $data["DB"] = $db;
 
-        $prefix = getenv("PREFIX");
-        if($prefix != null && strlen($prefix) >= 1) $data["PREFIX"] = $prefix."_";
-        else $data["PREFIX"] = "";
-
         if(isset($data['ETCD'])) {
             $keys = json_decode(file_get_contents($data['ETCD']."/v2/keys/?recursive=true"));
             foreach($keys->node->nodes as $node) {
                 if(isset($node->nodes)) {
                     foreach($node->nodes as $entry) {
                         $key  = strtoupper(str_replace("-","_",( str_replace("/","_",substr($entry->key,1)))));
-                        if(strlen($data["PREFIX"]) >= 1) {
-                            $key  = str_replace($data["PREFIX"],"",$key);
-                            $key  = str_replace(strtoupper( $data["PREFIX"] ),"",$key);
-                        }
                         if(isset($entry->value) && !is_null($entry->value)) {
                             if(!isset($data[$key])) {
                                 $data[$key] = $entry->value;
@@ -79,6 +75,10 @@ class Utils {
                     }
                 }
             }
+        }
+
+        if(!isset($data['LANG'])) {
+          $data['LANG'] = 'pt';
         }
 
         foreach($data as $k=>$v) {
@@ -125,7 +125,6 @@ class Utils {
     public static function search($idx,$q) {
         $q = str_replace("=",":",$q);
         $url = DATAHUB_URL.'/'.DB.'/'.$idx.'/_search?size=999&q='.urlencode($q);
-        self::log($url);
         $r = Utils::http_get($url);
         $arr =array();
         $ids = [];

@@ -39,14 +39,14 @@ class FeatureContext extends MinkContext {
     }
 
     /**
-     * @Then /^I login as "([^"]*)", "([^"]*)", "([^"]*)"$/
+     * @Then /^I login as "([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)"$/
      */
-    public function iLoginAs($name,$email,$roles) {
+    public function iLoginAs($name,$email,$ctx,$roles) {
         $this->iLogout();
-        $doc = ['name'=>$name,'email'=>$email];
+        $doc = ['name'=>$name,'email'=>$email,'roles'=>[['context'=>$ctx,'roles'=>[]]]];
         $roles = explode(",",$roles);
         foreach($roles as $role) {
-            $doc['roles'][] = ['role'=>$role,'entities'=>[]];
+            $doc['roles'][0]['roles'][] = ['role'=>$role,'entities'=>[]];
         }
         $this->getMainContext()->getSession()->executeScript('$.post("/login",JSON.stringify('.json_encode($doc).'),function(){})');
         $this->getMainContext()->getSession()->wait(1500);
@@ -54,15 +54,15 @@ class FeatureContext extends MinkContext {
     }
 
     /**
-     * @Then /^I login as "([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)"$/
+     * @Then /^I login as "([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)"$/
      */
-    public function iLoginAs2($name,$email,$roles,$ents) {
+    public function iLoginAs2($name,$email,$ctx,$roles,$ents) {
         $this->iLogout();
-        $doc = ['name'=>$name,'email'=>$email];
+        $doc = ['name'=>$name,'email'=>$email,'roles'=>[['context'=>$ctx,'roles'=>[]]]];
         $roles = explode(",",$roles);
         $ents  = explode(",",$ents);
         foreach($roles as $role) {
-            $doc['roles'][] = ['role'=>$role,'entities'=>$ents];
+            $doc['roles'][0]['roles'][] =  ['role'=>$role,'entities'=>$ents] ;
         }
         $this->getMainContext()->getSession()->executeScript('$.post("/login",JSON.stringify('.json_encode($doc).'),function(){})');
         $this->getMainContext()->getSession()->wait(1500);

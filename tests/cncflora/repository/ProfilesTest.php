@@ -89,7 +89,7 @@ class ProfilesTest extends \PHPUnit_Framework_TestCase {
         $taxons = (new Species)->getSpecies('ACANTHACEAE');
         $taxon  = $taxons[0];
         $profile = $repo->create($taxon);
-        sleep(1);
+        sleep(2);
 
         $this->assertNotNull($profile);
         $this->assertNotNull($profile->_id);
@@ -104,7 +104,7 @@ class ProfilesTest extends \PHPUnit_Framework_TestCase {
         $profile->ecology = new \StdClass;
         $profile->ecology->resume = "Hello, World!";
         $repo->update($profile);
-        sleep(1);
+        sleep(2);
 
 
         $profilePersisted = $repo->get($profile->_id);
@@ -119,7 +119,7 @@ class ProfilesTest extends \PHPUnit_Framework_TestCase {
         $taxons = (new Species)->getSpecies('ACANTHACEAE');
         $taxon  = $taxons[0];
         $profile = $repo->create($taxon);
-        sleep(1);
+        sleep(2);
 
         $profileList = $repo->listByFamily("ACANTHACEAE");
         $this->assertNotEmpty($profileList);
@@ -140,9 +140,9 @@ class ProfilesTest extends \PHPUnit_Framework_TestCase {
         $taxon  = $taxons[0];
 
         $profile1 = $repo->create($taxon);
-        sleep(1);
+        sleep(2);
         $profile2 = $repo->create($taxon);
-        sleep(1);
+        sleep(2);
 
         $profileSpp = $repo->latestByTaxon($taxon->scientificNameWithoutAuthorship);
         $this->assertEquals($profile2,$profileSpp);

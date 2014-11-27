@@ -5,7 +5,7 @@
     <p>{{strings.no-profile}}.</p>
     {{#logged}}
     {{#role-analyst}}
-    <form action="/profile" method="POST" class='col-md-8 form' id='create-profile'>
+    <form action="/{{db}}/profile" method="POST" class='col-md-8 form' id='create-profile'>
         <input name="id" value="{{specie._id}}" type="hidden" />
         <button id='create-btn' class="btn btn-default">{{strings.create-profile}}</button>
     </form>

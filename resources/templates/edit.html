@@ -4,7 +4,7 @@
     <h3><i>{{taxon.scientificNameWithoutAuthorship}}</i> {{taxon.scientificNameAuthorship}}</h3>
 
     <p>
-        <a href="/profile/{{profile._id}}" class='btn btn-default'>
+        <a href="/{{db}}/profile/{{profile._id}}" class='btn btn-default'>
             <span class="glyphicon glyphicon-leaf"></span>
             {{strings.see-profile}}
         </a>
@@ -14,7 +14,7 @@
         </a>
     </p>
 
-    <form id="data" action="/profile/{{profile._id}}" method="POST">
+    <form id="data" action="/{{db}}/profile/{{profile._id}}" method="POST">
         <fieldset>
             <div class="onde-panel"></div>
             <p class="actions"><button type='submit' class="btn btn-success">{{strings.save}}</button></p>
@@ -29,7 +29,7 @@
     {{> metadata}}
     {{/metadata}}
 
-    <form action="/profile/{{profile._id}}/send/sig" method="POST" class='form'>
+    <form action="/{{db}}/profile/{{profile._id}}/send/sig" method="POST" class='form'>
         <button class="btn btn-success" type='submit'>
             {{strings.send-to-sig}}
             <span class='glyphicon glyphicon-arrow-right'></span>

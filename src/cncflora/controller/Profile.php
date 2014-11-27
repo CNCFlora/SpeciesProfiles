@@ -24,8 +24,9 @@ class Profile implements \Rest\Controller {
         $can_validate = false;
         if($r->getParameter("logged")) {
             $user = $r->getParameter("user");
+            $roles = $r->getParameter("roles");
 
-            foreach($user->roles as $role) {
+            foreach($roles as $role) {
                 if(strtolower( $role->role ) == "analyst") {
                     foreach($role->entities as $ent) {
                         if(strpos(strtolower( $ent ),strtolower( $profile->taxon->family )) !== false) {
@@ -40,7 +41,7 @@ class Profile implements \Rest\Controller {
                 }
             }
 
-            foreach($user->roles as $role) {
+            foreach($roles as $role) {
                 if(strtolower( $role->role ) == "validator") {
                     foreach($role->entities as $ent) {
                         if(strpos(strtolower( $profile->taxon->family ),strtolower( $ent )) !== false) {
@@ -75,7 +76,7 @@ class Profile implements \Rest\Controller {
 
     function view($r) {
         $id = $r->getRequest()->getParameter("id");
-        return new \Rest\Controller\Redirect(BASE."/profile/".$id);
+        return new \Rest\Controller\Redirect(BASE."/".DB."/profile/".$id);
     }
 
     function createProfile($r) {
@@ -84,7 +85,7 @@ class Profile implements \Rest\Controller {
         $user = $r->getParameter("user");
         $repo  = new \cncflora\repository\Profiles($user);
         $profile = $repo->create($spp);
-        return new \Rest\Controller\Redirect(BASE.'/profile/'.$profile->_id.'/edit');
+        return new \Rest\Controller\Redirect(BASE."/".DB.'/profile/'.$profile->_id.'/edit');
     }
 
     function edit($r) {

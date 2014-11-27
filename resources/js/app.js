@@ -9,7 +9,7 @@ head
         var base = window.base;
 
         Connect({
-            context: context,
+            //context: context,
             onlogin: function(user) {
                 if(!test && !logged) {
                     $.post(base+'/login',JSON.stringify(user),function(){

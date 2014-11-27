@@ -37,7 +37,7 @@ class Species implements \Rest\Controller {
         if(is_null($doc)) {
             return new View('specie.html',array('specie'=>$spp));
         } else {
-            return new \Rest\Controller\Redirect(BASE.'/profile/'.$doc->_id);
+            return new \Rest\Controller\Redirect(BASE."/".DB.'/profile/'.$doc->_id);
         }
     }
 }

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-    <title>{{strings.species-profiles}}</title>
+  <title>{{strings.species-profiles}}</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,8 +12,6 @@
     <link rel="stylesheet" href="/resources/css/app.css" />
     <script>
         var base = '{{BASE}}';
-        var couchdb = '{{COUCHDB_URL}}';
-        var context = '{{CONTEXT}}';
         var connect = '{{CONNECT_URL}}';
         var user = {{{user_json}}};
         var test = {{#TEST}}true{{/TEST}}{{^TEST}}false{{/TEST}};
@@ -31,6 +29,9 @@
     <div class="container">
         <header class="col-md-12">
             <h1>{{strings.species-profiles}}</h1>
+            {{#db}}
+            <p> <span class='glyphicon glyphicon-chevron-right'></span> {{strings.checklist}}: {{db_name}}. </p>
+            {{/db}}
         </header>
         <nav class="col-md-12 navbar navbar-default">
             <div class="navbar-inner">
@@ -39,8 +40,11 @@
                     <li id='login'><a href="#">{{strings.login}}</a></li>
                     {{/logged}}
                     {{#logged}}
-                    <li><a href="/workflow">{{strings.workflow}}</a></li>
-                    <li><a href="/families">{{strings.families}}</a></li>
+                    <li><a href="/">{{strings.checklists}}</a></li>
+                    {{#db}}
+                    <li><a href="/{{db}}/workflow">{{strings.workflow}}</a></li>
+                    <li><a href="/{{db}}/families">{{strings.families}}</a></li>
+                    {{/db}}
                     <li id='logout'><a href="#">{{strings.logout}}</a></li>		    	
                     {{/logged}}
                 </ul>

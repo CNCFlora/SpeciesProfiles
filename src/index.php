@@ -1,12 +1,26 @@
 <?php
 session_start();
 
-require '../vendor/autoload.php';
+if(preg_match('/^\/([^\/]+)\//',$_GET['q'],$reg)) {
+  $_GET['db'] = $reg[1];
+  $_GET['q'] = substr($_GET['q'],strlen($reg[1]) + 1);
+}
 
+if(isset($_GET["db"])) {
+  putenv("CONTEXT=${_GET["db"]}");
+  putenv("DB=${_GET["db"]}");
+}
+
+require '../vendor/autoload.php';
 
 $rest = new \Rest\Server($_GET['q']);
 $rest->setAccept(array("*"));
 $rest->setParameter("strings",\cncflora\Utils::$strings);
+
+if(isset($_GET["db"])) {
+  $rest->setParameter("db",$_GET["db"]);
+  $rest->setParameter("db_name",strtoupper(str_replace('_'," ", $_GET["db"])));
+}
 
 foreach(\cncflora\Utils::$config as $k=>$v)
     $rest->setParameter($k,$v);
@@ -14,8 +28,16 @@ foreach(\cncflora\Utils::$config as $k=>$v)
 if(($user = $rest->getRequest()->getSession('user')) != null) {
     $rest->setParameter("user",$user);
     $rest->setParameter("logged",true);
-    foreach($user->roles as $r) {
-        $rest->setParameter("role-".strtolower($r->role),true);
+    $rest->setParameter("roles",array());
+    if(isset($_GET['db'])) {
+      foreach($user->roles as $r) {
+        if($r->context == $_GET['db']) {
+          $rest->setParameter("roles",$r->roles);
+          foreach($r->roles as $rr) {
+            $rest->setParameter("role-".strtolower($rr->role),true);
+          }
+        }
+      }
     }
 } else {
     $rest->setParameter("user",null);
@@ -24,12 +46,13 @@ if(($user = $rest->getRequest()->getSession('user')) != null) {
 
 $rest->addMap('POST',"/login",function($r) {
     $preuser = json_decode($r->getRequest()->getBody());
-    if(ENV=='test') {
+    //if(ENV=='test') {
         $r->getRequest()->setSession('user',$preuser);
+    /*
     } else {
         $user = \cncflora\Utils::http_get(CONNECT_URL."/api/token?token=".$preuser->token);
         $r->getRequest()->setSession('user',$user);
-    }
+    }*/
     return new Rest\View\JSon($user);
 });
 
@@ -40,7 +63,14 @@ $rest->addMap('POST',"/logout",function($r) {
 
 
 $rest->addMap("GET","/",function($r){
-    return new \cncflora\View('index.html',array());
+    $dbs = array();
+    $all = \cncflora\Utils::http_get(DATAHUB_URL.'/_all_dbs');
+    foreach($all as $db) {
+      if($db[0] != "_" && !preg_match('/_history$/',$db) ) {
+        $dbs[] = array('db'=>$db,'name'=>strtoupper(str_replace('_',' ',$db)));
+      }
+    }
+    return new \cncflora\View('index.html',array('dbs'=>$dbs));
 });
 
 

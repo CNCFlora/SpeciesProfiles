@@ -1,0 +1,11 @@
+development:
+  etcd: 'http://localhost:4001'
+  lang: 'pt'
+test:
+  etcd: 'http://localhost:4001'
+  lang: 'pt'
+  db: 'cncflora_test'
+production:
+  etcd: 'http://localhost:4001'
+  lang: 'pt'
+  

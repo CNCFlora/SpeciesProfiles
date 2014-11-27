@@ -1,8 +1,8 @@
 Feature: Move profile on workflow
 
     Scenario: Move profile around 
-        Given I am on "/specie/Aphelandra longiflora"
-        Then I login as "Diogo", "diogo@cncflora.net", "admin,analyst,sig,validator", "ACANTHACEAE"
+        Given I am on "/cncflora_test/specie/Aphelandra longiflora"
+        Then I login as "Diogo", "diogo@cncflora.net", "cncflora_test", "admin,analyst,sig,validator", "ACANTHACEAE"
         And I press "create-btn"
         And I wait 4000
         And I press "Salvar"

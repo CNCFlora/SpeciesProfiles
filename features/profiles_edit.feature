@@ -1,13 +1,13 @@
 Feature: Open and edit profiles
 
     Scenario: create profile
-        Given I am on "/specie/Aphelandra longiflora"
-        Then I login as "Diogo", "diogo@cncflora.net", "admin,analyst"
+        Given I am on "/cncflora_test/specie/Aphelandra longiflora"
+        Then I login as "Diogo", "diogo@cncflora.net", "cncflora_test", "admin,analyst"
         And I press "create-btn"
 
     Scenario: Edit a profile, changes apply and metadata
-        Given I am on "/specie/Aphelandra longiflora"
-        When I login as "Bruno", "bruno@cncflora.net", "analyst", "ACANTHACEAE"
+        Given I am on "/cncflora_test/specie/Aphelandra longiflora"
+        When I login as "Bruno", "bruno@cncflora.net", "cncflora_test", "analyst", "ACANTHACEAE"
         And I follow "Editar"
         Then I should see "Contribuidor(es): [Bruno] ; Diogo"
         Then I wait 5000
@@ -20,8 +20,8 @@ Feature: Open and edit profiles
         Then I should see "Hello, notes."
 
     Scenario: Change workflow, and still save content
-        Given I am on "/specie/Aphelandra longiflora"
-        When I login as "Bruno", "bruno@cncflora.net", "analyst", "ACANTHACEAE"
+        Given I am on "/cncflora_test/specie/Aphelandra longiflora"
+        When I login as "Bruno", "bruno@cncflora.net", "cncflora_test", "analyst", "ACANTHACEAE"
         And I follow "Editar"
         Then I wait 5000
         And I press "Enviar para GIS"

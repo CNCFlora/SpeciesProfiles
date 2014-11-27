@@ -69,7 +69,7 @@ class Review implements \Rest\Controller {
             exit;
         }
 
-        return new \Rest\Controller\Redirect(BASE."/profile/".$id."/review");
+        return new \Rest\Controller\Redirect(BASE."/".DB."/profile/".$id."/review");
     }
 }
 

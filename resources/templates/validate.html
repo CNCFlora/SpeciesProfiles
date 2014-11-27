@@ -3,7 +3,11 @@
 <div class="col-md-7 profile">
     {{#profile}}
 
-    <h2>{{taxon.family}}</h2>
+    <h2>
+        <a href='/{{db}}/family/{{taxon.family}}'>
+            {{taxon.family}}
+        </a>
+    </h2>
     <h3><i>{{taxon.scientificNameWithoutAuthorship}}</i> {{taxon.scientificNameAuthorship}}</h3>
 
     <p>
@@ -37,7 +41,7 @@
     {{/metadata}}
 
     {{#role-analyst}}
-    <form action="/profile/{{profile._id}}/send/open" method="POST" class='send-to form'>
+    <form action="/{{db}}/profile/{{profile._id}}/send/open" method="POST" class='send-to form'>
         <button class="btn btn-success">
             <span class='glyphicon glyphicon-arrow-left'></span>
             {{strings.back-to-analysis}}
@@ -47,7 +51,7 @@
 
     <br />
 
-    <form action="/profile/{{profile._id}}/send/review" method="POST" class="send-to send-to-review">
+    <form action="/{{db}}/profile/{{profile._id}}/send/review" method="POST" class="send-to send-to-review">
         <fieldset>
             <button class="btn btn-success">
                 {{strings.send-to-review}}
@@ -73,7 +77,7 @@
     </p>
     {{/validations}}
 
-    <form action="/profile/{{profile._id}}/validate" method="POST" class='form'>
+    <form action="/{{db}}/profile/{{profile._id}}/validate" method="POST" class='form'>
         <fieldset>
             <legend>{{strings.new-comment}}</legend>
             <div class='form-group'>

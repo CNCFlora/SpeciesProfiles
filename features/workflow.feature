@@ -1,20 +1,20 @@
 Feature: Workflow view
 
     Scenario: List families
-        Given I am on "/workflow"
+        Given I am on "/cncflora_test/workflow"
         And I logout
         Then I should not see "ACANTHACEAE"
         Then I should not see "BROMELIACEAE"
-        Then I login as "Diogo", "diogo@diogok.net", "analyst", "ACANTHACEAE"
+        Then I login as "Diogo", "diogo@diogok.net", "cncflora_test", "analyst", "ACANTHACEAE"
         Then I should see "ACANTHACEAE"
         Then I should not see "BROMELIACEAE"
-        Then I login as "Diogo", "diogo@diogok.net", "admin"
+        Then I login as "Diogo", "diogo@diogok.net", "cncflora_test", "admin"
         Then I should see "ACANTHACEAE"
         Then I should see "BROMELIACEAE"
 
     Scenario: List species
-        Given I am on "/workflow"
-        Then I login as "Diogo", "diogo@diogok.net", "analyst", "ACANTHACEAE"
+        Given I am on "/cncflora_test/workflow"
+        Then I login as "Diogo", "diogo@diogok.net", "cncflora_test", "analyst", "ACANTHACEAE"
         And I follow "ACANTHACEAE"
         Then I should see "ACANTHACEAE"
         Then I wait 5000
@@ -27,14 +27,14 @@ Feature: Workflow view
         Then I should not see "Aphelandra longiflora"
 
     Scenario: Open specie, update view
-        Given I am on "/workflow"
-        Then I login as "Diogo", "diogo@diogok.net", "analyst", "ACANTHACEAE"
+        Given I am on "/cncflora_test/workflow"
+        Then I login as "Diogo", "diogo@diogok.net", "cncflora_test", "analyst", "ACANTHACEAE"
         And I follow "ACANTHACEAE"
         And I wait 4000
         And I follow "Aphelandra longiflora"
         Then I press "create-btn"
         And I wait 1000
-        Then I go to "/workflow"
+        Then I go to "/cncflora_test/workflow"
         And I follow "ACANTHACEAE"
         Then I should see "Aphelandra espirito-santensis"
         Then I should not see "Aphelandra longiflora"

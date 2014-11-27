@@ -12,12 +12,13 @@ class Workflow implements \Rest\Controller {
         if($user==null) {
             return new View('index.html',array());
         }
+        $roles=$r->getParameter("roles");
 
         $repo = new \cncflora\repository\Species;
         $docs = $repo->getFamilies();
         $families = array();
         foreach($docs as $f) {
-            foreach($user->roles as $role) {
+            foreach($roles as $role) {
                 if(strtolower($role->role) == 'admin') {
                     $families[] = $f;
                     break;
@@ -124,7 +125,7 @@ class Workflow implements \Rest\Controller {
             echo $err;
             exit;
         }
-        return new \Rest\Controller\Redirect(BASE.'/profile/'.$doc->_id);
+        return new \Rest\Controller\Redirect(BASE."/".DB.'/profile/'.$doc->_id);
     }
 
     function changeStatusForce($r) {
@@ -142,7 +143,7 @@ class Workflow implements \Rest\Controller {
             echo $err;
             exit;
         }
-        return new \Rest\Controller\Redirect(BASE.'/profile/'.$doc->_id);
+        return new \Rest\Controller\Redirect(BASE."/".DB.'/profile/'.$doc->_id);
     }
 
 }
