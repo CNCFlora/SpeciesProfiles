@@ -1,12 +1,6 @@
-FROM ubuntu:14.04
+FROM cncflora/base 
 
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install apache2 libapache2-mod-php5 php5 php5-cli php5-curl php5-common php5-sqlite php5-mysql php5-pgsql php5-gd -y 
-
-RUN apt-get install supervisor ruby -y
-RUN gem sources -r http://rubygems.org/ && gem sources -a https://rubygems.org/ && gem install small-ops -v 0.0.32
-RUN mkdir /var/log/supervisord 
+RUN apt-get install apache2 libapache2-mod-php5 php5 php5-cli php5-curl php5-common php5-sqlite php5-mysql php5-pgsql php5-gd  -y 
 
 RUN a2enmod rewrite 
 
@@ -24,7 +18,7 @@ ENV PHP_ENV production
 
 ADD default.conf /etc/apache2/sites-available/000-default.conf
 
-ADD supervisord.conf /etc/supervisor/conf.d/proxy.conf
+ADD supervisord.conf /etc/supervisor/conf.d/profiles.conf
 
 ADD vendor /var/www/vendor
 RUN chown www-data.www-data /var/www/vendor -Rf
