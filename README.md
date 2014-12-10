@@ -1,50 +1,37 @@
-# SpeciesProfiles
+# Profiles
 
 CNCFlora app to edit and mantain ecological, population and some other specie related data.
 
 ## Deployment
 
-Deploy the app codebase to any Apache or Nginx with PHP5.3+ and mod\_rewrite.
- 
-### Setting up CouchDB
+Use docker:
+  
+    $ docker run -d -p 8282:80 -t cncflora/profiles
 
-CouchDB is the choosen storage backend, to configure it please refer to the [Datahub](http://github.com/cncflora/datahub).
-
-### Setting up authentication with SSO
-
-This app depends on [Connect app](http://github.com/cncflora/connect), so you will need a functional version of it.
-
-### Setting up the Bibliographic app
-
-Please refer to [Biblio](http://github.com/cncflora/biblio) for references.
-
-### Setting up the application
-
-With both the Datahub and Connect working, copy resources/config.ini-dist to resources/config.ini and fill in accordingly. Now you have a functional system.
+You will need to have access to etcd, connect and datahub.
 
 ## Development
 
-To run local dev mode you can use PHPs built-in webserver:
+Start with git:
 
-  php -S localhost:8000 src/router.php
+    $ git clone git@github.com:CNCFlora/checklist
+    $ cd checklist
 
-### Fetching dependencies
+Use [vagrant](http://vagrantup.com) and [virtualbox](http://virtualbox.org):
 
-This app uses [composer](http://getcomposer.org) to manage the application and it's dependencies, so you first must [install composer](http://getcomposer.org/doc/00-intro.md#installation-nix). After installed you can make fetch dependencies for the first time:
+    $ vagrant up
 
-    php composer.phar install
+Now the server is running at http://192.168.50.10
 
-### Application organization
+Run tests:
 
-Static assets stay in resources, notes on _resources/templates_ for the [mustache](https://github.com/bobthecow/mustache.php) templates, _resouces/locales_ for the translations.
+    $ vendor/bin/phpunit tests
+    $ vendor/bin/behat
 
-The _src_ dir stands for the source code of the application, with routes.php being the handler for the built-in dev server, index.php being the initial endpoint including the routes using [restserver](http://github.com/diogok/restserver) and repository to interact with the Datahub COuchDB using ???. And the _tests_ directory for the whole test suite, using [phpunit](http://phpunit.de/).
+Build the container for deployment:
 
-### Running tests
-
-Before commiting remember to make tests pass:
-
-    vendor/bin/phpunit tests
+    $ docker build -t cncflora/checklist .
+    $ docker push cncflora/checklist 
 
 ## License
 
