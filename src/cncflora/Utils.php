@@ -15,9 +15,9 @@ class Utils {
     public static function init() {
         self::$config  = self::config();
         if(defined('DB'))
-          self::$couchdb = DATAHUB_URL."/".DB;
+          self::$couchdb = COUCHDB."/".DB;
         else
-        self::$couchdb = DATAHUB_URL;
+        self::$couchdb = COUCHDB;
         self::$strings = json_decode(file_get_contents(__DIR__."/../../resources/locales/".LANG.".json"));
         //self::$taxons  = self::taxons();
     }
@@ -66,7 +66,7 @@ class Utils {
             foreach($keys->node->nodes as $node) {
                 if(isset($node->nodes)) {
                     foreach($node->nodes as $entry) {
-                        $key  = strtoupper(str_replace("-","_",( str_replace("/","_",substr($entry->key,1)))));
+                        $key = strtoupper(str_replace("-","_",( str_replace("/","_",substr($entry->key,1)))));
                         if(isset($entry->value) && !is_null($entry->value)) {
                             if(!isset($data[$key])) {
                                 $data[$key] = $entry->value;
@@ -75,7 +75,49 @@ class Utils {
                     }
                 }
             }
+
+            foreach($data as $k=>$v) {
+              if(preg_match('/^(\w+)_URL$/i',$k,$reg)) {
+                $name = strtolower( $reg[1] );
+                $ip   = 'localhost';
+                if(isset($data[strtoupper($name)."_PORT"])) {
+                  $port = $data[strtoupper($name)."_PORT"];
+                  foreach($keys->node->nodes as $node) {
+                    if($node->key == "/".$name) {
+                      foreach($node->nodes as $node) {
+                        if($node->key == '/'.$name.'/networksettings') {
+                          foreach($node->nodes as $node) {
+                            if($node->key == '/'.$name.'/networksettings/ipaddress') {
+                              $ip = $node->value;
+                            }
+                            if($node->key == '/'.$name."/networksettings/ports") {
+                              foreach($node->nodes as $node) {
+                                if(isset($node->nodes)) {
+                                  foreach($node->nodes as $node) {
+                                    if(preg_match('/(\d+)\/tcp$/',$node->key,$reg)) {
+                                      foreach($node->nodes as $node) {
+                                        if(preg_match('/hostport$/',$node->key)) {
+                                          if($node->value == $port) {
+                                            $port=$reg[1];
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                  $data[strtoupper($name)] = 'http://'.$ip.':'.$port;
+                }
+              }
+            }
         }
+
 
         if(!isset($data['LANG'])) {
           $data['LANG'] = 'pt';
@@ -124,7 +166,7 @@ class Utils {
 
     public static function search($idx,$q) {
         $q = str_replace("=",":",$q);
-        $url = DATAHUB_URL.'/'.DB.'/'.$idx.'/_search?size=999&q='.urlencode($q);
+        $url = ELASTICSEARCH.'/'.DB.'/'.$idx.'/_search?size=999&q='.urlencode($q);
         $r = Utils::http_get($url);
         $arr =array();
         $ids = [];

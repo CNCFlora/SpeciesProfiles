@@ -64,7 +64,7 @@ $rest->addMap('POST',"/logout",function($r) {
 
 $rest->addMap("GET","/",function($r){
     $dbs = array();
-    $all = \cncflora\Utils::http_get(DATAHUB_URL.'/_all_dbs');
+    $all = \cncflora\Utils::http_get(COUCHDB.'/_all_dbs');
     foreach($all as $db) {
       if($db[0] != "_" && !preg_match('/_history$/',$db) ) {
         $dbs[] = array('db'=>$db,'name'=>strtoupper(str_replace('_',' ',$db)));

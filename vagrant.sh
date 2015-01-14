@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
-apt-get update
-apt-get upgrade -y
-apt-get autoremove -y
+if [[ ! -e ~/.apt_done ]]; then
+  apt-get update
+  apt-get upgrade -y
+  apt-get autoremove -y
+  touch ~/.apt_done
+fi
 
 # add apache and php
 if [[ ! -e ~/.apache_done ]]; then
@@ -52,7 +55,7 @@ if [[ ! -e ~/.ops_done ]]; then
     gem install small-ops
     touch ~/.ops_done
 fi
-docker2etcd -h 192.168.50.10
+docker2etcd -c -h 192.168.50.10 -e http://192.168.50.10:4001
 
 # setup couchdb
 if [[ ! -e ~/.couchdb_done ]]; then

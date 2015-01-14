@@ -24,25 +24,25 @@ class UtilsTest extends \PHPUnit_Framework_TestCase {
     public function testConfig() {
         $cfg = Utils::$config;
         $this->assertEquals($cfg['ENV'],"test");
-        $this->assertNotNull($cfg['DATAHUB_URL']);
-        $this->assertEquals($cfg['DATAHUB_URL'],DATAHUB_URL);
+        $this->assertNotNull($cfg['COUCHDB']);
+        $this->assertEquals($cfg['COUCHDB'],COUCHDB);
     }
 
     public function testHTTP() {
-        $r = Utils::http_put(DATAHUB_URL."/".DB."/foo",['foo'=>'bar','metadata'=>['type'=>'test']]);
-        $r = Utils::http_get(DATAHUB_URL."/".DB."/foo");
+        $r = Utils::http_put(COUCHDB."/".DB."/foo",['foo'=>'bar','metadata'=>['type'=>'test']]);
+        $r = Utils::http_get(COUCHDB."/".DB."/foo");
         $this->assertEquals($r->foo,'bar');
         sleep(2);
         $s = Utils::search('test','bar');
         $this->assertEquals($s[0]->foo,'bar');
         $r->foo = 'baz';
-        Utils::http_put(DATAHUB_URL."/".DB."/foo",$r);
-        $r = Utils::http_get(DATAHUB_URL."/".DB."/foo");
+        Utils::http_put(COUCHDB."/".DB."/foo",$r);
+        $r = Utils::http_get(COUCHDB."/".DB."/foo");
         $this->assertEquals($r->foo,'baz');
         sleep(2);
         $s = Utils::search('test','baz');
         $this->assertEquals($s[0]->foo,'baz');
-        Utils::http_delete(DATAHUB_URL."/".DB."/foo?rev=".$r->_rev);
+        Utils::http_delete(COUCHDB."/".DB."/foo?rev=".$r->_rev);
     }
 
     public function testSchema() {

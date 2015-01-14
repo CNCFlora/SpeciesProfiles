@@ -15,18 +15,18 @@ class Base {
     }
 
     public function get($id) {
-       return \cncflora\Utils::http_get(DATAHUB_URL.'/'.DB.'/'.$id);
+       return \cncflora\Utils::http_get(COUCHDB.'/'.DB.'/'.$id);
     }
 
     public function put($doc) {
-       return \cncflora\Utils::http_put(DATAHUB_URL.'/'.DB.'/'.$doc->_id,$doc);
+       return \cncflora\Utils::http_put(COUCHDB.'/'.DB.'/'.$doc->_id,$doc);
     }
 
     public function delete($doc) {
         if(is_string($doc)) {
             $doc = $this->get($doc);
         }
-        return \cncflora\Utils::http_delete(DATAHUB_URL.'/'.DB.'/'.$doc->_id.'?rev='.$doc->_rev);
+        return \cncflora\Utils::http_delete(COUCHDB.'/'.DB.'/'.$doc->_id.'?rev='.$doc->_rev);
     }
 
     public function search($idx,$q) {
