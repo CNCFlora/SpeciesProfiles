@@ -11,11 +11,11 @@
     <h3><i>{{taxon.scientificNameWithoutAuthorship}}</i> {{taxon.scientificNameAuthorship}}</h3>
 
     <p>
-        <a href="{{OCCURRENCES_URL}}/specie/{{taxon.scientificNameWithoutAuthorship}}" class='btn btn-default'>
+        <a href="{{OCCURRENCES_URL}}/{{db}}/specie/{{taxon.scientificNameWithoutAuthorship}}" class='btn btn-default'>
             <span class='glyphicon glyphicon-globe'></span>
             {{strings.occurrence-map}}
         </a>
-        <a href="{{ASSESSMENT_URL}}/specie/{{taxon.scientificNameWithoutAuthorship}}" class='btn btn-default'>
+        <a href="{{ASSESSMENTS_URL}}/{{db}}/specie/{{taxon.scientificNameWithoutAuthorship}}" class='btn btn-default'>
             <span class='glyphicon glyphicon-record'></span>
             {{strings.assessment}}
         </a>
