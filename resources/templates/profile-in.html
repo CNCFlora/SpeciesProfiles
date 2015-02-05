@@ -143,6 +143,14 @@
                 {{/fitofisionomies}}
             </ul>
         </p>
+        <p>
+            <strong>{{strings.vegetation-type}}</strong>
+            <ul>
+                {{#vegetation}}
+                    <li>{{.}}</li>
+                {{/vegetation}}
+            </ul>
+        </p>
         <p class='resume'><strong>{{strings.resume}}</strong>: {{resume}}</p>
         <ul>
             {{#references}}

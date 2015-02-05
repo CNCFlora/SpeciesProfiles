@@ -239,6 +239,11 @@
                     "type":"array",
                     "items":{"type":"string"}
                 },
+                "vegetation": {
+                    "label":"Vegetation type",
+                    "type":"array",
+                    "items":{"type":"string"}
+                },
                 "resume": {
                     "label":"Ecological resume",
                     "type":"string",

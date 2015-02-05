@@ -194,6 +194,8 @@ class Utils {
             = json_decode(file_get_contents( __DIR__."/../../resources/dicts/habitats.json" ));
         $schema->properties->ecology->properties->biomas->items->enum 
             = json_decode(file_get_contents( __DIR__."/../../resources/dicts/biomas.json" ));
+        $schema->properties->ecology->properties->vegetation->items->enum 
+            = json_decode(file_get_contents( __DIR__."/../../resources/dicts/vegetation.json" ));
         $schema->properties->ecology->properties->fitofisionomies->items->enum 
             = json_decode(file_get_contents( __DIR__."/../../resources/dicts/fitofisionomies.json" ));
         $schema->properties->threats->items->properties->threat->enum
