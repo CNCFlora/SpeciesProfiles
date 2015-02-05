@@ -55,7 +55,7 @@ if [[ ! -e ~/.ops_done ]]; then
     gem install small-ops
     touch ~/.ops_done
 fi
-docker2etcd -c -h 192.168.50.10 -e http://192.168.50.10:4001
+docker2etcd -h 192.168.50.10 -e http://192.168.50.10:4001
 
 # setup couchdb
 if [[ ! -e ~/.couchdb_done ]]; then
