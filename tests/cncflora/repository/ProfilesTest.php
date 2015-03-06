@@ -11,6 +11,12 @@ class ProfilesTest extends \PHPUnit_Framework_TestCase {
     public function setup() {
         putenv("PHP_ENV=test");
 
+        $repo0 = new \cncflora\repository\Base;
+        $all = $repo0->get("_all_docs");
+        foreach($all->rows as $r) {
+          $repo0->delete($r->id);
+        }
+
         $this->user = new \StdClass;
         $this->user->name = "Foo";
         $this->user->email = "foo@bar.com";
@@ -61,7 +67,6 @@ class ProfilesTest extends \PHPUnit_Framework_TestCase {
         $repo->put($t2);
         $repo->put($t3);
         $repo->put($t4);
-        sleep(1);
     }
 
     public function tearDown() {
@@ -89,7 +94,6 @@ class ProfilesTest extends \PHPUnit_Framework_TestCase {
         $taxons = (new Species)->getSpecies('ACANTHACEAE');
         $taxon  = $taxons[0];
         $profile = $repo->create($taxon);
-        sleep(2);
 
         $this->assertNotNull($profile);
         $this->assertNotNull($profile->_id);
@@ -104,7 +108,6 @@ class ProfilesTest extends \PHPUnit_Framework_TestCase {
         $profile->ecology = new \StdClass;
         $profile->ecology->resume = "Hello, World!";
         $repo->update($profile);
-        sleep(2);
 
 
         $profilePersisted = $repo->get($profile->_id);
@@ -119,7 +122,6 @@ class ProfilesTest extends \PHPUnit_Framework_TestCase {
         $taxons = (new Species)->getSpecies('ACANTHACEAE');
         $taxon  = $taxons[0];
         $profile = $repo->create($taxon);
-        sleep(2);
 
         $profileList = $repo->listByFamily("ACANTHACEAE");
         $this->assertNotEmpty($profileList);
@@ -140,9 +142,7 @@ class ProfilesTest extends \PHPUnit_Framework_TestCase {
         $taxon  = $taxons[0];
 
         $profile1 = $repo->create($taxon);
-        sleep(2);
         $profile2 = $repo->create($taxon);
-        sleep(2);
 
         $profileSpp = $repo->latestByTaxon($taxon->scientificNameWithoutAuthorship);
         $this->assertEquals($profile2,$profileSpp);

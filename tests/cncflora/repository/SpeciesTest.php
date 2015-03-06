@@ -11,6 +11,12 @@ class SpeciesTest extends \PHPUnit_Framework_TestCase {
     public function setup() {
         putenv("PHP_ENV=test");
 
+        $repo0 = new \cncflora\repository\Base;
+        $all = $repo0->get("_all_docs");
+        foreach($all->rows as $r) {
+          $repo0->delete($r->id);
+        }
+
         $repo = new Species;
 
         $t1 = new \StdClass;
@@ -58,8 +64,8 @@ class SpeciesTest extends \PHPUnit_Framework_TestCase {
         $repo->put($t2);
         $repo->put($t3);
         $repo->put($t4);
-        sleep(2);
     }
+
 
     public function tearDown() {
         $repo = new Species;
@@ -68,6 +74,7 @@ class SpeciesTest extends \PHPUnit_Framework_TestCase {
         $repo->delete("3");
         $repo->delete("4");
     }
+
 
     public function testTaxons() {
         $repo = new Species;

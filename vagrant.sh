@@ -48,18 +48,9 @@ if [[ ! -e ~/.phantom_done ]]; then
     touch ~/.phantom_done
 fi
 
-# docker register to etcd
-if [[ ! -e ~/.ops_done ]]; then
-    gem sources -r http://rubygems.org/
-    gem sources -a https://rubygems.org/
-    gem install small-ops
-    touch ~/.ops_done
-fi
-docker2etcd -h 192.168.50.10 -e http://192.168.50.10:4001
-
 # setup couchdb
 if [[ ! -e ~/.couchdb_done ]]; then
-    HUB=$(docker ps | grep datahub | awk '{ print $10 }' | grep -e '[0-9]\{5\}' -o)
+    HUB=5984
     curl -X PUT http://localhost:$HUB/cncflora
     curl -X PUT http://localhost:$HUB/cncflora_test
     touch ~/.couchdb_done

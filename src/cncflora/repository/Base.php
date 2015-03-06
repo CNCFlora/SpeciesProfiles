@@ -19,13 +19,25 @@ class Base {
     }
 
     public function put($doc) {
-       return \cncflora\Utils::http_put(COUCHDB.'/'.DB.'/'.$doc->_id,$doc);
+       if(!isset($doc->_id)) $doc->id = 'urn:'.uniqid();
+      
+       $re = \cncflora\Utils::http_put(COUCHDB.'/'.DB.'/'.$doc->_id,$doc);
+
+       $redoc= clone $doc;
+       $redoc->id = $doc->_id;
+       $redoc->rev = $re->rev;
+       \cncflora\Utils::http_put(ELASTICSEARCH.'/'.DB.'/'.$redoc->metadata->type.'/'.$redoc->id,$redoc);
+       sleep(1);
+
+       return $re;
+
     }
 
     public function delete($doc) {
         if(is_string($doc)) {
             $doc = $this->get($doc);
         }
+        \cncflora\Utils::http_delete(ELASTICSEARCH.'/'.DB.'/'.$doc->metadata->type.'/'.$doc->_id);
         return \cncflora\Utils::http_delete(COUCHDB.'/'.DB.'/'.$doc->_id.'?rev='.$doc->_rev);
     }
 

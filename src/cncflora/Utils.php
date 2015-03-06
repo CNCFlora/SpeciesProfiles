@@ -166,7 +166,7 @@ class Utils {
 
     public static function search($idx,$q) {
         $q = str_replace("=",":",$q);
-        $url = ELASTICSEARCH.'/'.DB.'/'.$idx.'/_search?size=999&q='.urlencode($q);
+        $url = ELASTICSEARCH.'/'.DB.'/'.$idx.'/_search?size=99999&q='.urlencode($q);
         $r = Utils::http_get($url);
         $arr =array();
         $ids = [];

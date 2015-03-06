@@ -13,6 +13,12 @@ class BaseTest extends \PHPUnit_Framework_TestCase {
 
     public function setup() {
         putenv("PHP_ENV=test");
+
+        $repo0 = new \cncflora\repository\Base;
+        $all = $repo0->get("_all_docs");
+        foreach($all->rows as $r) {
+          $repo0->delete($r->id);
+        }
     }
 
     public function testCRUD() {
@@ -27,7 +33,6 @@ class BaseTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($r->foo,'bar');
         $r->foo='baz';
         $repo->put($r);
-        sleep(1);
         $s =$repo->search("test","baz");
         $this->assertEquals($s[0]->foo,'baz');
         $repo->delete("1");

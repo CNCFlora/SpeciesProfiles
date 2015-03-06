@@ -20,12 +20,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provision "docker" do |d|
-    d.run "cncflora/etcd", name: "etcd", args: "-p 4001:4001"
-    d.run "cncflora/connect", name: "connect", args: "-P -v /var/connect:/var/floraconnect:rw"
-    d.run "cncflora/elasticsearch", name: "elasticsearch",args: "-p 9200"
-    d.run "cncflora/couchdb", name: "couchdb", args: "-P --link elasticsearch:elasticsearch -v /var/couchdb:/var/lib/couchdb:rw"
-    d.run "cncflora/floradata", name: "floradata", args: "-P"
-    d.run "cncflora/checklist", name: "checklist", args: "-P"
+    d.run "cncflora/connect", name: "connect", args: "-p 8080:80 -v /var/connect:/var/floraconnect:rw"
+    d.run "cncflora/elasticsearch", name: "elasticsearch",args: "-p 9200:9200"
+    d.run "cncflora/couchdb", name: "couchdb", args: "-p 5984:5984 -p 9001:9001 --link elasticsearch:elasticsearch -v /var/couchdb:/var/lib/couchdb:rw"
+    d.run "cncflora/checklist", name: "checklist", args: "-p 8001:80"
   end
 
   config.vm.provision :shell, :path => "vagrant.sh"
