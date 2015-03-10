@@ -53,12 +53,29 @@ class Profiles extends Base {
     }
 
     public function listByFamily($family) {
+
+        $repo = new \cncflora\repository\Species;
+        $spps = $repo->getSpecies($family);
+
         $profiles = array();
         $docs = $this->search("profile","taxon.family=\"".$family."\"");
         foreach($docs as $doc) {
-            $doc->taxon->family = strtoupper($doc->taxon->family);
-            $profiles[] = $doc;
+            $ok = false;
+            foreach($spps as $spp) {
+              if($spp->scientificNameWithoutAuthorship == $doc->taxon->scientificNameWithoutAuthorship) {
+                  $ok = true;
+                  break;
+              }
+            }
+            if($ok) {
+                $doc->taxon->family = strtoupper($doc->taxon->family);
+                $profiles[] = $doc;
+            }
         }
+
+        usort($profiles,function($a0,$a1){
+          return strcmp($a0->taxon->scientificNameWithoutAuthorship,$a1->taxon->scientificNameWithoutAuthorship);
+        });
         return $profiles;
     }
 
