@@ -73,6 +73,9 @@ class Profiles extends Base {
             }
         }
 
+        foreach($profiles as $profile) {
+        }
+
         usort($profiles,function($a0,$a1){
           return strcmp($a0->taxon->scientificNameWithoutAuthorship,$a1->taxon->scientificNameWithoutAuthorship);
         });
@@ -90,7 +93,52 @@ class Profiles extends Base {
                 $profile = $doc;
             }
         }
+
+        if(isset($profile->ecology)) {
+          if(isset($profile->luminosity)) {
+            if(is_string($profile->luminosity)) {
+              $profile->luminosity = array($profile->luminosity);
+            }
+          }
+          if(isset($profile->lifeForm)) {
+            if(is_string($profile->lifeForm)) {
+              $profile->lifeForm = array($profile->lifeForm);
+            }
+          }
+          if(isset($profile->substratum)) {
+            if(is_string($profile->substratum)) {
+              $profile->substratum = array($profile->substratum);
+            }
+          }
+        }
+
         return $profile;
+    }
+
+    public function get($id) {
+      $profile = parent::get($id);
+
+      if($profile != null){
+        if(isset($profile->ecology)) {
+          if(isset($profile->luminosity)) {
+            if(is_string($profile->luminosity)) {
+              $profile->luminosity = array($profile->luminosity);
+            }
+          }
+          if(isset($profile->lifeForm)) {
+            if(is_string($profile->lifeForm)) {
+              $profile->lifeForm = array($profile->lifeForm);
+            }
+          }
+          if(isset($profile->substratum)) {
+            if(is_string($profile->substratum)) {
+              $profile->substratum = array($profile->substratum);
+            }
+          }
+        }
+
+      }
+      return $profile;
     }
 
 }

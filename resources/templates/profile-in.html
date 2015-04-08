@@ -98,15 +98,15 @@
     <h4>{{strings.ecology}}</h4>
     <section>
     {{#ecology}}
-        {{#lifeForm}}
-        <p><strong>{{strings.life-form}}</strong>: {{lifeForm}}</p>
-        {{/lifeForm}}
-        {{#substratum}}
-        <p><strong>{{strings.substratum}}</strong>: {{substratum}}</p>
-        {{/substratum}}
-        {{#luminosity}}
-        <p><strong>{{strings.luminosity}}</strong>: {{luminosity}}</p>
-        {{/luminosity}}
+        <p><strong>{{strings.life-form}}</strong>: 
+        <ul> {{#lifeForm}} <li> {{.}} </li> {{/lifeForm}} {{^lifeForm}}<li>N/A</li>{{/lifeForm}}</ul>
+        </p>
+        <p><strong>{{strings.substratum}}</strong>: 
+        <ul> {{#substratum}} <li> {{.}} </li> {{/substratum}}  {{^substratum}}<li>N/A</li>{{/substratum}}</ul>
+        </p>
+        <p><strong>{{strings.luminosity}}</strong>: 
+        <ul> {{#luminosity}} <li> {{.}} </li> {{/luminosity}}  {{^luminosity}}<li>N/A</li>{{/luminosity}}</ul>
+        </p>
         {{#longevity}}
         <p><strong>{{strings.longevity}}</strong>: {{longevity}}</p>
         {{/longevity}}
@@ -216,6 +216,7 @@
         <p><strong>{{strings.threat}}</strong>: {{threat}}</p>
         <p><strong>{{strings.incidence}}</strong>: {{incidence}}</p>
         <p><strong>{{strings.severity}}</strong>: {{severity}}</p>
+        <p><strong>{{strings.stress}}</strong>: {{stress}}</p>
         {{#reversible}} <p><strong>{{strings.reversible}}</strong></p>{{/reversible}}
         {{#ended}} <p><strong>{{strings.ended}}</strong></p>{{/ended}}
         <p>

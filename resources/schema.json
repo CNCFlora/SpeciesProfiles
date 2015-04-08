@@ -191,18 +191,27 @@
             "properties": {
                 "lifeForm": {
                     "label":"Life Form",
-                    "type":"string",
-                    "enum":["","","herb","bush","tree","liana","subshrub","small tree"]
+                    "type": "array",
+                    "items":{
+                        "type":"string",
+                        "enum":["","","herb","bush","tree","liana","subshrub","small tree"]
+                    }
                 },
                 "substratum": {
                     "label":"Substratum",
-                    "type":"string",
-                    "enum":["","","terrestrial","aquatic","rupicolous","saxicolous","epiphytic","hemiepiphytes"]
+                    "type": "array",
+                    "items":{
+                        "type":"string",
+                        "enum":["","","terrestrial","aquatic","rupicolous","saxicolous","epiphytic","hemiepiphytes"]
+                    }
                 },
                 "luminosity": {
                     "label":"Luminosity",
-                    "type":"string",
-                    "enum":["","","heliophytic","esciophytic","mesophytic"]
+                    "type": "array",
+                    "items":{
+                        "type":"string",
+                        "enum":["","","heliophytic","esciophytic","mesophytic"]
+                    }
                 },
                 "longevity": {
                     "label":"Longivity",
