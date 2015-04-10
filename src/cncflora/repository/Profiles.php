@@ -95,19 +95,19 @@ class Profiles extends Base {
         }
 
         if(isset($profile->ecology)) {
-          if(isset($profile->luminosity)) {
-            if(is_string($profile->luminosity)) {
-              $profile->luminosity = array($profile->luminosity);
+          if(isset($profile->ecology->luminosity)) {
+            if(is_string($profile->ecology>luminosity)) {
+              $profile->ecology->luminosity = array($profile->ecology->luminosity);
             }
           }
-          if(isset($profile->lifeForm)) {
-            if(is_string($profile->lifeForm)) {
-              $profile->lifeForm = array($profile->lifeForm);
+          if(isset($profile->ecology->lifeForm)) {
+            if(is_string($profile->ecology->lifeForm)) {
+              $profile->ecology->lifeForm = array($profile->ecology->lifeForm);
             }
           }
-          if(isset($profile->substratum)) {
-            if(is_string($profile->substratum)) {
-              $profile->substratum = array($profile->substratum);
+          if(isset($profile->ecology->substratum)) {
+            if(is_string($profile->ecology->substratum)) {
+              $profile->ecology->substratum = array($profile->ecology->substratum);
             }
           }
         }
@@ -120,24 +120,24 @@ class Profiles extends Base {
 
       if($profile != null){
         if(isset($profile->ecology)) {
-          if(isset($profile->luminosity)) {
-            if(is_string($profile->luminosity)) {
-              $profile->luminosity = array($profile->luminosity);
+          if(isset($profile->ecology->luminosity)) {
+            if(is_string($profile->ecology>luminosity)) {
+              $profile->ecology->luminosity = array($profile->ecology->luminosity);
             }
           }
-          if(isset($profile->lifeForm)) {
-            if(is_string($profile->lifeForm)) {
-              $profile->lifeForm = array($profile->lifeForm);
+          if(isset($profile->ecology->lifeForm)) {
+            if(is_string($profile->ecology->lifeForm)) {
+              $profile->ecology->lifeForm = array($profile->ecology->lifeForm);
             }
           }
-          if(isset($profile->substratum)) {
-            if(is_string($profile->substratum)) {
-              $profile->substratum = array($profile->substratum);
+          if(isset($profile->ecology->substratum)) {
+            if(is_string($profile->ecology->substratum)) {
+              $profile->ecology->substratum = array($profile->ecology->substratum);
             }
           }
         }
-
       }
+
       return $profile;
     }
 
