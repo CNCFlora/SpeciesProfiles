@@ -122,5 +122,7 @@
     "checklists":"Recortes",
     "checklist":"Recorte",
     "vegetation-type":"Tipo de vegetação",
-    "stress":"Stress"
+    "stress":"Stress",
+    "user":"Usuário",
+    "none":"Nenhum"
 }
