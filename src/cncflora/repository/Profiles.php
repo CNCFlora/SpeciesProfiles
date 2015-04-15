@@ -96,7 +96,7 @@ class Profiles extends Base {
 
         if(isset($profile->ecology)) {
           if(isset($profile->ecology->luminosity)) {
-            if(is_string($profile->ecology>luminosity)) {
+            if(is_string($profile->ecology->luminosity)) {
               $profile->ecology->luminosity = array($profile->ecology->luminosity);
             }
           }
@@ -121,7 +121,7 @@ class Profiles extends Base {
       if($profile != null){
         if(isset($profile->ecology)) {
           if(isset($profile->ecology->luminosity)) {
-            if(is_string($profile->ecology>luminosity)) {
+            if(is_string($profile->ecology->luminosity)) {
               $profile->ecology->luminosity = array($profile->ecology->luminosity);
             }
           }
