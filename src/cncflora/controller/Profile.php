@@ -29,11 +29,11 @@ class Profile implements \Rest\Controller {
             foreach($roles as $role) {
                 if(strtolower( $role->role ) == "analyst") {
                     foreach($role->entities as $ent) {
-                        if(strpos(strtolower( $ent ),strtolower( $profile->taxon->family )) !== false) {
+                        if(strpos(strtolower(trim( $ent )),strtolower( trim( $profile->taxon->family ) )) !== false) {
                             $can_edit = true;
                             break;
                         }
-                        if(strpos(strtolower( $ent ),strtolower( $profile->taxon->scientificNameWithoutAuthorship )) !== false) {
+                        if(strpos(strtolower( trim( $ent ) ),strtolower( trim( $profile->taxon->scientificNameWithoutAuthorship ) )) !== false) {
                             $can_edit = true;
                             break;
                         }
@@ -44,11 +44,11 @@ class Profile implements \Rest\Controller {
             foreach($roles as $role) {
                 if(strtolower( $role->role ) == "validator") {
                     foreach($role->entities as $ent) {
-                        if(strpos(strtolower( $profile->taxon->family ),strtolower( $ent )) !== false) {
+                        if(strpos(strtolower( trim( $profile->taxon->family ) ),strtolower( trim( $ent ) )) !== false) {
                             $can_validate = true;
                             break;
                         }
-                        if(strpos(strtolower( $profile->taxon->scientificNameWithoutAuthorship ),strtolower( $ent )) !== false) {
+                        if(strpos(strtolower( trim( $profile->taxon->scientificNameWithoutAuthorship ) ),strtolower( trim( $ent ) )) !== false) {
                             $can_validate = true;
                             break;
                         }
