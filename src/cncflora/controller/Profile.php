@@ -29,6 +29,10 @@ class Profile implements \Rest\Controller {
             foreach($roles as $role) {
                 if(strtolower( $role->role ) == "analyst") {
                     foreach($role->entities as $ent) {
+                        if(trim(strtolower($ent)) == 'all') {
+                            $can_edit = true;
+                            break;
+                        }
                         if(strpos(strtolower(trim( $ent )),strtolower( trim( $profile->taxon->family ) )) !== false) {
                             $can_edit = true;
                             break;
@@ -44,6 +48,10 @@ class Profile implements \Rest\Controller {
             foreach($roles as $role) {
                 if(strtolower( $role->role ) == "validator") {
                     foreach($role->entities as $ent) {
+                        if(trim(strtolower($ent)) == 'all') {
+                            $can_edit = true;
+                            break;
+                        }
                         if(strpos(strtolower( trim( $profile->taxon->family ) ),strtolower( trim( $ent ) )) !== false) {
                             $can_validate = true;
                             break;
