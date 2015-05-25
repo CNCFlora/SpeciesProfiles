@@ -125,7 +125,7 @@ class Workflow implements \Rest\Controller {
             echo $err;
             exit;
         }
-        return new \Rest\Controller\Redirect(BASE."/".DB.'/profile/'.$doc->_id);
+        return new \Rest\Controller\Redirect(BASE."/".DB.'/profile/'.$id);
     }
 
     function changeStatusForce($r) {
@@ -143,7 +143,7 @@ class Workflow implements \Rest\Controller {
             echo $err;
             exit;
         }
-        return new \Rest\Controller\Redirect(BASE."/".DB.'/profile/'.$doc->_id);
+        return new \Rest\Controller\Redirect(BASE."/".DB.'/profile/'.$id);
     }
 
 }
