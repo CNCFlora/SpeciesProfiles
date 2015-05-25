@@ -45,7 +45,13 @@ class Utils {
         $array = $raw[$env];
 
         foreach($array as $key=>$value) {
-            $data[strtoupper($key)] = $value;
+            preg_match_all('/\$([a-zA-Z]+)/',$value,$reg);
+            if(count($reg[0]) >= 1) {
+              $e = getenv($reg[1][0]);
+              $data[strtoupper($key)] = str_replace($reg[0][0],$e,$value);
+            } else {
+              $data[strtoupper($key)] = $value;
+            }
         }
 
         $context = getenv("CONTEXT");
@@ -55,12 +61,12 @@ class Utils {
         if($base != null) $data["BASE"] = $base;
         if(!isset($data['BASE'])) $data['BASE'] = '';
 
-        $etcd = getenv("ETCD");
-        if($etcd != null) $data["ETCD"] = $etcd;
-
         $db = getenv("DB");
         if($db != null) $data["DB"] = $db;
 
+        /*
+        $etcd = getenv("ETCD");
+        if($etcd != null) $data["ETCD"] = $etcd;
         if(isset($data['ETCD'])) {
             $keys = json_decode(file_get_contents($data['ETCD']."/v2/keys/?recursive=true"));
             foreach($keys->node->nodes as $node) {
@@ -117,7 +123,7 @@ class Utils {
               }
             }
         }
-
+        */
 
         if(!isset($data['LANG'])) {
           $data['LANG'] = 'pt';

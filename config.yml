@@ -12,6 +12,9 @@ test:
   elasticsearch: 'http://192.168.50.10:9200'
   db: 'cncflora_test'
 production:
-  etcd: 'http://localhost:4001'
   lang: 'pt'
-  
+  connect: 'http://$HOST/connect'
+  connect_url: 'http://$HOST/connect'
+  couchdb: 'http://$HOST/couchdb'
+  elasticsearch: 'http://$HOST/elasticsearch'
+  base: '/profiles'
