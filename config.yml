@@ -18,3 +18,7 @@ production:
   couchdb: 'http://$HOST/couchdb'
   elasticsearch: 'http://$HOST/elasticsearch'
   base: '/profiles'
+  occurrences: "http://$HOST/occurrences"
+  occurrences_url: "http://$HOST/occurrences"
+  assessments: "http://$HOST/assessments"
+  assessments_url: "http://$HOST/assessments"

@@ -179,9 +179,11 @@ class Utils {
         foreach($r->hits->hits as $hit) {
             $doc = $hit->_source;
             $doc->_id = $doc->id;
-            $doc->_rev = $doc->rev;
+            if(isset($doc->rev)) {
+              $doc->_rev = $doc->rev;
+              unset($doc->rev);
+            }
             unset($doc->id);
-            unset($doc->rev);
             $arr[] = $doc;
         }
 
