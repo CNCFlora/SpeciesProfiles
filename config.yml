@@ -14,11 +14,11 @@ test:
 production:
   lang: 'pt'
   connect: 'http://$HOST/connect'
-  connect_url: 'http://$HOST/connect'
+  connect_url: 'http://cncflora.jbrj.gov.br/connect'
   couchdb: 'http://$HOST/couchdb'
   elasticsearch: 'http://$HOST/elasticsearch'
   base: '/profiles'
   occurrences: "http://$HOST/occurrences"
-  occurrences_url: "http://$HOST/occurrences"
+  occurrences_url: "http://cncflora.jbrj.gov.br/occurrences"
   assessments: "http://$HOST/assessments"
-  assessments_url: "http://$HOST/assessments"
+  assessments_url: "http://cncflora.jbrj.gov.br/assessments"
