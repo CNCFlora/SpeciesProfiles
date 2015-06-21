@@ -1,0 +1,60 @@
+apache:
+    image: cncflora/apache
+    ports:
+        - 8081:80
+    volumes:
+        - .:/var/www/html
+    links:
+        - elasticsearch:elasticsearch
+        - couchdb:couchdb
+        - connect:connect
+    environment:
+        - PHP_ENV=development
+elasticsearch:
+    image: cncflora/elasticsearch
+    name: elasticsearch
+    restart: "always"
+    ports:
+        - "9200"
+    volumes:
+        - "/var/data/elasticsearch/data:/usr/share/elasticsearch/data:rw"
+couchdb:
+    image: cncflora/couchdb
+    name: couchdb
+    restart: "always"
+    ports:
+        - "5984:5984"
+        - "9001"
+    volumes:
+        - "/var/data/couchdb:/var/lib/couchdb:rw"
+    links:
+        - "elasticsearch:elasticsearch"
+connect:
+    image: cncflora/connect
+    name: connect
+    restart: "always"
+    ports:
+        - "8080:80"
+    volumes:
+        - "/var/data/connect:/var/floraconnect:rw"
+checklist:
+    image: cncflora/checklist
+    name: checklist
+    restart: "always"
+    ports:
+        - "8000:80"
+    links:
+        - elasticsearch:elasticsearch
+        - couchdb:couchdb
+        - connect:connect
+    environment:
+        RACK_ENV: development
+floradata:
+    image: cncflora/floradata
+    name: floradata
+    restart: "always"
+    environment:
+        SERVICE_80_CHECK_HTTP: /api/v1/families
+    ports:
+        - 80
+        - 9001
