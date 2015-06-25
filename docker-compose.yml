@@ -1,9 +1,9 @@
-apache:
+profiles:
     image: cncflora/apache
     ports:
         - 8081:80
     volumes:
-        - .:/var/www/html
+        - .:/var/www
     links:
         - elasticsearch:elasticsearch
         - couchdb:couchdb
