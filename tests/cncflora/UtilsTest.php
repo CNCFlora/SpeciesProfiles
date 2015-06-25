@@ -8,9 +8,11 @@ use cncflora\Utils;
 
 class UtilsTest extends \PHPUnit_Framework_TestCase {
 
+
     public function setup() {
         putenv("PHP_ENV=test");
         putenv("DB=cncflora_test");
+        Utils::http_put(COUCHDB."/cncflora_test",[]);
     }
 
     public function tearDown() {
@@ -32,14 +34,12 @@ class UtilsTest extends \PHPUnit_Framework_TestCase {
         $r = Utils::http_put(COUCHDB."/".DB."/foo",['foo'=>'bar','metadata'=>['type'=>'test']]);
         $r = Utils::http_get(COUCHDB."/".DB."/foo");
         $this->assertEquals($r->foo,'bar');
-        sleep(2);
         $s = Utils::search('test','bar');
         $this->assertEquals($s[0]->foo,'bar');
         $r->foo = 'baz';
         Utils::http_put(COUCHDB."/".DB."/foo",$r);
         $r = Utils::http_get(COUCHDB."/".DB."/foo");
         $this->assertEquals($r->foo,'baz');
-        sleep(2);
         $s = Utils::search('test','baz');
         $this->assertEquals($s[0]->foo,'baz');
         Utils::http_delete(COUCHDB."/".DB."/foo?rev=".$r->_rev);

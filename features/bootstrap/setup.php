@@ -5,6 +5,8 @@ include_once __DIR__.'/../../vendor/autoload.php';
 
 use cncflora\Utils;
 
+Utils::http_put(COUCHDB."/cncflora_test",[]);
+
 $repo0 = new \cncflora\repository\Base;
 $all = $repo0->get("_all_docs");
 foreach($all->rows as $r) {
