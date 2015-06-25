@@ -1,6 +1,7 @@
 FROM cncflora/apache
 
 ADD vendor /var/www/vendor
-
-ADD . /var/www/
+ADD resources /var/www/resources
+ADD html /var/www/html
+ADD src /var/www/src
 
