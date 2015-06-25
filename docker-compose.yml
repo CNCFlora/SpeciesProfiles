@@ -13,7 +13,7 @@ apache:
 elasticsearch:
     image: cncflora/elasticsearch
     name: elasticsearch
-    restart: "always"
+    restart: "no"
     ports:
         - "9200"
     volumes:
@@ -21,7 +21,7 @@ elasticsearch:
 couchdb:
     image: cncflora/couchdb
     name: couchdb
-    restart: "always"
+    restart: "no"
     ports:
         - "5984:5984"
         - "9001"
@@ -32,29 +32,30 @@ couchdb:
 connect:
     image: cncflora/connect
     name: connect
-    restart: "always"
+    restart: "no"
     ports:
         - "8080:80"
     volumes:
         - "/var/data/connect:/var/floraconnect:rw"
+floradata:
+    image: cncflora/floradata
+    name: floradata
+    restart: "no"
+    environment:
+        SERVICE_80_CHECK_HTTP: /api/v1/families
+    ports:
+        - "8181:80"
+        - "9005:9001"
 checklist:
     image: cncflora/checklist
     name: checklist
-    restart: "always"
+    restart: "no"
     ports:
         - "8000:80"
     links:
         - elasticsearch:elasticsearch
         - couchdb:couchdb
         - connect:connect
+        - floradata:floradata
     environment:
         RACK_ENV: development
-floradata:
-    image: cncflora/floradata
-    name: floradata
-    restart: "always"
-    environment:
-        SERVICE_80_CHECK_HTTP: /api/v1/families
-    ports:
-        - 80
-        - 9001
