@@ -18,7 +18,7 @@ test-features:
 	docker-compose -p $(project) run -e PHP_ENV=test profiles vendor/bin/behat
 
 build:
-	docker build -t cncflora/$(project)
+	docker build -t cncflora/$(project) .
 
 push:
 	docker push cncflora/$(project)
