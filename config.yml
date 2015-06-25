@@ -6,13 +6,10 @@ development:
   elasticsearch: 'http://elasticsearch:9200'
 test:
   lang: 'pt'
-  #connect: 'http://connect:8080'
-  connect: 'http://localhost:8080'
-  connect_url: 'http://localhost:8080'
-  #couchdb: 'http://couchdb:5984'
-  couchdb: 'http://localhost:5984'
-  #elasticsearch: 'http://elasticsearch:9200'
-  elasticsearch: 'http://localhost:9200'
+  connect: 'http://connect:8080'
+  connect_url: 'http://connect:8080'
+  couchdb: 'http://couchdb:5984'
+  elasticsearch: 'http://elasticsearch:9200'
   db: 'cncflora_test'
 production:
   lang: 'pt'
