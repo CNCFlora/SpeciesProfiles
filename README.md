@@ -1,37 +1,51 @@
 # Profiles
 
-CNCFlora app to edit and mantain ecological, population and some other specie related data.
+CNCFlora app to edit and mantain ecological, population, threat, action, use and some other specie profile related data.
 
 ## Deployment
 
-Use docker:
-  
-    $ docker run -d -p 8282:80 -t cncflora/profiles
+This app is intend to run as part of the [CNCFlora Nuvem](http://github.com/cncflora/nuvem) apps.
 
-You will need to have access to etcd, connect and datahub.
+To run standalone, you will need [docker](http://docker.com) and [docker-compose](http://docs.docker.com/compose):
+
+Clone the project, access it and run the containers:
+
+    $ git clone git@github.com:CNCFlora/SpeciesProfiles.git
+    $ cd SpeciesProfiles
+    $ make install-deps
+    $ make run
 
 ## Development
 
+You will need [docker](http://docker.com) and [docker-compose](http://docs.docker.com/compose).
+
+The whole project is supposed to run inside a docker container, isolated, including the tests, build and etc.
+
 Start with git:
 
-    $ git clone git@github.com:CNCFlora/checklist
-    $ cd checklist
+    $ git clone git@github.com:CNCFlora/SpeciesProfiles
+    $ cd SpeciesProfiles
 
-Use [vagrant](http://vagrantup.com) and [virtualbox](http://virtualbox.org):
+The tasks are defined in the Makefile.
 
-    $ vagrant up
+At first run, you will need to download the vendor dependencies:
 
-Now the server is running at http://192.168.50.10
+    $ make install-deps # run once to download dependencies
 
-Run tests:
+At subsquent, if you wish to update the dependencies:
 
-    $ vendor/bin/phpunit tests
-    $ vendor/bin/behat
+    $ make update-deps 
 
-Build the container for deployment:
+To run the app in dev mode:
+    $ make run # run the app and all needed services
 
-    $ docker build -t cncflora/checklist .
-    $ docker push cncflora/checklist 
+This will take a while the first time, as it download the needed services (like couchdb, elasticsearch and etc).
+
+Other relevant tasks:
+
+    $ make tests # run unit tests
+    $ make build # builds docker container
+    $ make push # pushes the container
 
 ## License
 
