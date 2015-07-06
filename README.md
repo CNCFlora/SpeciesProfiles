@@ -43,7 +43,7 @@ This will take a while the first time, as it download the needed services (like 
 
 Other relevant tasks:
 
-    $ make tests # run unit tests
+    $ make test # run unit tests
     $ make build # builds docker container
     $ make push # pushes the container
 
