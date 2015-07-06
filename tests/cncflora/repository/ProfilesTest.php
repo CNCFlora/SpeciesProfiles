@@ -3,6 +3,7 @@
 namespace cncflora\repository;
 
 include_once 'vendor/autoload.php';
+include_once 'tests/cncflora/error_handler.php';
 
 use cncflora\Utils;
 
@@ -10,6 +11,17 @@ class ProfilesTest extends \PHPUnit_Framework_TestCase {
 
     public function setup() {
         putenv("PHP_ENV=test");
+        putenv("DB=cncflora_test");
+        //Init variables
+        Utils::init();
+        set_error_handler('defaultErrorHandler');
+        try {
+            Utils::http_delete(COUCHDB."/cncflora_test",[]);
+        }
+        catch (Exception $e){
+            // Database doesn't exist, no need to delete it
+        }
+        Utils::http_put(COUCHDB."/cncflora_test",[]);
 
         $repo0 = new \cncflora\repository\Base;
         $all = $repo0->get("_all_docs");
@@ -69,6 +81,11 @@ class ProfilesTest extends \PHPUnit_Framework_TestCase {
         $repo->put($t4);
     }
 
+
+    public static function tearDownAfterClass() {
+        Utils::http_delete(COUCHDB."/cncflora_test",[]);
+    }
+
     public function tearDown() {
         $repo0 = new \cncflora\repository\Base;
         $all = $repo0->get("_all_docs");
@@ -78,7 +95,7 @@ class ProfilesTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @expectedException Exception 
+     * @expectedException Exception
      */
     public function testMustHaveUser() {
         $repo = new Profiles();

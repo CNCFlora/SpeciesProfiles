@@ -3,14 +3,14 @@
 namespace cncflora;
 
 include_once 'vendor/autoload.php';
-include 'error_handler.php';
+include_once 'tests/cncflora/error_handler.php';
 
 use cncflora\Utils;
 
 class UtilsTest extends \PHPUnit_Framework_TestCase {
 
 
-    public function setup() {
+    public static function setUpBeforeClass() {
         putenv("PHP_ENV=test");
         putenv("DB=cncflora_test");
         //Init variables
@@ -23,6 +23,10 @@ class UtilsTest extends \PHPUnit_Framework_TestCase {
             // Database doesn't exist, no need to delete it
         }
         Utils::http_put(COUCHDB."/cncflora_test",[]);
+    }
+
+    public static function tearDownAfterClass() {
+        Utils::http_delete(COUCHDB."/cncflora_test",[]);
     }
 
     public function tearDown() {
