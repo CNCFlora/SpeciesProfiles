@@ -20,11 +20,8 @@ couchdb:
     image: cncflora/couchdb
     ports:
         - "5984:5984"
-        - "9001"
     volumes:
         - "/var/data/couchdb:/var/lib/couchdb:rw"
-    links:
-        - "elasticsearch:elasticsearch"
 connect:
     image: cncflora/connect
     ports:

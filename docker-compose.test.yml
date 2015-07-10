@@ -1,0 +1,38 @@
+profilesprod:
+    build: .
+    ports:
+        - 80
+    links:
+        - elasticsearch:elasticsearch
+        - couchdb:couchdb
+    environment:
+        - PHP_ENV=test
+elasticsearch:
+    image: cncflora/elasticsearch
+    ports:
+        - 9200
+    volumes:
+        - /var/data/elasticsearch/data:/usr/share/elasticsearch/data:rw
+couchdb:
+    image: cncflora/couchdb
+    ports:
+        - 5984
+    volumes:
+        - /var/data/couchdb:/var/lib/couchdb:rw
+selenium:
+    image: cncflora/selenium
+    links:
+        - profilesprod:profiles
+    ports:
+        - 4444
+tester:
+    image: cncflora/apache
+    volumes:
+        - .:/var/www
+    links:
+        - elasticsearch:elasticsearch
+        - couchdb:couchdb
+        - selenium:selenium
+        - profilesprod:profiles
+    environment:
+        - PHP_ENV=test

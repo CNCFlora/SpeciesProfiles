@@ -37,13 +37,16 @@ At subsquent, if you wish to update the dependencies:
     $ make update-deps 
 
 To run the app in dev mode:
-    $ make run # run the app and all needed services
+    $ make start # run in background
+    $ make logs # follow logs
+    $ make stop # stop all runing
 
 This will take a while the first time, as it download the needed services (like couchdb, elasticsearch and etc).
 
 Other relevant tasks:
 
     $ make test # run unit tests
+    $ make test-features # run feature tests 
     $ make build # builds docker container
     $ make push # pushes the container
 
