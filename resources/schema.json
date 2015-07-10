@@ -194,7 +194,8 @@
                     "type": "array",
                     "items":{
                         "type":"string",
-                        "enum":["","","herb","bush","tree","liana","subshrub","small tree"]
+                        "enum":["","","herb","bush","tree","liana","subshrub","small tree"
+                                ,"coxim","dendróide","flabelado","folhosa","pendente","talosa","tapete","trama","tufo"]
                     }
                 },
                 "substratum": {
@@ -202,7 +203,8 @@
                     "type": "array",
                     "items":{
                         "type":"string",
-                        "enum":["","","terrestrial","aquatic","rupicolous","saxicolous","epiphytic","hemiepiphytes"]
+                        "enum":["","","terrestrial","aquatic","rupicolous","saxicolous","epiphytic","hemiepiphytes"
+                                ,"corticícola","epifíla","epixila"]
                     }
                 },
                 "luminosity": {
