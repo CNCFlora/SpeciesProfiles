@@ -24,6 +24,7 @@ test:
 	docker-compose -p $(project) -f docker-compose.test.yml run tester vendor/bin/phpunit tests
 
 test-features:
+	docker-compose -p $(project) -f docker-compose.test.yml up -d
 	docker-compose -p $(project) -f docker-compose.test.yml run tester vendor/bin/behat
 
 build:

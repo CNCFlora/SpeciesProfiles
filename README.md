@@ -13,7 +13,7 @@ Clone the project, access it and run the containers:
     $ git clone git@github.com:CNCFlora/SpeciesProfiles.git
     $ cd SpeciesProfiles
     $ make install-deps
-    $ make run
+    $ make start
 
 ## Development
 
@@ -37,6 +37,7 @@ At subsquent, if you wish to update the dependencies:
     $ make update-deps 
 
 To run the app in dev mode:
+
     $ make start # run in background
     $ make logs # follow logs
     $ make stop # stop all runing
