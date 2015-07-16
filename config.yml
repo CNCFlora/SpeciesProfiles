@@ -11,14 +11,21 @@ test:
   couchdb: 'http://couchdb:5984'
   elasticsearch: 'http://elasticsearch:9200'
   db: 'cncflora_test'
+homolog:
+  lang: 'pt'
+  connect: 'http://jb048/connect'
+  connect_url: 'http://jb048/connect'
+  couchdb: 'http://jb048:5984'
+  elasticsearch: 'http://jb048:9200'
+  base: '/profiles'
+  occurrences_url: "http://$HOST/occurrences"
+  assessments_url: "http://$HOST/assessments"
 production:
   lang: 'pt'
-  connect: 'http://$HOST/connect'
-  connect_url: 'http://$HOST/connect'
-  couchdb: 'http://$HOST/couchdb'
-  elasticsearch: 'http://$HOST/elasticsearch'
+  connect: 'http://jb049/connect'
+  connect_url: 'http://cncflora.jbrj.gov.br/connect'
+  couchdb: 'http://jb049:5984'
+  elasticsearch: 'http://jb049:9200'
   base: '/profiles'
-  occurrences: "http://$HOST/occurrences"
   occurrences_url: "http://$HOST/occurrences"
-  assessments: "http://$HOST/assessments"
   assessments_url: "http://$HOST/assessments"
