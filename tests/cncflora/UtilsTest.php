@@ -11,6 +11,7 @@ class UtilsTest extends \PHPUnit_Framework_TestCase {
 
 
     public static function setUpBeforeClass() {
+        // Wait until ES docker is up
         putenv("PHP_ENV=test");
         putenv("DB=cncflora_test");
         //Init variables
@@ -23,6 +24,20 @@ class UtilsTest extends \PHPUnit_Framework_TestCase {
             // Database doesn't exist, no need to delete it
         }
         Utils::http_put(COUCHDB."/cncflora_test",[]);
+
+        // Wait until ES docker is up
+        $r = NULL;
+        $tries = 1;
+        while ($r === NULL && $tries < 10) {
+            sleep(5);
+            $es_check = ELASTICSEARCH.'/_cluster/health?wait_for_status=yellow&timeout=50s';
+            $r = Utils::http_get($es_check);
+            $tries += 1;
+        }
+        if ($r === NULL){
+            trigger_error("Couldn't get a green or yellow status from ElasticSearch.",
+                          E_USER_ERROR);
+        }
     }
 
     public static function tearDownAfterClass() {
