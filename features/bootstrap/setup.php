@@ -5,14 +5,10 @@ include_once __DIR__.'/../../vendor/autoload.php';
 
 use cncflora\Utils;
 
-#Utils::http_delete(COUCHDB."/cncflora_test");
+@Utils::http_delete(COUCHDB."/cncflora_test");
+@Utils::http_delete(ELASTICSEARCH."/cncflora_test");
 @Utils::http_put(COUCHDB."/cncflora_test",[]);
-
-$repo0 = new \cncflora\repository\Base;
-$all = $repo0->get("_all_docs");
-foreach($all->rows as $r) {
-    $repo0->delete($r->id);
-}
+@Utils::http_put(ELASTICSEARCH."/cncflora_test",[]);
 
 $repo = new \cncflora\repository\Species;
 
