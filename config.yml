@@ -6,8 +6,8 @@ development:
   elasticsearch: 'http://elasticsearch:9200'
 test:
   lang: 'pt'
-  connect: 'http://connect:8080'
-  connect_url: 'http://connect:8080'
+  connect: 'http://connect'
+  connect_url: 'http://connect'
   couchdb: 'http://couchdb:5984'
   elasticsearch: 'http://elasticsearch:9200'
   db: 'cncflora_test'

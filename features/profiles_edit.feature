@@ -11,6 +11,7 @@ Feature: Open and edit profiles
         And I follow "Editar"
         Then I should see "Contribuidor(es): [Bruno] ; Diogo"
         Then I wait 5000
+        Then I save the page "pagina.html"
         Then I should see "Taxonomic Notes"
         Then I fill field "textarea[id*='-taxonomicNotes-notes']" with "Hello, notes."
         And I press "Salvar"

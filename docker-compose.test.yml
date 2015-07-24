@@ -19,13 +19,20 @@ couchdb:
         - 5984
     volumes:
         - /var/data/couchdb:/var/lib/couchdb:rw
+connect:
+    image: cncflora/connect
+    ports:
+        - 80
+    volumes:
+        - "/var/data/connect:/var/floraconnect:rw"
 selenium:
     image: cncflora/selenium
     links:
         - profilesprod:profiles
+        - connect:connect
     ports:
-        - 4444
-        - 5900:5900
+        - "4444:4444"
+        - "5900:5900"
 tester:
     image: cncflora/apache
     volumes:
