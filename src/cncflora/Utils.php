@@ -35,7 +35,7 @@ class Utils {
             }
         }
 
-        putenv("PHP_ENV=${env}");
+        //putenv("PHP_ENV=${env}");
         //$data["ENV"] = $env;
         // Used in header and app.js to indicate whether is a test or not and
         // bypass some verifications

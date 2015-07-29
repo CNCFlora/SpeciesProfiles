@@ -7,7 +7,7 @@ if(preg_match('/^\/([^\/]+)\//',$_GET['q'],$reg)) {
 }
 
 if(isset($_GET["db"])) {
-  putenv("CONTEXT=${_GET["db"]}");
+  //putenv("CONTEXT=${_GET["db"]}");
   putenv("DB=${_GET["db"]}");
 }
 

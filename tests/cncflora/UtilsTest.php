@@ -63,8 +63,8 @@ class UtilsTest extends \PHPUnit_Framework_TestCase {
     public function testConfig() {
         $cfg = Utils::$config;
         //$this->assertEquals($cfg['ENV'],"test");
-        $this->assertEquals(getenv('PHP_ENV'),"test");
-        $this->assertEquals($cfg['DB'],"cncflora_test");
+        $this->assertEquals(TEST, True);
+        $this->assertEquals(DB, "cncflora_test");
         $this->assertNotNull($cfg['COUCHDB']);
         $this->assertEquals($cfg['COUCHDB'],COUCHDB);
     }
