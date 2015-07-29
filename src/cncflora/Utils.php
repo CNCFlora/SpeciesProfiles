@@ -7,10 +7,8 @@ use Symfony\Component\Yaml\Yaml;
 class Utils {
     public static $db;
     public static $couchdb;
-    public static $couch;
     public static $config;
     public static $strings;
-    public static $taxons;
 
     public static function init() {
         self::$config  = self::config();
@@ -19,7 +17,6 @@ class Utils {
         else
         self::$couchdb = COUCHDB;
         self::$strings = json_decode(file_get_contents(__DIR__."/../../resources/locales/".LANG.".json"));
-        //self::$taxons  = self::taxons();
     }
 
     public static function config() {
@@ -39,11 +36,12 @@ class Utils {
         }
 
         putenv("PHP_ENV=${env}");
-        $data["ENV"] = $env;
+        //$data["ENV"] = $env;
+        // Used in header and app.js to indicate whether is a test or not and
+        // bypass some verifications
         $data["TEST"]=($env=='test');
 
         $array = $raw[$env];
-        //var_dump($array);
 
         foreach($array as $key=>$value) {
             preg_match_all('/\$([a-zA-Z]+)/',$value,$reg);
@@ -55,16 +53,18 @@ class Utils {
             }
         }
 
-        $context = getenv("CONTEXT");
-        if($context != null) $data["CONTEXT"] = $context;
+        //Only use these variables if they are set in configuration file
+        //$context = getenv("CONTEXT");
+        //if($context != null) $data["CONTEXT"] = $context;
 
-        $base = getenv("BASE");
-        if($base != null) $data["BASE"] = $base;
-        if(!isset($data['BASE'])) $data['BASE'] = '';
+        //$base = getenv("BASE");
+        //if($base != null) $data["BASE"] = $base;
+        //if(!isset($data['BASE'])) $data['BASE'] = '';
 
-        $db = getenv("DB");
-        if($db != null) $data["DB"] = $db;
+        //$db = getenv("DB");
+        //if($db != null) $data["DB"] = $db;
 
+        //Set default language
         if(!isset($data['LANG'])) {
           $data['LANG'] = 'pt';
         }
