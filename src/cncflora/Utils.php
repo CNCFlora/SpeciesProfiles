@@ -57,12 +57,12 @@ class Utils {
         //$context = getenv("CONTEXT");
         //if($context != null) $data["CONTEXT"] = $context;
 
-        //$base = getenv("BASE");
-        //if($base != null) $data["BASE"] = $base;
-        //if(!isset($data['BASE'])) $data['BASE'] = '';
+        // Set BASE to null if BASE not defined in config file
+        if(!isset($data['BASE'])) $data['BASE'] = '';
 
-        //$db = getenv("DB");
-        //if($db != null) $data["DB"] = $db;
+        // Set DB
+        $db = getenv("DB");
+        if($db != null) $data["DB"] = $db;
 
         //Set default language
         if(!isset($data['LANG'])) {
