@@ -14,16 +14,24 @@ class BaseTest extends \PHPUnit_Framework_TestCase {
 
     public static function setUpBeforeClass() {
         putenv("PHP_ENV=test");
-        putenv("DB=cncflora_test");
         //Init variables
         Utils::init();
         set_error_handler('defaultErrorHandler');
+        // Delete CouchDB
         try {
             Utils::http_delete(COUCHDB."/cncflora_test",[]);
         }
         catch (Exception $e){
             // Database doesn't exist, no need to delete it
         }
+        // Delete ES
+        try {
+            Utils::http_delete(ELASTICSEARCH."/cncflora_test",[]);
+        }
+        catch (Exception $e){
+            // Database doesn't exist, no need to delete it
+        }
+
         Utils::http_put(COUCHDB."/cncflora_test",[]);
 
         $repo0 = new \cncflora\repository\Base;
@@ -35,6 +43,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase {
 
     public static function tearDownAfterClass() {
         Utils::http_delete(COUCHDB."/cncflora_test",[]);
+        Utils::http_delete(ELASTICSEARCH."/cncflora_test",[]);
     }
 
     public function tearDown() {
