@@ -46,13 +46,7 @@ if(($user = $rest->getRequest()->getSession('user')) != null) {
 
 $rest->addMap('POST',"/login",function($r) {
     $preuser = json_decode($r->getRequest()->getBody());
-    //if(ENV=='test') {
-        $r->getRequest()->setSession('user',$preuser);
-    /*
-    } else {
-        $user = \cncflora\Utils::http_get(CONNECT_URL."/api/token?token=".$preuser->token);
-        $r->getRequest()->setSession('user',$user);
-    }*/
+    $r->getRequest()->setSession('user',$preuser);
     return new Rest\View\JSon($user);
 });
 
@@ -76,7 +70,7 @@ $rest->addMap("GET","/",function($r){
 
 $rest->addMap("GET","/families",'\cncflora\controller\Species');
 $rest->addMap("GET","/family/:family",'\cncflora\controller\Species::family');
-$rest->addMap("GET","/specie/:name",'\cncflora\controller\Species::specie'); 
+$rest->addMap("GET","/specie/:name",'\cncflora\controller\Species::specie');
 
 $rest->addMap("POST","/profile",'\cncflora\controller\Profile::createProfile');
 $rest->addMap("POST","/profile/:id","\cncflora\controller\Profile::save");
