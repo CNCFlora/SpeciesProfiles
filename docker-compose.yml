@@ -15,7 +15,7 @@ elasticsearch:
     image: cncflora/elasticsearch
     container_name: elasticsearch
     ports:
-        - "9200"
+        - "9200:9200"
     volumes:
         - "/var/data/elasticsearch/data:/usr/share/elasticsearch/data:rw"
 couchdb:
