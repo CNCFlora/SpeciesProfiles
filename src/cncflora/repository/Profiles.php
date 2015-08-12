@@ -88,7 +88,7 @@ class Profiles extends Base {
       $dbs = array();
       $all = \cncflora\Utils::http_get(COUCHDB.'/_all_dbs');
       foreach($all as $db) {
-        if($db[0] != "_" && !preg_match('/_history$/',$db) && DB != $db ) {
+        if($db[0] != "_" && !preg_match('/_history$/',$db) && DB != $db && $db != "public") {
           $dbs[] = array('db'=>$db,'name'=>strtoupper(str_replace('_',' ',$db)));
         }
       }
