@@ -108,6 +108,16 @@
             </fieldset>
         </form>
     {{/role-admin}}
+
+    <h4>{{strings.profile-in-others}}</h4>
+    <ul>
+      {{#others}}
+      <li> <a href='/{{db.db}}/specie/{{taxon.scientificNameWithoutAuthorship}}'>{{metadata.modified_date}}</a> @ {{db.db}} </li>
+      {{/others}}
+      {{^others}}
+      <li>N/A</li>
+      {{/others}}
+    </ul>
 </div>
 
 {{> footer}}

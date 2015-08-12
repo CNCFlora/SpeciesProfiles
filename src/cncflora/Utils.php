@@ -110,9 +110,14 @@ class Utils {
         fclose($output);
     }
 
+
     public static function search($idx,$q) {
+      return self::searchRaw(DB,$idx,$q);
+    }
+
+    public static function searchRaw($db,$idx,$q) {
         $q = str_replace("=",":",$q);
-        $url = ELASTICSEARCH.'/'.DB.'/'.$idx.'/_search?size=99999&q='.urlencode($q);
+        $url = ELASTICSEARCH.'/'.$db.'/'.$idx.'/_search?size=99999&q='.urlencode($q);
         $r = Utils::http_get($url);
         $arr =array();
         $ids = [];

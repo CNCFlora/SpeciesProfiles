@@ -124,5 +124,6 @@
     "vegetation-type":"Tipo de vegetação",
     "stress":"Stress",
     "user":"Usuário",
-    "none":"Nenhum"
+    "none":"Nenhum",
+    "profile-in-others":"Perfis em outros recortes"
 }

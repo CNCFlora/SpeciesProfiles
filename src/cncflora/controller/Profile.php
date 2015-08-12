@@ -78,7 +78,8 @@ class Profile implements \Rest\Controller {
             $profile->economicValue->potentialEconomicValue = ($profile->economicValue->potentialEconomicValue === "yes");
         }
 
-        return new View('profile.html',array('profile'=>$profile,'edit'=>$can_edit,$s=>true,'can_edit'=>$can_edit,'can_validate'=>$can_validate));
+        $others = $repo->getAllOthers($profile->taxon->scientificNameWithoutAuthorship);
+        return new View('profile.html',array('profile'=>$profile,'edit'=>$can_edit,$s=>true,'can_edit'=>$can_edit,'can_validate'=>$can_validate,'others'=>$others));
     }
 
 

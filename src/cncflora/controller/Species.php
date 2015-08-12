@@ -34,8 +34,9 @@ class Species implements \Rest\Controller {
         $name  = $r->getRequest()->getParameter('name');
         $spp = $this->repo->getSpecieByName($name);
         $doc = $this->repoProfiles->latestByTaxon($spp->scientificNameWithoutAuthorship);
+        $others = $this->repoProfiles->getAllOthers($spp->scientificNameWithoutAuthorship);
         if(is_null($doc)) {
-            return new View('specie.html',array('specie'=>$spp));
+            return new View('specie.html',array('specie'=>$spp,'others'=>$others));
         } else {
             return new \Rest\Controller\Redirect(BASE."/".DB.'/profile/'.$doc->_id);
         }

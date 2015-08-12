@@ -82,6 +82,30 @@ class Profiles extends Base {
         return $profiles;
     }
 
+    public function getAllOthers($name) {
+      $others = [];
+
+      $dbs = array();
+      $all = \cncflora\Utils::http_get(COUCHDB.'/_all_dbs');
+      foreach($all as $db) {
+        if($db[0] != "_" && !preg_match('/_history$/',$db) && DB != $db ) {
+          $dbs[] = array('db'=>$db,'name'=>strtoupper(str_replace('_',' ',$db)));
+        }
+      }
+
+      foreach($dbs as $db) {
+        $profile = null;
+        $docs = \cncflora\Utils::searchRaw($db['db'],"profile","taxon.scientificNameWithoutAuthorship:\"".$name."\"");
+        foreach($docs as $doc) {
+          $doc->db = $db;
+          $doc->metadata->modified_date = date('d-m-Y',$doc->metadata->modified);
+          $doc->metadata->created_date = date('d-m-Y',$doc->metadata->created);
+          $others[] = $doc;
+        }
+      }
+
+      return $others;
+    }
     public function latestByTaxon($name) {
         $profile = null;
         $docs = $this->search("profile","taxon.scientificNameWithoutAuthorship:\"".$name."\"");
