@@ -16,7 +16,7 @@
         },
         "taxonomicNotes": {
             "type":"object",
-            "label":"Taxonomic Notes",
+            "label":"Notes",
             "properties": {
                 "notes": {
                     "label": "Notes",
