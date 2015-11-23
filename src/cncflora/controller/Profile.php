@@ -68,6 +68,8 @@ class Profile implements \Rest\Controller {
         $r2 = new \cncflora\repository\Species;
         $profile->synonyms = $r2->getSynonyms($profile->taxon->scientificNameWithoutAuthorship);
 
+        $currentTaxon = $r2->getCurrentTaxon( $profile->taxon->scientificNameWithoutAuthorship );
+
         $s = "status_".$profile->metadata->status;
         $profile->$s = true;
 
@@ -79,7 +81,7 @@ class Profile implements \Rest\Controller {
         }
 
         $others = $repo->getAllOthers($profile->taxon->scientificNameWithoutAuthorship);
-        return new View('profile.html',array('profile'=>$profile,'edit'=>$can_edit,$s=>true,'can_edit'=>$can_edit,'can_validate'=>$can_validate,'others'=>$others));
+        return new View('profile.html',array('profile'=>$profile,'edit'=>$can_edit,$s=>true,'can_edit'=>$can_edit,'can_validate'=>$can_validate,'others'=>$others,'currentTaxon'=>$currentTaxon));
     }
 
 

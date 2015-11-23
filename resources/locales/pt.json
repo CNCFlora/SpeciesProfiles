@@ -125,5 +125,8 @@
     "stress":"Stress",
     "user":"Usuário",
     "none":"Nenhum",
-    "profile-in-others":"Perfis em outros recortes"
+    "profile-in-others":"Perfis em outros recortes",
+    "current-taxon":"Taxonomia atual",
+    "acceptedNameUsage":"Nome aceito",
+    "taxonomy-different":"Taxonomia diferente!"
 }

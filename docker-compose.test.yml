@@ -5,6 +5,7 @@ profilesprod:
     links:
         - elasticsearch:elasticsearch
         - couchdb:couchdb
+        - floradata
     environment:
         - PHP_ENV=test
 elasticsearch:
@@ -42,5 +43,6 @@ tester:
         - couchdb:couchdb
         - selenium:selenium
         - profilesprod:profiles
+        - floradata
     environment:
         - PHP_ENV=test

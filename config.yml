@@ -4,6 +4,7 @@ development:
   connect_url: 'http://localhost:8080'
   couchdb: 'http://couchdb:5984'
   elasticsearch: 'http://elasticsearch:9200'
+  floradata: "http://floradata:80"
 test:
   lang: 'pt'
   connect: 'http://connect'
@@ -11,6 +12,7 @@ test:
   couchdb: 'http://couchdb:5984'
   elasticsearch: 'http://elasticsearch:9200'
   db: 'cncflora_test'
+  floradata: "http://floradata:80"
 production:
   lang: 'pt'
   connect: 'http://connect'
@@ -18,5 +20,6 @@ production:
   couchdb: 'http://couchdb:5984'
   elasticsearch: 'http://elasticsearch:9200'
   base: '/profiles'
+  floradata: "http://floradata:80"
   occurrences_url: "http://$HOST/occurrences"
   assessments_url: "http://$HOST/assessments"

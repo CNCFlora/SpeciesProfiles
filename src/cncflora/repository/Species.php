@@ -56,5 +56,31 @@ class Species extends Base {
         return $taxons;
     }
 
+    public function getCurrentTaxon($name) {
+      $flora = \cncflora\Utils::http_get(FLORADATA."/api/v1/specie?scientificName=".rawurlencode($name))->result;
+      if($flora->scientificNameWithoutAuthorship != $name) {
+        $flora->changed=true;
+      }
+      $syns = $this->getSynonyms($name);
+      $floraSyns = $flora->synonyms;
+
+      $synsNames = [];
+      foreach($syns as $syn) {
+        $synsNames[] = $syn->scientificNameWithoutAuthorship;
+      }
+      sort($synsNames);
+
+      $floraSynsNames =[];
+      foreach($floraSyns as $syn) {
+        $floraSynsNames[] = $syn->scientificNameWithoutAuthorship;
+      }
+      sort($floraSynsNames);
+
+      if(implode(",",$floraSynsNames) != implode(",",$synsNames)) {
+        $flora->changed=true;
+      }
+
+      return $flora;
+    }
 }
 

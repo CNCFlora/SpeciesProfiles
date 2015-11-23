@@ -9,6 +9,7 @@ profiles:
         - elasticsearch
         - couchdb
         - connect
+        - floradata
     environment:
         - PHP_ENV=development
 elasticsearch:

@@ -99,3 +99,6 @@ li.spp a.got {
     font-weight:bold;
 }
 
+.taxon-changed {
+  color: red;
+}

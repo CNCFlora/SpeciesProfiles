@@ -109,7 +109,7 @@
         </form>
     {{/role-admin}}
 
-    <h4>{{strings.profile-in-others}}</h4>
+    <h3>{{strings.profile-in-others}}</h3>
     <ul>
       {{#others}}
       <li> <a href='/{{db.db}}/specie/{{taxon.scientificNameWithoutAuthorship}}'>{{metadata.modified_date}}</a> @ {{db.db}} </li>
@@ -118,6 +118,8 @@
       <li>N/A</li>
       {{/others}}
     </ul>
+
+    {{> retaxon}}
 </div>
 
 {{> footer}}
