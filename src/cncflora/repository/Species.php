@@ -57,6 +57,7 @@ class Species extends Base {
     }
 
     public function getCurrentTaxon($name) {
+      $name = trim($name);
       $flora = \cncflora\Utils::http_get(FLORADATA."/api/v1/specie?scientificName=".rawurlencode($name))->result;
 
       if($flora==null) {
