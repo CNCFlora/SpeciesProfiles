@@ -7,6 +7,9 @@
   {{#changed}}
   <p class='taxon-changed'><strong>{{strings.taxonomy-different}}</strong></p>
   {{/changed}}
+  {{#synonyms_changed}}
+  <p class='taxon-changed'><strong>{{strings.taxonomy-synonym-different}}</strong></p>
+  {{/synonyms_changed}}
   <p><strong>{{strings.acceptedNameUsage}}</strong>: {{acceptedNameUsage}}</p>
   <p><strong>{{strings.synonyms}}</strong>:
   {{^synonyms}}

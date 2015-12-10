@@ -128,6 +128,7 @@
     "profile-in-others":"Perfis em outros recortes",
     "current-taxon":"Taxonomia atual",
     "acceptedNameUsage":"Nome aceito",
-    "taxonomy-different":"Diferente!",
+    "taxonomy-different":"Taxonomia diferente!",
+    "taxonomy-synonym-different":"Sinôminos diferentes!",
     "not-found":"Não encontrada!"
 }

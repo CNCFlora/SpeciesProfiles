@@ -80,7 +80,7 @@ class Species extends Base {
         sort($floraSynsNames);
 
         if(implode(",",$floraSynsNames) != implode(",",$synsNames)) {
-          $flora->changed=true;
+            $flora->synonyms_changed=true;
         }
       }
 
