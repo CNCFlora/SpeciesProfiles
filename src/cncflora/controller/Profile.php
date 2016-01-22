@@ -81,7 +81,18 @@ class Profile implements \Rest\Controller {
         }
 
         $others = $repo->getAllOthers($profile->taxon->scientificNameWithoutAuthorship);
-        return new View('profile.html',array('profile'=>$profile,'edit'=>$can_edit,$s=>true,'can_edit'=>$can_edit,'can_validate'=>$can_validate,'others'=>$others,'currentTaxon'=>$currentTaxon));
+
+        if(isset($_GET['txt'])) {
+          if($_GET['txt']=='1') {
+            header('Content-Disposition: attachment; filename="'.$profile->taxon->family.' '.$profile->taxon->scientificNameWithoutAuthorship.'.txt"');
+            header('Content-type: plain/text');
+            return new View('txt.html',array('profile'=>$profile));
+          } elseif($_GET['txt']=='2') {
+            return new View('txt2.html',array('profile'=>$profile));
+          }
+        } else {
+          return new View('profile.html',array('profile'=>$profile,'edit'=>$can_edit,$s=>true,'can_edit'=>$can_edit,'can_validate'=>$can_validate,'others'=>$others,'currentTaxon'=>$currentTaxon));
+        }
     }
 
 

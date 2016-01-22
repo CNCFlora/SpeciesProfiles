@@ -1,0 +1,328 @@
+{{#profile}}
+<title>{{taxon.family}} {{taxon.scientificNameWithoutAuthorship}}</title>
+<h1>
+  {{taxon.family}}
+</h1>
+<h2>
+  <i>{{taxon.scientificNameWithoutAuthorship}}</i> {{taxon.scientificNameAuthorship}}
+</h2>
+
+{{#profile.metadata}}
+<p>
+{{strings.creator}}: {{creator}}
+</p>
+<p>
+{{strings.contributor}}: {{contributor}}
+</p>
+<p>
+{{strings.contact}}: {{contact}}
+</p>
+<p>
+{{strings.created}}: {{created_date}}
+</p>
+<p>
+{{strings.modified}}: {{modified_date}}
+</p>
+{{/profile.metadata}}
+
+<h3>
+  {{strings.synonyms}}
+</h3>
+{{#synonyms}}
+<p>
+<i>{{scientificNameWithoutAuthorship}}</i> {{scientificNameAuthorship}}
+</p>
+{{/synonyms}}
+{{^synonyms}}<p>N/A</p>{{/synonyms}}
+
+{{#taxonomicNotes.notes}}
+<h3>
+  {{strings.taxonomic-notes}}
+</h3>
+{{#taxonomicNotes}}
+
+<p>
+{{notes}}
+</p>
+
+{{#references}}
+<p>
+{{.}}
+</p>
+{{/references}}
+{{/taxonomicNotes}}
+{{/taxonomicNotes.notes}}
+
+{{#economicValue}}
+<h3>
+  {{strings.economics}}
+</h3>
+
+{{#potentialEconomicValue}}<p>{{strings.potential-economic-value}}</p>{{/potentialEconomicValue}}
+
+<p>
+{{details}}
+</p>
+
+{{#references}}
+<p>
+{{.}}
+</p>
+{{/references}}
+{{/economicValue}}
+
+{{#population}}
+<h3>
+  {{strings.population}}
+</h3>
+{{#size}}<p>{{strings.estimated-size}} {{> profile-in-values-txt}}</p>{{/size}}
+{{#numberOfSubpopulations}}<p>{{strings.number-of-subpopulations}} {{> profile-in-values-txt}}</p>{{/numberOfSubpopulations}}
+{{#numberOfIndividualsInBiggestSubpopulation}}<p>{{strings.number-of-biggest-subpop}} {{> profile-in-values-txt}}</p>{{/numberOfIndividualsInBiggestSubpopulation}}
+{{#populationalReduction}}<p>{{strings.populational-reduction}} {{> profile-in-values-txt}}</p> {{/populationalReduction}}
+{{#extremeFluctuation}}<p>{{strings.extreme-fluctuation}} {{extremeFluctuation}}</p> {{/extremeFluctuation}}
+{{#generationTiming}}<p>{{strings.generation-timing}} {{> profile-in-values-txt}}</p> {{/generationTiming}}
+{{resume}}
+
+{{#references}}
+<p>
+{{.}}
+</p>
+{{/references}}
+{{/population}}
+
+{{#distribution}}
+<h3>
+  {{strings.distribution}}
+</h3>
+{{#brasilianEndemic}}<p>{{strings.endemic}}</p>{{/brasilianEndemic}}
+{{#fragmented}}<p>{{strings.fragmented}}: {{fragmented}}</p>{{/fragmented}}
+{{#eoo}}<p>{{strings.eoo}}: {{eoo}}km²</p>{{/eoo}}
+{{#aoo}}<p>{{strings.aoo}}: {{aoo}}km²</p>{{/aoo}}
+{{#altitude}}<p>{{strings.altitude}}: {{> profile-in-values-txt}}</p>{{/altitude}}
+{{resume}}
+
+{{#references}}
+<p>
+{{.}}
+</p>
+{{/references}}
+{{/distribution}}
+
+{{#ecology}}
+<h3>
+  {{strings.ecology}}
+</h3>
+
+{{#lifeForm}}
+<p>
+{{.}}
+</p>
+{{/lifeForm}}
+
+{{#substratum}}
+<p>
+{{.}} 
+</p>
+{{/substratum}} 
+
+{{#luminosity}}
+<p>
+{{.}}
+</p>
+{{/luminosity}}  
+
+{{#longevity}}
+<p>
+{{strings.longevity}}:
+{{longevity}}
+</p>
+{{/longevity}}
+{{#fenology}}
+<p>
+{{strings.fenology}}:
+{{fenology}}
+</p>
+{{/fenology}}
+{{#clonal}}
+<p>
+{{strings.clonal}}:
+{{clonal}}
+</p>
+{{/clonal}}
+{{#resprout}}
+<p>
+{{strings.resprout}}:
+{{resprout}}
+</p>
+{{/resprout}}
+
+{{#habitats}}
+<p>
+{{.}}
+</p>
+{{/habitats}}
+
+{{#biomas}}
+<p>
+{{.}}
+</p>
+{{/biomas}}
+
+{{#fitofisionomies}}
+<p>
+{{.}}
+</p>
+{{/fitofisionomies}}
+
+{{#vegetation}}
+<p>
+{{.}}
+</p>
+{{/vegetation}}
+
+<p>
+{{resume}}
+</p>
+
+{{#references}}
+<p>
+{{.}}
+</p>
+{{/references}}
+{{/ecology}}
+
+{{#reproduction}}
+<h3>
+  {{strings.reproduction}}
+</h3>
+{{#sexualSystem}}
+<p>
+{{sexualSystem}}
+</p>
+{{/sexualSystem}}
+{{#system}}
+<p>
+{{system}}
+</p>
+{{/system}}
+{{#strategy}}
+<p>
+{{strategy}}
+</p>
+{{/strategy}}
+
+{{#fenology}}
+<p>
+{{fenology}} - {{start}} to {{end}} 
+</p>
+{{/fenology}}
+
+{{#pollinationSyndrome}}
+<p>
+{{.}} 
+</p>
+{{/pollinationSyndrome}}
+
+{{#pollinatorInformation}}
+<p>
+{{strings.pollinatorInformation}}:
+{{pollinatorInformation}}
+</p>
+{{/pollinatorInformation}}
+
+{{#dispersionSyndrome}}
+<p>
+{{.}} 
+</p>
+{{/dispersionSyndrome}}
+
+{{#dispersorInformation}}
+<p>
+{{strings.dispersorInformation}}:
+{{dispersorInformation}}
+</p>
+{{/dispersorInformation}}
+
+<p>
+{{resume}}
+</p>
+
+{{#references}}
+<p>
+{{.}}
+</p>
+{{/references}}
+{{/reproduction}}
+
+<h3>
+{{strings.threats}}
+</h3>
+{{#threats}}
+{{#threat}}<h4>{{strings.threat}}: {{threat}}</h4>{{/threat}}
+{{#incidence}}<p>{{strings.incidence}}: {{incidence}}</p>{{/incidence}}
+{{#severity}}<p>{{strings.severity}}: {{severity}}</p>{{/severity}}
+{{#stress}}<p>{{strings.stress}}: {{stress}}</p>{{/stress}}
+{{#reversible}}<p>{{strings.reversible}}</p>{{/reversible}}
+{{#ended}}<p>{{strings.ended}}</p>{{/ended}}
+{{#timing}}
+<p>
+{{.}}
+</p>
+{{/timing}}
+{{#decline}}
+<p>
+{{strings.decline}} {{.}}
+</p>
+{{/decline}}
+{{details}}
+
+{{#references}}
+<p>
+{{.}}
+</p>
+{{/references}}
+{{/threats}}
+{{^threats}}<p>N/A</p>{{/threats}}
+
+<h3>
+  {{strings.conservation-actions}}
+</h3>
+{{#actions}}
+{{#action}}<h4>{{strings.action}}: {{action}}</h4>{{/action}}
+{{#situation}}<p>{{strings.situation}}: {{situation}}</p>{{/situation}}
+
+<p>
+{{details}}
+</p>
+
+{{#references}}
+<p>
+{{.}}
+</p>
+{{/references}}
+{{/actions}}
+{{^actions}}<p>N/A</p>{{/actions}}
+
+<h3>
+  {{strings.uses}}
+</h3>
+{{#uses}}
+{{#use}}<h4>{{strings.use}}: {{use}}</h4>{{/use}}
+{{#resource}}<p>{{strings.resource}}: {{resource}}</p>{{/resource}}
+{{#provenance}}<p>{{strings.provenance}}: {{provenance}}</p>{{/provenance}}
+
+<p>
+{{details}}
+</p>
+
+{{#references}}
+<p>
+{{.}}
+</p>
+{{/references}}
+{{/uses}}
+{{^uses}}<p>N/A</p>{{/uses}}
+
+{{/profile}}
+
+

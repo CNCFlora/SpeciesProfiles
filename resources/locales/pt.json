@@ -130,5 +130,7 @@
     "acceptedNameUsage":"Nome aceito",
     "taxonomy-different":"Taxonomia diferente!",
     "taxonomy-synonym-different":"Sinôminos diferentes!",
-    "not-found":"Não encontrada!"
+    "not-found":"Não encontrada!",
+    "txt":"Texto simples",
+    "txt2":"Texto formatado"
 }

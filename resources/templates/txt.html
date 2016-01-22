@@ -1,0 +1,213 @@
+{{#profile}}
+{{taxon.family}}
+{{taxon.scientificNameWithoutAuthorship}} {{taxon.scientificNameAuthorship}}
+
+{{#profile.metadata}}
+{{strings.creator}}: {{creator}}
+{{strings.contributor}}: {{contributor}}
+{{strings.contact}}: {{contact}}
+{{strings.created}}: {{created_date}}
+{{strings.modified}}: {{modified_date}}
+{{/profile.metadata}}
+
+{{strings.synonyms}}
+{{#synonyms}}
+{{scientificNameWithoutAuthorship}} {{scientificNameAuthorship}}
+{{/synonyms}}
+{{^synonyms}}N/A{{/synonyms}}
+
+{{#taxonomicNotes.notes}}
+{{strings.taxonomic-notes}}
+{{#taxonomicNotes}}
+
+{{notes}}
+
+{{#references}}
+{{.}}
+{{/references}}
+{{/taxonomicNotes}}
+{{/taxonomicNotes.notes}}
+
+{{#economicValue}}
+{{strings.economics}}
+
+{{#potentialEconomicValue}}{{strings.potential-economic-value}}{{/potentialEconomicValue}}
+
+{{details}}
+
+{{#references}}
+{{.}}
+{{/references}}
+{{/economicValue}}
+
+{{#population}}
+{{strings.population}}
+{{#size}}{{strings.estimated-size}} {{> profile-in-values-txt}} {{/size}}
+{{#numberOfSubpopulations}}{{strings.number-of-subpopulations}} {{> profile-in-values-txt}} {{/numberOfSubpopulations}}
+{{#numberOfIndividualsInBiggestSubpopulation}}{{strings.number-of-biggest-subpop}} {{> profile-in-values-txt}} {{/numberOfIndividualsInBiggestSubpopulation}}
+{{#populationalReduction}}{{strings.populational-reduction}} {{> profile-in-values-txt}} {{/populationalReduction}}
+{{#extremeFluctuation}}{{strings.extreme-fluctuation}} {{extremeFluctuation}} {{/extremeFluctuation}}
+{{#generationTiming}}{{strings.generation-timing}} {{> profile-in-values-txt}} {{/generationTiming}}
+{{resume}}
+
+{{#references}}
+{{.}}
+{{/references}}
+{{/population}}
+
+{{#distribution}}
+{{strings.distribution}}
+{{#brasilianEndemic}}{{strings.endemic}} {{/brasilianEndemic}}
+{{#fragmented}}{{strings.fragmented}}: {{fragmented}} {{/fragmented}}
+{{#eoo}}{{strings.eoo}}: {{eoo}}km² {{/eoo}}
+{{#aoo}}{{strings.aoo}}: {{aoo}}km² {{/aoo}}
+{{#altitude}}{{strings.altitude}}: {{> profile-in-values-txt}} {{/altitude}}
+{{resume}}
+
+{{#references}}
+{{.}}
+{{/references}}
+{{/distribution}}
+
+{{#ecology}}
+{{strings.ecology}}
+
+{{#lifeForm}}
+{{.}}
+{{/lifeForm}}
+
+{{#substratum}}
+{{.}} 
+{{/substratum}} 
+
+{{#luminosity}}
+{{.}}
+{{/luminosity}}  
+
+{{#longevity}}
+{{strings.longevity}}
+{{longevity}}
+{{/longevity}}
+{{#fenology}}
+{{strings.fenology}}
+{{fenology}}
+{{/fenology}}
+{{#clonal}}
+{{strings.clonal}}:
+{{clonal}}
+{{/clonal}}
+{{#resprout}}
+{{strings.resprout}}:
+{{resprout}}
+{{/resprout}}
+
+{{#habitats}}
+{{.}}
+{{/habitats}}
+
+{{#biomas}}
+{{.}}
+{{/biomas}}
+
+{{#fitofisionomies}}
+{{.}}
+{{/fitofisionomies}}
+
+{{#vegetation}}
+{{.}}
+{{/vegetation}}
+
+{{resume}}
+
+{{#references}}
+{{.}}
+{{/references}}
+{{/ecology}}
+
+{{#reproduction}}
+{{strings.reproduction}}
+{{#sexualSystem}}
+{{sexualSystem}}
+{{/sexualSystem}}
+{{#system}}
+{{system}}
+{{/system}}
+{{#strategy}}
+{{strategy}}
+{{/strategy}}
+
+{{#fenology}}
+{{fenology}} - {{start}} to {{end}} 
+{{/fenology}}
+
+{{#pollinationSyndrome}}
+{{.}} 
+{{/pollinationSyndrome}}
+
+{{#pollinatorInformation}}
+{{strings.pollinatorInformation}}
+{{pollinatorInformation}}
+{{/pollinatorInformation}}
+
+{{#dispersionSyndrome}}
+ {{.}} 
+{{/dispersionSyndrome}}
+
+{{#dispersorInformation}}
+{{strings.dispersorInformation}}
+{{dispersorInformation}}
+{{/dispersorInformation}}
+
+{{resume}}
+
+{{#references}}
+{{.}}
+{{/references}}
+{{/reproduction}}
+
+{{strings.threats}}
+{{#threats}}
+{{#threat}}{{strings.threat}}: {{threat}}{{/threat}}
+{{#incidence}}{{strings.incidence}}: {{incidence}}{{/incidence}}
+{{#severity}}{{strings.severity}}: {{severity}}{{/severity}}
+{{#stress}}{{strings.stress}}: {{stress}}{{/stress}}
+{{#reversible}}{{strings.reversible}}{{/reversible}}
+{{#ended}}{{strings.ended}}{{/ended}}
+{{#timing}}
+{{.}}
+{{/timing}}
+{{#decline}}
+{{strings.decline}} {{.}}
+{{/decline}}
+{{details}}
+
+{{#references}}
+{{.}}
+{{/references}}
+{{/threats}}
+
+{{strings.conservation-actions}}
+{{#actions}}
+{{#action}}{{strings.action}}: {{action}}{{/action}}
+{{#situation}}{{strings.situation}}: {{situation}}{{/situation}}
+{{details}}
+
+{{#references}}
+{{.}}
+{{/references}}
+{{/actions}}
+
+{{strings.uses}}
+{{#uses}}
+{{#use}}{{strings.use}}: {{use}}{{/use}}
+{{#resource}}{{strings.resource}}: {{resource}}{{/resource}}
+{{#provenance}}{{strings.provenance}}: {{provenance}}{{/provenance}}
+{{details}}
+
+{{#references}}
+{{.}}
+{{/references}}
+{{/uses}}
+
+{{/profile}}
+
