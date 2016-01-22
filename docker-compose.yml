@@ -1,6 +1,5 @@
 profiles:
     image: cncflora/apache
-    container_name: profiles
     ports:
         - 8081:80
     volumes:
@@ -14,28 +13,24 @@ profiles:
         - PHP_ENV=development
 elasticsearch:
     image: cncflora/elasticsearch
-    container_name: elasticsearch
     ports:
         - "9200:9200"
     volumes:
         - "/var/data/elasticsearch/data:/usr/share/elasticsearch/data:rw"
 couchdb:
     image: cncflora/couchdb
-    container_name: couchdb
     ports:
         - "5984:5984"
     volumes:
         - "/var/data/couchdb:/var/lib/couchdb:rw"
 connect:
     image: cncflora/connect
-    container_name: connect
     ports:
         - "8080:80"
     volumes:
         - "/var/data/connect:/var/floraconnect:rw"
 floradata:
     image: cncflora/floradata
-    container_name: floradata
     environment:
         SERVICE_80_CHECK_HTTP: /api/v1/families
     ports:
@@ -43,7 +38,6 @@ floradata:
         - "9005:9001"
 checklist:
     image: cncflora/checklist
-    container_name: checklist
     ports:
         - "8000:80"
     links:
