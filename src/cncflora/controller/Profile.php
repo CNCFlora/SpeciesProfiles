@@ -69,7 +69,9 @@ class Profile implements \Rest\Controller {
         $profile->synonyms = $r2->getSynonyms($profile->taxon->scientificNameWithoutAuthorship);
 
         $currentTaxon = $r2->getCurrentTaxon( $profile->taxon->scientificNameWithoutAuthorship );
-
+        $taxonomia_diferente = ($currentTaxon->scientificNameWithoutAuthorship != $profile->taxon->scientificNameWithoutAuthorship);
+        $taxonomia_diferente_scientificNameWithoutAuthorship = $currentTaxon->scientificNameWithoutAuthorship;
+        $taxonomia_diferente_scientificNameAuthorship = $currentTaxon->scientificNameAuthorship;
         $s = "status_".$profile->metadata->status;
         $profile->$s = true;
 
@@ -91,7 +93,10 @@ class Profile implements \Rest\Controller {
             return new View('txt2.html',array('profile'=>$profile));
           }
         } else {
-          return new View('profile.html',array('profile'=>$profile,'edit'=>$can_edit,$s=>true,'can_edit'=>$can_edit,'can_validate'=>$can_validate,'others'=>$others,'currentTaxon'=>$currentTaxon));
+          return new View('profile.html',array('profile'=>$profile,'edit'=>$can_edit,$s=>true,'can_edit'=>$can_edit,'can_validate'=>$can_validate,'others'=>$others,
+                          'currentTaxon'=>$currentTaxon, 'taxonomia_diferente'=>$taxonomia_diferente,
+                          'taxonomia_diferente_scientificNameWithoutAuthorship'=>$taxonomia_diferente_scientificNameWithoutAuthorship,
+                          'taxonomia_diferente_scientificNameAuthorship'=>$taxonomia_diferente_scientificNameAuthorship));
         }
     }
 
@@ -191,4 +196,3 @@ class Profile implements \Rest\Controller {
     }
 
 }
-

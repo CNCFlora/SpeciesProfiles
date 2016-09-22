@@ -8,7 +8,12 @@
             {{taxon.family}}
         </a>
     </h2>
-    <h3><i>{{taxon.scientificNameWithoutAuthorship}}</i> {{taxon.scientificNameAuthorship}}</h3>
+    {{#taxonomia_diferente}}
+      <h3><i>{{taxonomia_diferente_scientificNameWithoutAuthorship}}</i> {{taxonomia_diferente_scientificNameAuthorship}}</h3>
+    {{/taxonomia_diferente}}
+    {{^taxonomia_diferente}}
+      <h3><i>{{taxon.scientificNameWithoutAuthorship}}</i> {{taxon.scientificNameAuthorship}}</h3>
+    {{/taxonomia_diferente}}
 
     <p>
         <a href="{{OCCURRENCES_URL}}/{{db}}/specie/{{taxon.scientificNameWithoutAuthorship}}" class='btn btn-default'>

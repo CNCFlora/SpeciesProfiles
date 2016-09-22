@@ -88,4 +88,3 @@ class Species extends Base {
       return $flora;
     }
 }
-
