@@ -109,13 +109,17 @@ class Profiles extends Base {
     public function latestByTaxon($name) {
         $profile = null;
         $docs = $this->search("profile","taxon.scientificNameWithoutAuthorship:\"".$name."\"");
+        //existem variedades como taxon aceitos dentro do sistema
+        //por isso surgiu esta necessidade.
         foreach($docs as $doc) {
-            $doc->taxon->family = strtoupper($doc->taxon->family);
-            if(is_null($profile)) {
-                $profile = $doc;
-            } else if($profile->metadata->created <= $doc->metadata->created ) {
-                $profile = $doc;
-            }
+          $variedade = strpos($doc->taxon->scientificNameWithoutAuthorship, "var. ") !== false;
+          $variedade_aceita = strpos($name, "var. ") !== false;
+          if($variedade && !$variedade_aceita)
+            break;
+
+          $doc->taxon->family = strtoupper($doc->taxon->family);
+          if(is_null($profile) || ($profile->metadata->created <= $doc->metadata->created && $variedade_aceita))
+            $profile = $doc;
         }
 
         if(isset($profile->ecology)) {
@@ -166,4 +170,3 @@ class Profiles extends Base {
     }
 
 }
-

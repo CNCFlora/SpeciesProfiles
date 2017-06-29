@@ -147,4 +147,3 @@ class Workflow implements \Rest\Controller {
     }
 
 }
-
