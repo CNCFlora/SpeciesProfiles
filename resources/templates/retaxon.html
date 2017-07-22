@@ -1,5 +1,8 @@
 {{#currentTaxon}}
   <h3>{{strings.current-taxon}}</h3>
+  {{#endemic}}
+    <p class='taxon-endemic'><strong>{{strings.endemic}}</strong></p>
+  {{/endemic}}
   {{#not_found}}
   <p class='taxon-changed'><strong>{{strings.not-found}}</strong></p>
   {{/not_found}}

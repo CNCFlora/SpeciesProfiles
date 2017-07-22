@@ -102,3 +102,7 @@ li.spp a.got {
 .taxon-changed {
   color: red;
 }
+
+.taxon-endemic {
+  color: green;
+}

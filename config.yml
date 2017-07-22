@@ -5,6 +5,7 @@ development:
   couchdb: 'http://couchdb:5984'
   elasticsearch: 'http://elasticsearch:9200'
   floradata: "http://floradata:80"
+  servicos: "http://servicos.jbrj.gov.br/flora/endemism/"
 test:
   lang: 'pt'
   connect: 'http://connect'
@@ -13,6 +14,7 @@ test:
   elasticsearch: 'http://elasticsearch:9200'
   db: 'cncflora_test'
   floradata: "http://floradata:80"
+  servicos: "http://servicos.jbrj.gov.br/flora/endemism/"
 production:
   lang: 'pt'
   connect: 'http://connect'
@@ -23,3 +25,4 @@ production:
   floradata: "http://floradata:80"
   occurrences_url: "http://$HOST/occurrences"
   assessments_url: "http://$HOST/assessments"
+  servicos: "http://servicos.jbrj.gov.br/flora/endemism/"

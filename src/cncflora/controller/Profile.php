@@ -84,6 +84,11 @@ class Profile implements \Rest\Controller {
 
         $others = $repo->getAllOthers($profile->taxon->scientificNameWithoutAuthorship);
 
+        $endemic = \cncflora\Utils::http_get(SERVICOS.rawurlencode($profile->taxon->scientificNameWithoutAuthorship))->result;
+        //error_log(print_r($endemic[0]->{"endemism"}, TRUE));
+        if(!isset($endemic[0]) || $endemic[0]->{"endemism"} != "Endemic")
+          $endemic = null;
+
         if(isset($_GET['txt'])) {
           if($_GET['txt']=='1') {
             header('Content-Disposition: attachment; filename="'.$profile->taxon->family.' '.$profile->taxon->scientificNameWithoutAuthorship.'.txt"');
@@ -93,7 +98,9 @@ class Profile implements \Rest\Controller {
             return new View('txt2.html',array('profile'=>$profile));
           }
         } else {
-          return new View('profile.html',array('profile'=>$profile,'edit'=>$can_edit,$s=>true,'can_edit'=>$can_edit,'can_validate'=>$can_validate,'others'=>$others, 'currentTaxon'=>$currentTaxon));
+          return new View('profile.html',array('profile'=>$profile,'edit'=>$can_edit,$s=>true,
+          'can_edit'=>$can_edit,'can_validate'=>$can_validate,'others'=>$others,
+          'currentTaxon'=>$currentTaxon, 'endemic'=>$endemic));
           // return new View('profile.html',array('profile'=>$profile,'edit'=>$can_edit,$s=>true,'can_edit'=>$can_edit,'can_validate'=>$can_validate,'others'=>$others,
           //                 'currentTaxon'=>$currentTaxon, 'taxonomia_diferente'=>$taxonomia_diferente,
           //                 'taxonomia_diferente_scientificNameWithoutAuthorship'=>$taxonomia_diferente_scientificNameWithoutAuthorship,
