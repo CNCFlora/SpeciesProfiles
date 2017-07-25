@@ -171,10 +171,10 @@
                     "label":"Endemic",
                     "enum":["","yes","no","unkown"]
                 },
-                "resume": { 
+                "resume": {
                     "label": "Distribution resume",
                     "format": "multiline",
-                    "type": "string" 
+                    "type": "string"
                 },
                 "references": {
                     "type": "array",
@@ -206,6 +206,16 @@
                         "enum":["","","terrestrial","aquatic","rupicolous","saxicolous","epiphytic","hemiepiphytes"
                                 ,"corticícola","epifíla","epixila"]
                     }
+                },
+								"parasite": {
+                    "label":"Parasite",
+                    "type": "string",
+                    "items": {"type":"string"}
+                },
+								"hemiparasite": {
+                    "label":"Hemiparasite",
+                    "type": "string",
+                    "items": {"type":"string"}
                 },
                 "luminosity": {
                     "label":"Luminosity",
@@ -277,7 +287,7 @@
                     "type":"string",
                     "label":"Sexual System",
                     "enum":["","","hermafrodita","monoecious","dioecious","andromonoecious","ginomonóicious","trimonoicious","androidioecious","ginodiecious","trioecious"]
-                    
+
                 },
                 "system": {
                     "type":"string",

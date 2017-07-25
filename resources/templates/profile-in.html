@@ -98,13 +98,36 @@
     <h4>{{strings.ecology}}</h4>
     <section>
     {{#ecology}}
-        <p><strong>{{strings.life-form}}</strong>: 
+        <p><strong>{{strings.life-form}}</strong>:
         <ul> {{#lifeForm}} <li> {{.}} </li> {{/lifeForm}} {{^lifeForm}}<li>N/A</li>{{/lifeForm}}</ul>
         </p>
-        <p><strong>{{strings.substratum}}</strong>: 
-        <ul> {{#substratum}} <li> {{.}} </li> {{/substratum}}  {{^substratum}}<li>N/A</li>{{/substratum}}</ul>
+        <p><strong>{{strings.substratum}}</strong>:
+          <ul>
+            {{#substratum}}
+              <li> {{.}} </li>
+            {{/substratum}}
+            {{^substratum}}
+              <li>N/A</li>
+            {{/substratum}}
+          </ul>
+          <ul><strong>{{strings.parasite}}</strong>:
+            {{#parasite}}
+              <li> {{.}} </li>
+            {{/parasite}}
+            {{^parasite}}
+              <li>N/A</li>
+            {{/parasite}}
+          </ul>
+          <ul><strong>{{strings.hemiparasite}}</strong>:
+            {{#hemiparasite}}
+              <li> {{.}} </li>
+            {{/hemiparasite}}
+            {{^hemiparasite}}
+              <li>N/A</li>
+            {{/hemiparasite}}
+          </ul>
         </p>
-        <p><strong>{{strings.luminosity}}</strong>: 
+        <p><strong>{{strings.luminosity}}</strong>:
         <ul> {{#luminosity}} <li> {{.}} </li> {{/luminosity}}  {{^luminosity}}<li>N/A</li>{{/luminosity}}</ul>
         </p>
         {{#longevity}}

@@ -138,6 +138,16 @@ class Profiles extends Base {
               $profile->ecology->substratum = array($profile->ecology->substratum);
             }
           }
+          if(isset($profile->ecology->parasite)) {
+            if(is_string($profile->ecology->parasite)) {
+              $profile->ecology->parasite = array($profile->ecology->parasite);
+            }
+          }
+          if(isset($profile->ecology->hemiparasite)) {
+            if(is_string($profile->ecology->hemiparasite)) {
+              $profile->ecology->hemiparasite = array($profile->ecology->hemiparasite);
+            }
+          }
         }
 
         return $profile;
@@ -161,6 +171,16 @@ class Profiles extends Base {
           if(isset($profile->ecology->substratum)) {
             if(is_string($profile->ecology->substratum)) {
               $profile->ecology->substratum = array($profile->ecology->substratum);
+            }
+          }
+          if(isset($profile->ecology->parasite)) {
+            if(is_string($profile->ecology->parasite)) {
+              $profile->ecology->parasite = array($profile->ecology->parasite);
+            }
+          }
+          if(isset($profile->ecology->hemiparasite)) {
+            if(is_string($profile->ecology->hemiparasite)) {
+              $profile->ecology->hemiparasite = array($profile->ecology->hemiparasite);
             }
           }
         }

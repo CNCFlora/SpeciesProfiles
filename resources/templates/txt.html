@@ -77,12 +77,20 @@
 {{/lifeForm}}
 
 {{#substratum}}
-{{.}} 
-{{/substratum}} 
+{{.}}
+{{/substratum}}
+
+{{#parasite}}
+{{.}}
+{{/parasite}}
+
+{{#hemiparasite}}
+{{.}}
+{{/hemiparasite}} 
 
 {{#luminosity}}
 {{.}}
-{{/luminosity}}  
+{{/luminosity}}
 
 {{#longevity}}
 {{strings.longevity}}
@@ -137,11 +145,11 @@
 {{/strategy}}
 
 {{#fenology}}
-{{fenology}} - {{start}} to {{end}} 
+{{fenology}} - {{start}} to {{end}}
 {{/fenology}}
 
 {{#pollinationSyndrome}}
-{{.}} 
+{{.}}
 {{/pollinationSyndrome}}
 
 {{#pollinatorInformation}}
@@ -150,7 +158,7 @@
 {{/pollinatorInformation}}
 
 {{#dispersionSyndrome}}
- {{.}} 
+ {{.}}
 {{/dispersionSyndrome}}
 
 {{#dispersorInformation}}
@@ -210,4 +218,3 @@
 {{/uses}}
 
 {{/profile}}
-

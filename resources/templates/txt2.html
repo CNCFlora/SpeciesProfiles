@@ -121,15 +121,27 @@
 
 {{#substratum}}
 <p>
-{{.}} 
+{{.}}
 </p>
-{{/substratum}} 
+{{/substratum}}
+
+{{#parasite}}
+<p>
+{{.}}
+</p>
+{{/parasite}}
+
+{{#hemiparasite}}
+<p>
+{{.}}
+</p>
+{{/hemiparasite}} 
 
 {{#luminosity}}
 <p>
 {{.}}
 </p>
-{{/luminosity}}  
+{{/luminosity}}
 
 {{#longevity}}
 <p>
@@ -213,13 +225,13 @@
 
 {{#fenology}}
 <p>
-{{fenology}} - {{start}} to {{end}} 
+{{fenology}} - {{start}} to {{end}}
 </p>
 {{/fenology}}
 
 {{#pollinationSyndrome}}
 <p>
-{{.}} 
+{{.}}
 </p>
 {{/pollinationSyndrome}}
 
@@ -232,7 +244,7 @@
 
 {{#dispersionSyndrome}}
 <p>
-{{.}} 
+{{.}}
 </p>
 {{/dispersionSyndrome}}
 
@@ -324,5 +336,3 @@
 {{^uses}}<p>N/A</p>{{/uses}}
 
 {{/profile}}
-
-
