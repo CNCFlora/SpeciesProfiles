@@ -204,18 +204,8 @@
                     "items":{
                         "type":"string",
                         "enum":["","","terrestrial","aquatic","rupicolous","saxicolous","epiphytic","hemiepiphytes"
-                                ,"corticícola","epifíla","epixila"]
+                                ,"corticícola","epifíla","epixila","parasite","hemiparasite"]
                     }
-                },
-								"parasite": {
-                    "label":"Parasite",
-                    "type": "string",
-                    "items": {"type":"string"}
-                },
-								"hemiparasite": {
-                    "label":"Hemiparasite",
-                    "type": "string",
-                    "items": {"type":"string"}
                 },
                 "luminosity": {
                     "label":"Luminosity",
