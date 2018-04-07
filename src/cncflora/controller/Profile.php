@@ -84,7 +84,10 @@ class Profile implements \Rest\Controller {
 
         $others = $repo->getAllOthers($profile->taxon->scientificNameWithoutAuthorship);
 
-        $endemic = \cncflora\Utils::http_get(SERVICOS.rawurlencode($profile->taxon->scientificNameWithoutAuthorship))->result;
+        $endemic = \cncflora\Utils::http_get(SERVICOS.rawurlencode($profile->taxon->scientificNameWithoutAuthorship));
+        if (isset($endemic))
+          $endemic = $endemic->result;
+
         //error_log(print_r($endemic[0]->{"endemism"}, TRUE));
         if(!isset($endemic[0]) || $endemic[0]->{"endemism"} != "Endemic")
           $endemic = null;

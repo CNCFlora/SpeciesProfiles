@@ -79,7 +79,8 @@ class Utils {
     }
 
     public static function http_get($url) {
-        return json_decode(file_get_contents($url));
+        $content = @file_get_contents($url);
+        return json_decode($content);
     }
 
     public static function http_post($url,$doc) {
@@ -121,7 +122,8 @@ class Utils {
         $r = Utils::http_get($url);
         $arr =array();
         $ids = [];
-        foreach($r->hits->hits as $hit) {
+        if(isset($r) && isset($r->hits)) {
+          foreach($r->hits->hits as $hit) {
             $doc = $hit->_source;
             $doc->_id = $doc->id;
             if(isset($doc->rev)) {
@@ -130,6 +132,7 @@ class Utils {
             }
             unset($doc->id);
             $arr[] = $doc;
+          }
         }
 
         return $arr;
@@ -174,4 +177,3 @@ function t($str) {
 }
 
 Utils::init();
-
